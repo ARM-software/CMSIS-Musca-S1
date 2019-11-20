@@ -1,0 +1,33 @@
+The 'Blinky' project is a simple example for the Arm 'Musca-S1 CM33 #0' device
+on the Arm 'V2M-Musca-S1' evaluation board. The example is compliant to CMSIS.
+
+Example functionality:
+ - Clock Settings:
+   - XTAL    =          50.00 MHZ
+   - SYSCLK  =          50.00 MHz
+
+ - one LED is flashing in three different colors with a fixed speed.
+
+
+The Blinky program is available in different targets:
+ - Debug:
+   - Compiler optimization Level 1
+
+Debug (QSP):              Debug (eMRAM):            Debug (SRAM):
+--------------------      ----------------------    ----------------------
+  code: QSPI Flash          code: eMRAM               code: SRAM
+  data: SRAM                data: SRAM                data: SRAM
+  idle: eMRAM auto off      idle: eMRAM auto off      idle: eMRAM auto off
+        + sleepdeep               + sleepdeep               + sleepdeep
+
+How to use it:
+- Build the Debug (SRAM) target.
+- Go to debug to load the application into RAM
+- Run until it stops, Run again. LED should show three colors interchangeably.
+- Exit debug without stopping.
+- Enter "Energy measurement without debug" mode
+- See power readings in the System Analyzer window
+
+Error handling:
+- If application does not start at the first instance, exit debug, power cycle
+  the device, and start over again

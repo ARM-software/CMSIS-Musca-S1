@@ -1,0 +1,32 @@
+The 'Blinky' project is a simple CMSIS-RTOS2 Keil RTX5 based example for
+ARM 'Musca-S1 CM33 #0' device using ARM 'V2M-Musca-S1' Evaluation Board.
+Compliant to Cortex Microcontroller Software Interface Standard (CMSIS).
+
+Example functionality:
+ - Clock Settings:
+   - XTAL    =          50.00 MHZ
+   - SYSCLK  =          50.00 MHz
+
+ - one LED is flashing  with a fixed speed.
+
+
+The Blinky program is available in different targets:
+ - Debug:
+   - Compiler optimization Level 1
+   - Keil RTX5 variant 'Source'
+
+Debug (QSPI):             Debug (eMRAM):
+--------------------      ----------------------
+  code: QSPI Flash          code: eMRAM
+  data: eMRAM               data: eMRAM
+  idle: eMRAM off           idle: eMRAM off
+        SRAM off                  SRAM off
+        + sleepdeep               + sleepdeep
+
+How it works:
+  SRAM3 is used as 'ULP RAM' which means that it is active during power down phase.
+  Code and Data for ulp_* files are placed in ULP RAM because code is used to enter and leave power down phase.
+  Interrupt vecors are copied to ULP RAM because S32K Timer interrupt is used for wake up.
+  Main stack is placed in ULP RAM.
+  Process stack is placed in ULP RAM during pwer down phase.
+  OS Idle Thread checks if system can enter power down phase.
