@@ -15,13 +15,15 @@ The Blinky program is available in different targets:
    - Compiler optimization Level 1
    - Keil RTX5 variant 'Source'
 
-Debug (QSPI):             Debug (eMRAM):
---------------------      ----------------------
-  code: QSPI Flash          code: eMRAM
-  data: eMRAM               data: eMRAM
-  idle: eMRAM off           idle: eMRAM off
-        SRAM off                  SRAM off
-        + sleepdeep               + sleepdeep
+Debug (eMRAM):
+----------------------
+  code: eMRAM
+  data: eMRAM
+  idle: eMRAM off
+        SRAM off
+        + sleepdeep
+
+Configure the board's BOOT switch to "MRAM".
 
 How it works:
   SRAM3 is used as 'ULP RAM' which means that it is active during power down phase.

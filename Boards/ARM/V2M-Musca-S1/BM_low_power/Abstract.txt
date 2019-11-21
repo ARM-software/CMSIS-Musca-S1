@@ -13,14 +13,15 @@ The Blinky program is available in different targets:
  - Debug:
    - Compiler optimization Level 1
 
-Debug (QSP):              Debug (eMRAM):            Debug (SRAM):
---------------------      ----------------------    ----------------------
-  code: QSPI Flash          code: eMRAM               code: SRAM
-  data: SRAM                data: SRAM                data: SRAM
-  idle: eMRAM auto off      idle: eMRAM auto off      idle: eMRAM auto off
-        + sleepdeep               + sleepdeep               + sleepdeep
+Debug (eMRAM):            Debug (SRAM):
+----------------------    ----------------------
+  code: eMRAM               code: SRAM
+  data: SRAM                data: SRAM
+  idle: eMRAM auto off      idle: eMRAM auto off
+        + sleepdeep               + sleepdeep
 
 How to use it:
+- Configure the board's BOOT switch to "MRAM".
 - Build the Debug (SRAM) target.
 - Go to debug to load the application into RAM
 - Run until it stops, Run again. LED should show three colors interchangeably.
