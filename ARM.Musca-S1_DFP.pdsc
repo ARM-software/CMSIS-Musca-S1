@@ -264,18 +264,20 @@
   <boards>
     <board name="V2M-Musca-S1" vendor="ARM" revision="S1" salesContact="sales.intl@keil.com" orderForm="http://www.keil.com/product/prices.asp">
       <description>V2M-Musca-S1 SoC IoT Board</description>
-      <image small="Images/Musca-S1_Small.jpg" large="Images/Musca-S1_Large.jpg" public="true"/>
+      <image small="Images/Musca-S1_Small.png" large="Images/Musca-S1_Large.png" public="true"/>
       <book category="schematic" name="Boards/ARM/V2M-Musca-S1/Documents/hpi0394a_varA.pdf" title="Schematics"/>
+      <book category="setup"     name="Boards/ARM/V2M-Musca-S1/Documents/V2M-Musca-S1_QSPI_Usage.pdf" title="How to use on-board QSPI"/>
       <mountedDevice    deviceIndex="0" Dvendor="ARM:82" Dname="Musca-S1"/>
       <!-- <compatibleDevice    deviceIndex="0" Dvendor="ARM:82" Dname="CMSDK_IOTSS"/> -->
       <feature type="XTAL"      n="50000000"/>
-      <feature type="Batt"      n="1"              name="3V battery"/>
+      <feature type="Batt"      n="1"              name="3V battery connector"/>
+      <feature type="ArduinoFF" n="1"/>
       <feature type="Button"    n="2"              name="Push-buttons: Hardware RESET, ON/OFF soft RESET"/>
       <feature type="LED"       n="3"              name="RGB LED directly connected to port pins"/>
-      <feature type="USB"       n="1"              name="USB 2.0 configuration port"/>
-      <feature type="ConnOther" n="1"              name="ARM JTAG 10 Interface"/>
+      <feature type="ODbg"      n="1"              name="DAPLink (Mini-USB connector"/>
 
-      <debugInterface adapter="JTAG/SW"   connector="10 pin JTAG (0.1 inch connector)"/>
+      <debugInterface adapter="JTAG/SW"   connector="10-pin Cortex Debug Connector (0.05 inch connector)"/>
+      <debugInterface adapter="DAPLink"   connector="Mini-USB connector"/>
     </board>
   </boards>
 
