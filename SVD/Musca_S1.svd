@@ -2304,14 +2304,14 @@
     </peripheral>
 
     <!-- SPI 0 (Secure) -->
-    <peripheral derivedFrom="SPI0">     <name>SPI0_Secure</name>
+    <peripheral derivedFrom="SPI0">      <name>SPI0_Secure</name>
         <description>SPI 0 (Secure)</description>
         <baseAddress>0x50103000</baseAddress>
         <groupName>SPI (Secure)</groupName>
     </peripheral>
 
     <!-- I2C 0 -->
-    <peripheral>                        <name>I2C0</name>
+    <peripheral>                         <name>I2C0</name>
         <version>1.0</version>
         <description>I2C 0</description>
         <groupName>I2C</groupName>
@@ -2334,66 +2334,435 @@
                 <description>Control Register</description>
                 <addressOffset>0x000</addressOffset>
                 <resetValue>0x00000000</resetValue>
+                <fields>
+                    <field>          <name>RW</name>
+                        <description>
+                          Read/Write: Direction of transfer
+                          0 - master transmitter, 1 - master receiver
+                          This bit is used in master mode only.
+                        </description>
+                        <bitRange>[0:0]</bitRange>
+                    </field>
+                    <field>          <name>MS</name>
+                        <description>
+                          Master/Slave: Overall interface mode
+                          0 - slave, 1 - master
+                        </description>
+                        <bitRange>[1:1]</bitRange>
+                    </field>
+                    <field>          <name>NEA</name>
+                        <description>
+                          Normal/Extended Address: 
+                        </description>
+                        <bitRange>[2:2]</bitRange>
+                    </field>
+                    <field>          <name>ACKEN</name>
+                        <description>
+                          Acknowledge Enable: Enable transmission of ACK when master-receiver
+                          0 – acknowledge disabled, NACK transmitted, 1 – acknowledge enabled, ACK transmitted
+                          This bit must always be set if FIFO is implemented.
+                        </description>
+                        <bitRange>[3:3]</bitRange>
+                    </field>
+                    <field>          <name>HOLD</name>
+                        <description>
+                          Hold mode: Hold I2C sclk low until host services the data resources or clears this bit
+                          1 - when no more data is available for transmit or no more data can be received, hold the sclk line low until serviced by the host.
+                          0 - allow the transfer to terminate as soon as all the data has been transmitted or received.
+                          This bit has the same meaning in both master and slave modes.
+                        </description>
+                        <bitRange>[4:4]</bitRange>
+                    </field>
+                    <field>          <name>SLVMON</name>
+                        <description>
+                          Slave Monitor mode: Slave monitor mode.
+                          0 - normal operation, 1 - monitor mode
+                        </description>
+                        <bitRange>[5:5]</bitRange>
+                    </field>
+                    <field>          <name>CLRFIFO</name>
+                        <description>
+                          Clear FIFO: initializes the FIFO to all zeros and clears the transfer size register
+                        </description>
+                        <bitRange>[6:6]</bitRange>
+                    </field>
+                    <field>          <name>DIV_A</name>
+                        <description>
+                          Divisor A: Divisor for stage A clock divider. Divides the input pclk frequency by divisor_a + 1
+                        </description>
+                        <bitRange>[13:8]</bitRange>
+                    </field>
+                    <field>          <name>DIV_B</name>
+                        <description>
+                           Divisor B: Divisor for stage B clock divider. Divides the output frequency from divisor_a by divisor_b + 1
+                        </description>
+                        <bitRange>[15:14]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>SR</name>
                 <description>Status Register</description>
                 <addressOffset>0x004</addressOffset>
                 <resetValue>0x00000000</resetValue>
                 <access>read-only</access>
+                  <fields>
+                    <field>          <name>RXRW</name>
+                        <description>
+                           RX read/write flag: Indicates the mode of the transmission received from a master.
+                        </description>
+                        <bitRange>[3:3]</bitRange>
+                    </field>
+                    <field>          <name>RXDV</name>
+                        <description>
+                           Receiver Data Valid: Indicates that there is valid, new data to be read from the interface.
+                        </description>
+                        <bitRange>[5:5]</bitRange>
+                    </field>
+                    <field>          <name>TXDV</name>
+                        <description>
+                           Transmitter Data Valid: Indicates that there is still a byte of data to be transmitted by the interface.
+                        </description>
+                        <bitRange>[6:6]</bitRange>
+                    </field>
+                    <field>          <name>RXOVF</name>
+                        <description>
+                           Receiver Overflow: This flag is set when the receiver receives a byte of data before the previous byte has been read by the host.
+                        </description>
+                        <bitRange>[7:7]</bitRange>
+                    </field>
+                    <field>          <name>BA</name>
+                        <description>
+                           Bus Active: Indicates there is an ongoing transfer on the I2C bus. The I2C controller is not necessarily involved in it
+                        </description>
+                        <bitRange>[8:8]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>AR</name>
                 <description>Address Register</description>
                 <addressOffset>0x008</addressOffset>
                 <resetValue>0x00000000</resetValue>
+                <fields>
+                    <field>          <name>ADD</name>
+                        <description>
+                           I2C Address
+                        </description>
+                        <bitRange>[9:0]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>DR</name>
                 <description>Data Register</description>
                 <addressOffset>0x00C</addressOffset>
                 <resetValue>0x00000000</resetValue>
+                <fields>
+                    <field>          <name>DAT</name>
+                        <description>
+                           I2C Data
+                        </description>
+                        <bitRange>[7:0]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>ISR</name>
                 <description>Interrupt Status Register</description>
                 <addressOffset>0x010</addressOffset>
                 <resetValue>0x00000000</resetValue>
                 <access>read-only</access>
+                <fields>
+                    <field>          <name>COMP</name>
+                        <description>
+                           Transfer Complete
+                        </description>
+                        <bitRange>[0:0]</bitRange>
+                    </field>
+                    <field>          <name>DATA</name>
+                        <description>
+                          More Data
+                        </description>
+                        <bitRange>[1:1]</bitRange>
+                    </field>
+                    <field>          <name>NACK</name>
+                        <description>
+                          Transfer Not Acknowledged
+                        </description>
+                        <bitRange>[2:2]</bitRange>
+                    </field>
+                    <field>          <name>TO</name>
+                        <description>
+                          Transfer Time Out
+                        </description>
+                        <bitRange>[3:3]</bitRange>
+                    </field>
+                    <field>          <name>SLV_RDY</name>
+                        <description>
+                         Monitored Slave Ready
+                        </description>
+                        <bitRange>[4:4]</bitRange>
+                    </field>
+                    <field>          <name>RX_OVF</name>
+                        <description>
+                          Receive Overflow
+                        </description>
+                        <bitRange>[5:5]</bitRange>
+                    </field>
+                    <field>          <name>TX_OVF</name>
+                        <description>
+                           FIFO Transmit Overflow 
+                        </description>
+                        <bitRange>[6:6]</bitRange>
+                    </field>
+                    <field>          <name>RX_UNF</name>
+                        <description>
+                          FIFO Receive Underflow
+                        </description>
+                        <bitRange>[7:7]</bitRange>
+                    </field>
+                    <field>          <name>ARB_LOST</name>
+                        <description>
+                          Arbitration Lost
+                        </description>
+                        <bitRange>[9:9]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>TSR</name>
                 <description>Transfer Size Register</description>
                 <addressOffset>0x014</addressOffset>
                 <resetValue>0x00000000</resetValue>
+                <fields>
+                    <field>          <name>TS</name>
+                        <description>
+                           Transfer Size
+                        </description>
+                        <bitRange>[3:0]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>SMPR</name>
                 <description>Slave Monitor Pause Register</description>
                 <addressOffset>0x018</addressOffset>
                 <resetValue>0x00000000</resetValue>
+                <fields>
+                    <field>          <name>PI</name>
+                        <description>
+                           Pause Interval
+                        </description>
+                        <bitRange>[3:0]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>TOR</name>
                 <description>Time Out Register</description>
                 <addressOffset>0x01C</addressOffset>
                 <resetValue>0x0000001F</resetValue>
+                <fields>
+                    <field>          <name>TO</name>
+                        <description>
+                           Time Out
+                        </description>
+                        <bitRange>[7:0]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>IMR</name>
                 <description>Interrupt Mask Register</description>
                 <addressOffset>0x020</addressOffset>
                 <resetValue>0x000002FF</resetValue>
                 <access>read-only</access>
+                <fields>
+                    <field>          <name>COMP</name>
+                        <description>
+                           Transfer Complete
+                        </description>
+                        <bitRange>[0:0]</bitRange>
+                    </field>
+                    <field>          <name>DATA</name>
+                        <description>
+                          More Data
+                        </description>
+                        <bitRange>[1:1]</bitRange>
+                    </field>
+                    <field>          <name>NACK</name>
+                        <description>
+                          Transfer Not Acknowledged
+                        </description>
+                        <bitRange>[2:2]</bitRange>
+                    </field>
+                    <field>          <name>TO</name>
+                        <description>
+                          Transfer Time Out
+                        </description>
+                        <bitRange>[3:3]</bitRange>
+                    </field>
+                    <field>          <name>SLV_RDY</name>
+                        <description>
+                         Monitored Slave Ready
+                        </description>
+                        <bitRange>[4:4]</bitRange>
+                    </field>
+                    <field>          <name>RX_OVF</name>
+                        <description>
+                          Receive Overflow
+                        </description>
+                        <bitRange>[5:5]</bitRange>
+                    </field>
+                    <field>          <name>TX_OVF</name>
+                        <description>
+                           FIFO Transmit Overflow 
+                        </description>
+                        <bitRange>[6:6]</bitRange>
+                    </field>
+                    <field>          <name>RX_UNF</name>
+                        <description>
+                          FIFO Receive Underflow
+                        </description>
+                        <bitRange>[7:7]</bitRange>
+                    </field>
+                    <field>          <name>ARB_LOST</name>
+                        <description>
+                          Arbitration Lost
+                        </description>
+                        <bitRange>[9:9]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>IER</name>
                 <description>Interrupt Enable Register</description>
                 <addressOffset>0x024</addressOffset>
                 <resetValue>0x00000000</resetValue>
                 <access>write-only</access>
+                <fields>
+                    <field>          <name>COMP</name>
+                        <description>
+                           Transfer Complete
+                        </description>
+                        <bitRange>[0:0]</bitRange>
+                    </field>
+                    <field>          <name>DATA</name>
+                        <description>
+                          More Data
+                        </description>
+                        <bitRange>[1:1]</bitRange>
+                    </field>
+                    <field>          <name>NACK</name>
+                        <description>
+                          Transfer Not Acknowledged
+                        </description>
+                        <bitRange>[2:2]</bitRange>
+                    </field>
+                    <field>          <name>TO</name>
+                        <description>
+                          Transfer Time Out
+                        </description>
+                        <bitRange>[3:3]</bitRange>
+                    </field>
+                    <field>          <name>SLV_RDY</name>
+                        <description>
+                         Monitored Slave Ready
+                        </description>
+                        <bitRange>[4:4]</bitRange>
+                    </field>
+                    <field>          <name>RX_OVF</name>
+                        <description>
+                          Receive Overflow
+                        </description>
+                        <bitRange>[5:5]</bitRange>
+                    </field>
+                    <field>          <name>TX_OVF</name>
+                        <description>
+                           FIFO Transmit Overflow 
+                        </description>
+                        <bitRange>[6:6]</bitRange>
+                    </field>
+                    <field>          <name>RX_UNF</name>
+                        <description>
+                          FIFO Receive Underflow
+                        </description>
+                        <bitRange>[7:7]</bitRange>
+                    </field>
+                    <field>          <name>ARB_LOST</name>
+                        <description>
+                          Arbitration Lost
+                        </description>
+                        <bitRange>[9:9]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>IDR</name>
                 <description>Interrupt Disable Register</description>
                 <addressOffset>0x028</addressOffset>
                 <resetValue>0x00000000</resetValue>
                 <access>write-only</access>
+                <fields>
+                    <field>          <name>COMP</name>
+                        <description>
+                           Transfer Complete
+                        </description>
+                        <bitRange>[0:0]</bitRange>
+                    </field>
+                    <field>          <name>DATA</name>
+                        <description>
+                          More Data
+                        </description>
+                        <bitRange>[1:1]</bitRange>
+                    </field>
+                    <field>          <name>NACK</name>
+                        <description>
+                          Transfer Not Acknowledged
+                        </description>
+                        <bitRange>[2:2]</bitRange>
+                    </field>
+                    <field>          <name>TO</name>
+                        <description>
+                          Transfer Time Out
+                        </description>
+                        <bitRange>[3:3]</bitRange>
+                    </field>
+                    <field>          <name>SLV_RDY</name>
+                        <description>
+                         Monitored Slave Ready
+                        </description>
+                        <bitRange>[4:4]</bitRange>
+                    </field>
+                    <field>          <name>RX_OVF</name>
+                        <description>
+                          Receive Overflow
+                        </description>
+                        <bitRange>[5:5]</bitRange>
+                    </field>
+                    <field>          <name>TX_OVF</name>
+                        <description>
+                           FIFO Transmit Overflow 
+                        </description>
+                        <bitRange>[6:6]</bitRange>
+                    </field>
+                    <field>          <name>RX_UNF</name>
+                        <description>
+                          FIFO Receive Underflow
+                        </description>
+                        <bitRange>[7:7]</bitRange>
+                    </field>
+                    <field>          <name>ARB_LOST</name>
+                        <description>
+                          Arbitration Lost
+                        </description>
+                        <bitRange>[9:9]</bitRange>
+                    </field>
+                </fields>
             </register>
             <register>          <name>GFCR</name>
                 <description>Glitch Filter Control Register</description>
                 <addressOffset>0x02C</addressOffset>
                 <resetValue>0x00000000</resetValue>
+                <fields>
+                    <field>          <name>GF</name>
+                        <description>
+                           Glitch Filter depth
+                        </description>
+                        <bitRange>[3:0]</bitRange>
+                    </field>
+                </fields>
             </register>
         </registers>
     </peripheral>
@@ -2502,7 +2871,7 @@
     </peripheral>
 
     <!-- I2S 0 (Secure) -->
-    <peripheral derivedFrom="I2S0">     <name>I2S0_Secure</name>
+    <peripheral derivedFrom="I2S0">      <name>I2S0_Secure</name>
         <description>I2S 0 (Secure)</description>
         <baseAddress>0x50106000</baseAddress>
         <groupName>I2S (Secure)</groupName>

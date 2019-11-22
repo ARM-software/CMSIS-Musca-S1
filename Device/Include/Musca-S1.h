@@ -438,7 +438,7 @@ typedef struct /* see "Musca-S1 Engineering Specification" */
 #define I2C_CR_RW_Pos                     0                                              /* I2C CR.RW: Read/Write */
 #define I2C_CR_RW_Msk                    (1UL /*<< I2C_CR_RW_Pos*/)
 
-/* I2C Status Register (CR) Definitions */
+/* I2C Status Register (SR) Definitions */
 #define I2C_SR_BA_Pos                     8                                              /* I2C SR.BA: Bus Active */
 #define I2C_SR_BA_Msk                    (1UL << I2C_SR_BA_Pos)
 
@@ -454,33 +454,37 @@ typedef struct /* see "Musca-S1 Engineering Specification" */
 #define I2C_SR_RXRW_Pos                   3                                              /* I2C SR.RXRW: RX read/write flag */
 #define I2C_SR_RXRW_Msk                  (1UL << I2C_SR_RXRW_Pos)
 
+/* I2C Address Register (AR) Definitions */
+#define I2C_AR_ADD_Pos                    0                                              /* I2C ISR.ARB_LOST: Arbitration Lost */
+#define I2C_AR_ADD_Msk                   (0x3FFUL /*<< I2C_AR_ADD_Pos*/)
+
 /* I2C Interrupt Register (ISR, IER, IDR, IMR) Definitions */
-#define I2C_IR_ARB_LOST_Pos               9                                              /* I2C ISR.ARB_LOST: Arbitration Lost */
-#define I2C_IR_ARB_LOST_Msk              (1UL << I2C_IR_ARB_LOST_Pos)
+#define I2C_IxR_ARB_LOST_Pos              9                                              /* I2C ISR.ARB_LOST: Arbitration Lost */
+#define I2C_IxR_ARB_LOST_Msk             (1UL << I2C_IxR_ARB_LOST_Pos)
 
-#define I2C_IR_RX_UNF_Pos                 7                                              /* I2C ISR.RX_UNF: FIFO Receive Underflow */
-#define I2C_IR_RX_UNF_Msk                (1UL << I2C_IR_RX_UNF_Pos)
+#define I2C_IxR_RX_UNF_Pos                7                                              /* I2C ISR.RX_UNF: FIFO Receive Underflow */
+#define I2C_IxR_RX_UNF_Msk               (1UL << I2C_IxR_RX_UNF_Pos)
 
-#define I2C_IR_TX_OVF_Pos                 6                                              /* I2C ISR.TUF: FIFO Transmit Overflow */
-#define I2C_IR_TX_OVF_Msk                (1UL << I2C_IR_TX_OVF_Pos)
+#define I2C_IxR_TX_OVF_Pos                6                                              /* I2C ISR.TUF: FIFO Transmit Overflow */
+#define I2C_IxR_TX_OVF_Msk               (1UL << I2C_IxR_TX_OVF_Pos)
 
-#define I2C_IR_RX_OVF_Pos                 5                                              /* I2C ISR.RX_OVF: FIFO Receive Overflow */
-#define I2C_IR_RX_OVF_Msk                (1UL << I2C_IR_RX_OVF_Pos)
+#define I2C_IxR_RX_OVF_Pos                5                                              /* I2C ISR.RX_OVF: FIFO Receive Overflow */
+#define I2C_IxR_RX_OVF_Msk               (1UL << I2C_IxR_RX_OVF_Pos)
 
-#define I2C_IR_SLV_RDY_Pos                4                                              /* I2C ISR.SLV_RDY: Monitored Slave Ready */
-#define I2C_IR_SLV_RDY_Msk               (1UL << I2C_IR_SLV_RDY_Pos)
+#define I2C_IxR_SLV_RDY_Pos               4                                              /* I2C ISR.SLV_RDY: Monitored Slave Ready */
+#define I2C_IxR_SLV_RDY_Msk              (1UL << I2C_IxR_SLV_RDY_Pos)
 
-#define I2C_IR_TO_Pos                     3                                              /* I2C ISR.TO: Transfer Time Out */
-#define I2C_IR_TO_Msk                    (1UL << I2C_IR_TO_Pos)
+#define I2C_IxR_TO_Pos                    3                                              /* I2C ISR.TO: Transfer Time Out */
+#define I2C_IxR_TO_Msk                   (1UL << I2C_IxR_TO_Pos)
 
-#define I2C_IR_NACK_Pos                   2                                              /* I2C ISR.NACK: Transfer Not Acknowledged */
-#define I2C_IR_NACK_Msk                  (1UL << I2C_IR_NACK_Pos)
+#define I2C_IxR_NACK_Pos                  2                                              /* I2C ISR.NACK: Transfer Not Acknowledged */
+#define I2C_IxR_NACK_Msk                 (1UL << I2C_IxR_NACK_Pos)
 
-#define I2C_IR_DATA_Pos                   1                                              /* I2C ISR.DATA: More Data */
-#define I2C_IR_DATA_Msk                  (1UL << I2C_IR_DATA_Pos)
+#define I2C_IxR_DATA_Pos                  1                                              /* I2C ISR.DATA: More Data */
+#define I2C_IxR_DATA_Msk                 (1UL << I2C_IxR_DATA_Pos)
 
-#define I2C_IR_COMP_Pos                   0                                              /* I2C ISR.COMP: Transfer Complete */
-#define I2C_IR_COMP_Msk                  (1UL /*<< I2C_IR_COMP_Pos*/)
+#define I2C_IxR_COMP_Pos                  0                                              /* I2C ISR.COMP: Transfer Complete */
+#define I2C_IxR_COMP_Msk                 (1UL /*<< I2C_IxR_COMP_Pos*/)
 
 
 /*------------- Inter-IC Sound (I2S) -----------------------------------------*/
