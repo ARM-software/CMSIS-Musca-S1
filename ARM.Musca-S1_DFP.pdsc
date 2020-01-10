@@ -20,7 +20,7 @@
   <name>Musca-S1_DFP</name>
 
   <description>
-  Musca-S1 device and board support pack for Arm's Musca-S1 device with on-chip eMRAM and CryptoCell.
+  Musca-S1 (with on-chip eMRAM and CryptoCell) device and board support pack.
   </description>
 
   <releases>
@@ -164,13 +164,14 @@
       </sequences>
 
       <device Dname="Musca-S1">
-        <!--<book name="Documents/Musca-S1_.pdf" title="Musca-S1 Technical Reference Manual"/>-->
-
         <processor Pname="CM33-0" Dcore="Cortex-M33" DcoreVersion="r0p0" Dfpu="FPU" Dmpu="MPU" Ddsp="DSP" Dtz="TZ" Dendian="Configurable" Dclock="50000000" />
         <processor Pname="CM33-1" Dcore="Cortex-M33" DcoreVersion="r0p0" Dfpu="FPU" Dmpu="MPU" Ddsp="DSP" Dtz="TZ" Dendian="Configurable" Dclock="200000000" />
         <debug Pname="CM33-0" svd="SVD/Musca_S1.svd" __dp="0" __ap="1" address="0xE000E000"/>
         <debug Pname="CM33-1" svd="SVD/Musca_S1.svd" __dp="0" __ap="2" address="0xE000E000"/>
-
+        <book name="Documents/musca_s1_trm_101835_0000_00_en.pdf" title="Musca-S1 Technical Reference Manual" public="true"/>
+        <book name="Documents/musca_s1_to_101756_0000_00_en.pdf" title="Musca-S1 Technical Overview" public="true"/>
+        <book name="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board" title="Musca-S1 Developer Page"/>
+        <book name="https://community.arm.com/developer/tools-software/oss-platforms/w/docs/448/musca-s1-development-board" title="Musca-S1 Community Page"/>
         <algorithm name="Flash/MT25QL512.FLM"    start="0x10200000" size="0x00800000" RAMstart="0x20000000" RAMsize="0x00020000" default="1" style="Keil"/>
         <algorithm name="Flash/MT25QL512_DC.FLM" start="0x10200000" size="0x00800000" RAMstart="0x20000000" RAMsize="0x00020000" default="0" style="Keil"/>
         <compile header="Device/Include/Musca-S1.h" />
