@@ -20,7 +20,7 @@
   <name>Musca-S1_DFP</name>
 
   <description>
-  This is the device family pack for Arm's Musca-S1 device with on-chip eMRAM and CryptoCell.
+  Musca-S1 device and board support pack for Arm's Musca-S1 device with on-chip eMRAM and CryptoCell.
   </description>
 
   <releases>
