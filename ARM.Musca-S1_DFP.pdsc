@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright (c) 2018 Arm Limited
+ Copyright (c) 2019-2020 Arm Limited
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -22,9 +22,10 @@
   <description>
   Musca-S1 (with on-chip eMRAM and CryptoCell) device and board support pack.
   </description>
-
+  
+  <repository type="git">https://github.com/ARM-software/CMSIS-Musca-S1.git</repository>
   <releases>
-    <release version="1.0.0" date="2019-11-22">
+    <release version="1.0.0" date="2020-01-13" tag="1.0.0">
       Initial public release of this pack.
       CMSIS Startup: for Arm Compiler 6.
       CMSIS-Driver included:
