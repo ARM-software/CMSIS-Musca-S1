@@ -24,6 +24,11 @@
   </description>
 
   <releases>
+    <release version="1.1.0-dev0" date="2020-01-27">
+      CMSIS-Driver included:
+      - I2C: initial version 1.0.0.
+      Example projects cleaned.
+    </release>
     <release version="1.0.0" date="2019-11-22">
       Initial public release of this pack.
       CMSIS Startup: for Arm Compiler 6.
@@ -245,6 +250,15 @@
       </RTE_Components_h>
       <files>
         <file category="source" name="CMSIS/Driver/SPI_Musca-S1.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS Driver" Cgroup="I2C"   Capiversion="2.1.0" Cversion="1.0.0" condition="Musca-S1 CMSIS">
+      <description>I2C Driver for Musca-S1 Device</description>
+      <RTE_Components_h>
+        #define RTE_Drivers_I2C
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="CMSIS/Driver/I2C_Musca-S1.c"/>
       </files>
     </component>
 
