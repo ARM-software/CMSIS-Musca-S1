@@ -2,10 +2,10 @@
  * @file     Musca-S1.h
  * @brief    CMSIS Core Peripheral Access Layer Header File for
  *           Musca-S1 Device (configured for Musca_S1 without FPU)
- * @version  V1.0.0
- * @date     19. November 2019
+ * @version  V1.0.1
+ * @date     30. January 2020
  ******************************************************************************/
-/* Copyright (c) 2019 ARM LIMITED
+/* Copyright (c) 2019-2020 ARM LIMITED
 
    All rights reserved.
    Redistribution and use in source and binary forms, with or without
@@ -318,7 +318,7 @@ typedef struct /* see "PrimeCell UART (PL011) Technical Reference Manual r1p5" *
 #define UART_IMSC_DSRMIM_Msk             (1UL << UART_IMSC_DSRMIM_Pos)
 
 #define UART_IMSC_DCDMIM_Pos              2                                              /* UART IMSC.DCDMIM: nUARTDCD modem interrupt */
-#define UART_IMSC_DCDMIM_Msk             (1UL << UART_IMSC_DCDMIM_Pos)                   /
+#define UART_IMSC_DCDMIM_Msk             (1UL << UART_IMSC_DCDMIM_Pos)
 
 #define UART_IMSC_CTSMIM_Pos              1                                              /* UART IMSC.CTSMIM: nUARTCTS modem interrupt */
 #define UART_IMSC_CTSMIM_Msk             (1UL << UART_IMSC_CTSMIM_Pos)
