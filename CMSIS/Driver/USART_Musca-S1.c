@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------
- * Copyright (c) 2019 ARM Ltd.
+ * Copyright (c) 2019-2020 ARM Ltd.
  *
  * This software is provided 'as-is', without any express or implied warranty.
  * In no event will the authors be held liable for any damages arising from
@@ -18,8 +18,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *
  *
- * $Date:        19. November 2019
- * $Revision:    V1.0.0
+ * $Date:        04. February 2020
+ * $Revision:    V1.1
  *
  * Driver:       Driver_USART0, Driver_USART1
  *
@@ -40,7 +40,11 @@
  *----------------------------------------------------------------------------*/
 
 /* History:
- *  Version 1.0.0
+ *  Version 1.1
+ *    Added support for:
+ *    - FIFO handling
+ *    - ARM_USART_EVENT_RX_TIMEOUT signal event
+ *  Version 1.0
  *    Initial release
  */
 
@@ -48,18 +52,10 @@
 
 #define UNUSED(x) (void)(x)           /* macro to get rid of 'unused parameter' warning */
 
-#define ARM_USART_DRV_VERSION ARM_DRIVER_VERSION_MAJOR_MINOR(1,0)
+#define ARM_USART_DRV_VERSION ARM_DRIVER_VERSION_MAJOR_MINOR(1,1)
 
 // Driver Version
 static const ARM_DRIVER_VERSION usart_driver_version = { ARM_USART_API_VERSION, ARM_USART_DRV_VERSION };
-
-// Receiver Timeout values
-#ifndef USART0_RX_TIMEOUT_VAL
-  #define USART0_RX_TIMEOUT_VAL     30U
-#endif
-#ifndef USART1_RX_TIMEOUT_VAL
-  #define USART1_RX_TIMEOUT_VAL     30U
-#endif
 
 #if defined __USE_SECURE
   #define SCC_REGISTER   SECURE_SCC
@@ -165,7 +161,7 @@ static const USART_RESOURCES USART0_Resources = {
     0U,  // CTS Flow Control available
 #endif
     0U,  // Transmit completed event: \ref ARM_USART_EVENT_TX_COMPLETE
-    0U,  // Signal receive character timeout event: \ref ARM_USART_EVENT_RX_TIMEOUT
+    1U,  // Signal receive character timeout event: \ref ARM_USART_EVENT_RX_TIMEOUT
 #if defined (RTE_USART0_RTS) && (RTE_USART0_RTS != 0U)
     1U,  // RTS Line: 0=not available, 1=available
 #else
@@ -222,7 +218,6 @@ static const USART_RESOURCES USART0_Resources = {
   .xfer           = &USART0_TransferInfo,
   .irq_num        =  UART0_IRQn,
   .padding0       =  {0U, 0U, 0U},
-  .rx_timeout_val = USART0_RX_TIMEOUT_VAL,
   .reset_bit      =  7U,
   .padding1       =  {0U, 0U, 0U}
 };
@@ -317,7 +312,7 @@ static const USART_RESOURCES USART1_Resources = {
     0U,  // CTS Flow Control available
 #endif
     0U,  // Transmit completed event: \ref ARM_USART_EVENT_TX_COMPLETE
-    0U,  // Signal receive character timeout event: \ref ARM_USART_EVENT_RX_TIMEOUT
+    1U,  // Signal receive character timeout event: \ref ARM_USART_EVENT_RX_TIMEOUT
 #if defined (RTE_USART1_RTS) && (RTE_USART1_RTS != 0U)
     1U,  // RTS Line: 0=not available, 1=available
 #else
@@ -374,7 +369,6 @@ static const USART_RESOURCES USART1_Resources = {
   .xfer           = &USART1_TransferInfo,
   .irq_num        =  UART1_IRQn,
   .padding0       =  {0U, 0U, 0U},
-  .rx_timeout_val = USART1_RX_TIMEOUT_VAL,
   .reset_bit      =  8U,
   .padding1       =  {0U, 0U, 0U}
 };
@@ -394,33 +388,32 @@ static const USART_RESOURCES USART1_Resources = {
 static int32_t USART_SetBaudrate (const USART_RESOURCES *usart,
                                      uint32_t         clk,
                                      uint32_t         baudrate) {
-
 #define UART_SAMPLING_FACTOR      (16U)
 #define UART_FBRD_WIDTH           ( 6U)
 
-    /* Avoiding float calculations, bauddiv is left shifted by 6 */
-    uint64_t bauddiv = (((uint64_t)clk) << UART_FBRD_WIDTH) / (16U * baudrate);
+  /* Avoiding float calculations, bauddiv is left shifted by 6 */
+  uint64_t bauddiv = (((uint64_t)clk) << UART_FBRD_WIDTH) / (16U * baudrate);
 
-    /* Valid bauddiv value
-     * uart_clk (min) >= 16 x baud_rate (max)
-     * uart_clk (max) <= 16 x 65535 x baud_rate (min)
-     */
-    if((bauddiv < (    1U << UART_FBRD_WIDTH)) ||
-       (bauddiv > (65535U << UART_FBRD_WIDTH))   ) {
-        return -1;
-    }
+  /* Valid bauddiv value
+   * uart_clk (min) >= 16 x baud_rate (max)
+   * uart_clk (max) <= 16 x 65535 x baud_rate (min)
+   */
+  if((bauddiv < (    1U << UART_FBRD_WIDTH)) ||
+     (bauddiv > (65535U << UART_FBRD_WIDTH))   ) {
+    return -1;
+  }
 
-    usart->reg->IBRD = (uint32_t)(bauddiv >> UART_FBRD_WIDTH);
-    usart->reg->FBRD = (uint32_t)(bauddiv & ((1U << UART_FBRD_WIDTH) - 1U));
+  usart->reg->IBRD = (uint32_t)(bauddiv >> UART_FBRD_WIDTH);
+  usart->reg->FBRD = (uint32_t)(bauddiv & ((1U << UART_FBRD_WIDTH) - 1U));
 
-    __DMB();
+  __DMB();
 
-    /* In order to internally update the contents of uartibrd or uartfbrd,
-       a uartlcr_h write must always be performed at the end
-       ARM DDI 0183F, Pg 3-13 */
-    usart->reg->LCR_H = usart->reg->LCR_H;
+  /* In order to internally update the contents of uartibrd or uartfbrd,
+     a uartlcr_h write must always be performed at the end
+     ARM DDI 0183F, Pg 3-13 */
+  usart->reg->LCR_H = usart->reg->LCR_H;
 
-    return 0;
+  return 0;
 }
 
 /**
@@ -526,32 +519,32 @@ static int32_t USART_Initialize (const USART_RESOURCES         *usart,
   usart->info->status.rx_framing_error = 0U;
   usart->info->status.rx_parity_error  = 0U;
 
-  usart->info->mode        = 0U;
+  usart->info->mode = 0U;
 
   // Clear transfer information
   memset((void *)usart->xfer, 0, sizeof(USART_TRANSFER_INFO));
 
-  // configure RX pin
+  // Configure RX pin
   if (usart->io.rx) {
     USART_PinInit (usart->io.rx->pin, usart->io.rx->af);
   }
 
-  // configure TX pin
+  // Configure TX pin
   if (usart->io.tx) {
     USART_PinInit (usart->io.tx->pin, usart->io.tx->af);
   }
 
-  // configure SCLK pin
+  // Configure SCLK pin
   if (usart->io.sclk) {
     USART_PinInit (usart->io.sclk->pin, usart->io.sclk->af);
   }
 
-  // configure CTS pin
+  // Configure CTS pin
   if (usart->io.cts) {
     USART_PinInit (usart->io.cts->pin, usart->io.cts->af);
   }
 
-  // configure RTS pin
+  // Configure RTS pin
   if (usart->io.rts) {
     USART_PinInit (usart->io.rts->pin, usart->io.rts->af);
   }
@@ -619,14 +612,14 @@ static int32_t USART_PowerControl (const USART_RESOURCES *usart,
 
   switch (state) {
     case ARM_POWER_OFF:
-      // clear and disable USART IRQ
+      // Clear and disable USART IRQ
       NVIC_DisableIRQ(usart->irq_num);
       NVIC_ClearPendingIRQ(usart->irq_num);
 
       // Disable USART
       usart->reg->CR = 0U;
 
-      // hold UART in Reset
+      // Hold UART in Reset
       SCC_REGISTER->RESET_CTRL &= ~(1U << usart->reset_bit);
 
       // Clear Status flags
@@ -655,7 +648,7 @@ static int32_t USART_PowerControl (const USART_RESOURCES *usart,
         return ARM_DRIVER_OK;
       }
 
-      // clear Status flags
+      // Clear Status flags
       usart->info->status.tx_busy          = 0U;
       usart->info->status.rx_busy          = 0U;
       usart->info->status.tx_underflow     = 0U;
@@ -670,18 +663,18 @@ static int32_t USART_PowerControl (const USART_RESOURCES *usart,
       usart->info->mode                    = 0U;
       usart->info->flow_control            = 0U;
 
-      // set flag initialized
+      // Set flag initialized
       usart->info->flags = USART_FLAG_POWERED | USART_FLAG_INITIALIZED;
 
-      // clear and enable USART IRQ
+      // Clear and enable USART IRQ
       NVIC_ClearPendingIRQ(usart->irq_num);
       NVIC_EnableIRQ(usart->irq_num);
 
-      // release UART from reset
+      // Release UART from reset
       SCC_REGISTER->RESET_CTRL |= (1U << usart->reset_bit);
       while ((SCC_REGISTER->RESET_CTRL & (1U << usart->reset_bit)) == 0U);
 
-      // disable USART
+      // Disable USART
       usart->reg->CR = 0U;
       break;
   }
@@ -718,19 +711,16 @@ static int32_t USART_Send (const USART_RESOURCES *usart,
     return ARM_DRIVER_ERROR_BUSY;
   }
 
-  // set Send Active flag
+  // Set Send Active flag
   usart->xfer->send_active = 1U;
 
-  // save transmit buffer info
-  usart->xfer->tx_buf = (const uint8_t *)data;
-  usart->xfer->tx_num = num;
+  // Save transmit buffer info
   usart->xfer->tx_cnt = 0U;
+  usart->xfer->tx_num = num;
+  usart->xfer->tx_buf = (const uint8_t *)data;
 
-  // enable TX interrupt
-  usart->reg->IMSC |= UART_IMSC_TXIM_Msk;
-
-  // start sending
-  usart->reg->DR = usart->xfer->tx_buf[usart->xfer->tx_cnt];
+  // Set UART interrupt pending, we will fill FIFO there
+  NVIC_SetPendingIRQ (usart->irq_num);
 
   return ARM_DRIVER_OK;
 }
@@ -750,7 +740,7 @@ static int32_t USART_Receive (const USART_RESOURCES *usart,
                                     uint32_t         num) {
 
   if ((data == NULL) || (num == 0U)) {
-    // invalid parameters
+    // Invalid parameters
     return ARM_DRIVER_ERROR_PARAMETER;
   }
 
@@ -759,32 +749,24 @@ static int32_t USART_Receive (const USART_RESOURCES *usart,
     return ARM_DRIVER_ERROR;
   }
 
-  // check if receiver is busy
   if (usart->info->status.rx_busy == 1U) {
+    // Receive operation is not completed yet
     return ARM_DRIVER_ERROR_BUSY;
   }
 
-  // disable RXNE Interrupt
-  usart->reg->IMSC &= ~UART_IMSC_RXIM_Msk;
+  // Set receive busy flag
+  usart->info->status.rx_busy = 1U;
 
-  // save number of data to be received
-  usart->xfer->rx_num = num;
-
-  // clear RX status
+  // Clear status flags
   usart->info->status.rx_break          = 0U;
   usart->info->status.rx_framing_error  = 0U;
   usart->info->status.rx_overflow       = 0U;
   usart->info->status.rx_parity_error   = 0U;
 
-  // save receive buffer info
-  usart->xfer->rx_buf = (uint8_t *)data;
+  // Set receive info
   usart->xfer->rx_cnt =  0U;
-
-  // set RX Busy flag
-  usart->info->status.rx_busy = 1U;
-
-  // enable RXIM interrupt
-  usart->reg->IMSC |= UART_IMSC_RXIM_Msk;
+  usart->xfer->rx_num = num;
+  usart->xfer->rx_buf = (uint8_t *)data;
 
   return ARM_DRIVER_OK;
 }
@@ -853,9 +835,9 @@ static int32_t USART_Control (const USART_RESOURCES *usart,
   uint32_t uart_cr, uart_lcr_h, uart_imsc;
 
   // Reset local variables
-  uart_cr = 0U;
+  uart_cr    = 0U;
   uart_lcr_h = 0U;
-  uart_imsc = 0U;
+  uart_imsc  = 0U;
 
   if (control & (1U << 4)) {
     // USART Miscellaneous Operations
@@ -879,109 +861,114 @@ static int32_t USART_Control (const USART_RESOURCES *usart,
         // Check if TX pin available
         if (usart->io.tx == NULL) { return ARM_DRIVER_ERROR; }
 
-        if (arg) {
-          // select USART TX pin function
-//        USART_PinInit (usart->io.tx->pin, usart->io.tx->af);
+        if (arg == 0U) {
+          // Disable transmit interrupt
+          usart->reg->IMSC &= ~UART_IMSC_TXIM_Msk;
 
-          // enable USART transmitter
-          usart->reg->CR |= UART_CR_TXE_Msk;
-
-          usart->info->flags |= USART_FLAG_TX_ENABLED;
-        } else {
-          // disable USART transmitter
+          // Disable UART transmitter
           usart->reg->CR &= ~UART_CR_TXE_Msk;
-
-          // select GPIO pin function
-//        USART_PinDeInit (usart->io.tx->pin);
 
           usart->info->flags &= ~USART_FLAG_TX_ENABLED;
         }
+        else {
+          // Set transmit FIFO level to 1/8 full (4 bytes)
+          usart->reg->IFLS = usart->reg->IFLS & ~(0x07U);
+
+          // Enable USART transmitter
+          usart->reg->CR |= UART_CR_TXE_Msk;
+
+          // Enable transmit interrupt
+          usart->reg->IMSC |= UART_IMSC_TXIM_Msk;
+
+          usart->info->flags |= USART_FLAG_TX_ENABLED;
+        }
+
         return ARM_DRIVER_OK;
 
       case ARM_USART_CONTROL_RX:                 // Receiver; arg: 0=disabled, 1=enabled
         // Check if RX line available
         if (usart->io.rx == NULL) { return ARM_DRIVER_ERROR; }
 
-        if (arg) {
-          // select USART RX pin function
-//        USART_PinInit (usart->io.rx->pin, usart->io.rx->af);
+        if (arg == 0U) {
+          // Disable USART receive and receive timeout interrupt
+          usart->reg->IMSC &= ~UART_IMSC_RXIM_Msk | UART_IMSC_RTIM_Msk;
 
-          // enable USART error interrupts
-          usart->reg->IMSC |=  (UART_IMSC_OEIM_Msk |      /* Overrun error */
-                                UART_IMSC_BEIM_Msk |      /* Break error */
-                                UART_IMSC_PEIM_Msk |      /* Parity error */
-                                UART_IMSC_FEIM_Msk  );    /* Framing error */
-
-          // enable USART receiver
-          usart->reg->CR |=  UART_CR_RXE_Msk;
-
-          usart->info->flags |=  USART_FLAG_RX_ENABLED;
-        } else {
-          // disable USART receiver
+          // Disable USART receiver
           usart->reg->CR &= ~UART_CR_RXE_Msk;
-
-          // disable USART error interrupts
-          usart->reg->IMSC &= ~(UART_IMSC_OEIM_Msk |      /* Overrun error */
-                                UART_IMSC_BEIM_Msk |      /* Break error */
-                                UART_IMSC_PEIM_Msk |      /* Parity error */
-                                UART_IMSC_FEIM_Msk  );    /* Framing error */
-
-          // select GPIO pin function
-//        USART_PinDeInit (usart->io.rx->pin);
 
           usart->info->flags &= ~USART_FLAG_RX_ENABLED;
         }
+        else {
+          // Set receive FIFO level to 7/8 full (28 bytes)
+          usart->reg->IFLS = (usart->reg->IFLS & ~(0x07U << 3)) | (0x4U << 3);
+
+          // Empty FIFO
+          while ((usart->reg->FR & UART_FR_RXFE_Msk) == 0U) {
+            (void)usart->reg->DR;
+          }
+          // Clear error register
+          usart->reg->ECR = 0U;
+
+          // Enable USART receiver
+          usart->reg->CR |= UART_CR_RXE_Msk;
+
+          // Enable USART receive and receive timeout interrupt
+          usart->reg->IMSC |= UART_IMSC_RXIM_Msk | UART_IMSC_RTIM_Msk;
+
+          usart->info->flags |= USART_FLAG_RX_ENABLED;
+        }
+
         return ARM_DRIVER_OK;
 
       case ARM_USART_CONTROL_BREAK:              // Continuous Break transmission; arg: 0=disabled, 1=enabled
-        if (arg) {
+        if (arg == 0U) {
+          if (usart->xfer->break_flag != 0U) {
+            // Remove break
+            usart->reg->LCR_H &= ~UART_LCR_H_BRK_Msk;
+
+            // Clear Break and Send Active flag
+            usart->xfer->break_flag  = 0U;
+            usart->xfer->send_active = 0U;
+          }
+        }
+        else {
           if (usart->xfer->send_active != 0U) { return ARM_DRIVER_ERROR_BUSY; }
 
-          // set Send Active and Break flag
+          // Set Send Active and Break flag
           usart->xfer->send_active = 1U;
           usart->xfer->break_flag  = 1U;
 
-          // send break and enable TX interrupt
-          usart->reg->IMSC  |= UART_IMSC_TXIM_Msk;
+          // Send break
           usart->reg->LCR_H |= UART_LCR_H_BRK_Msk;
-        } else {
-            if (usart->xfer->break_flag) {
-              // remove break and disable TX interrupt
-              usart->reg->IMSC  &= ~UART_IMSC_TXIM_Msk;
-              usart->reg->LCR_H &= ~UART_LCR_H_BRK_Msk;
-
-              // clear Break and Send Active flag
-              usart->xfer->break_flag  = 0U;
-              usart->xfer->send_active = 0U;
-            }
         }
+
         return ARM_DRIVER_OK;
 
       case ARM_USART_ABORT_SEND:                 // Abort ARM_USART_Send
-        // disable TX interrupt
-        usart->reg->IMSC &= ~UART_IMSC_TXIM_Msk;
-  
-        // clear Break and Send Active flag
-        usart->xfer->break_flag  = 0U;
+        // Clear transfer info
+        usart->xfer->tx_buf = NULL;
+        usart->xfer->tx_num = 0U;
+        usart->xfer->tx_cnt = 0U;
+
+        // Clear Send Active flag
         usart->xfer->send_active = 0U;
+
         return ARM_DRIVER_OK;
 
       case ARM_USART_ABORT_RECEIVE:              // Abort ARM_USART_Receive
-        // disable RX interrupt
-        usart->reg->IMSC &= ~UART_IMSC_RXIM_Msk;
-  
-        // clear RX Busy status
+        // Clear transfer info
+        usart->xfer->rx_buf = NULL;
+        usart->xfer->rx_num = 0;
+        usart->xfer->rx_cnt = 0;
+
+        // Clear RX Busy status
         usart->info->status.rx_busy = 0U;
+
         return ARM_DRIVER_OK;
 
       case ARM_USART_ABORT_TRANSFER:             // Abort ARM_USART_Transfer
-        // disable TX and RX interrupt
-        usart->reg->IMSC &= ~(UART_IMSC_TXIM_Msk | UART_IMSC_RXIM_Msk);
-  
-        // clear RX Busy status and Send Active flag
-        usart->info->status.rx_busy = 0U;
-        usart->xfer->send_active    = 0U;
-        return ARM_DRIVER_OK;
+        // Transfer not implemented
+        return ARM_DRIVER_ERROR;
 
       default: 
         return ARM_DRIVER_ERROR;
@@ -989,14 +976,13 @@ static int32_t USART_Control (const USART_RESOURCES *usart,
   } else {
     // USART Mode
 
-    // Check if busy
-    if ((usart->info->status.rx_busy != 0U) ||
-        (usart->xfer->send_active    != 0U)   ) {
+    if ((usart->info->status.rx_busy != 0U) || (usart->xfer->send_active != 0U)) {
+      // Receive or send operation in progress
       return ARM_DRIVER_ERROR_BUSY;
     }
 
-    if (((usart->reg->FR & UART_FR_TXFF_Msk) != 0U) &&
-        ((usart->reg->FR & UART_FR_RXFF_Msk) != 0U)   ) {
+    if ((usart->reg->FR & UART_FR_TXFE_Msk) == 0U) {
+      // Transmit FIFO not empty, there are bytes to be sent out
       return ARM_DRIVER_ERROR_BUSY;
     }
 
@@ -1067,52 +1053,51 @@ static int32_t USART_Control (const USART_RESOURCES *usart,
     switch (control & ARM_USART_FLOW_CONTROL_Msk) {
       case ARM_USART_FLOW_CONTROL_NONE:
         break;
+
       case ARM_USART_FLOW_CONTROL_RTS:
         // Check if RTS pin is available
         if (usart->io.rts == NULL) { return ARM_USART_ERROR_FLOW_CONTROL; }
 
-        // select USART RTS pin function
-//      USART_PinInit (usart->io.rts->pin, usart->io.rts->af);
-
-        // enable RTS function
+        // Enable RTS flow control
         uart_cr |= UART_CR_RTSEn_Msk;
         break;
+
       case ARM_USART_FLOW_CONTROL_CTS:
         // Check if CTS pin is available
         if (usart->io.cts == NULL) { return ARM_USART_ERROR_FLOW_CONTROL; }
 
-        // select USART CTS pin function
-//      USART_PinInit (usart->io.cts->pin, usart->io.cts->af);
-
-        // enable CTS function and CTS interrupt
-        uart_cr |= UART_CR_CTSEn_Msk;
+        // Enable CTS flow control and CTS interrupt
+        uart_cr   |= UART_CR_CTSEn_Msk;
         uart_imsc |= UART_IMSC_CTSMIM_Msk;
         break;
+
       case ARM_USART_FLOW_CONTROL_RTS_CTS:
         // Check if RTS pin and CTS pin is available
         if (usart->io.rts == NULL) { return ARM_USART_ERROR_FLOW_CONTROL; }
         if (usart->io.cts == NULL) { return ARM_USART_ERROR_FLOW_CONTROL; }
 
-        // enable RTS, CTS function and CTS interrupt
+        // Enable RTS, CTS flow control and CTS interrupt
         uart_cr |= (UART_CR_RTSEn_Msk | UART_CR_CTSEn_Msk);
         uart_imsc |= UART_IMSC_CTSMIM_Msk;
         break;
+
       default: return ARM_USART_ERROR_FLOW_CONTROL;
     }
 
     // Clock Polarity  (only synchronous mode)
-
     // Clock Phase     (only synchronous mode)
 
-    // Baudrate
+    // Configuration is valid, apply settings
+
+    // Setup baud rate dividers
     USART_SetBaudrate(usart, SystemCoreClock, arg);
 
-    // configure USART registers
+    // Configure USART registers
     usart->reg->IMSC  = uart_imsc;
-    usart->reg->LCR_H = uart_lcr_h;
+    usart->reg->LCR_H = uart_lcr_h | UART_LCR_H_FEN_Msk /* Enable FIFO */;
     usart->reg->CR    = uart_cr;
 
-    // USART Enable
+    // Enable UART
     usart->reg->CR |= UART_CR_UARTEN_Msk;
 
     // Configuration is OK - Mode is valid
@@ -1169,30 +1154,50 @@ static int32_t USART_SetModemControl (const USART_RESOURCES         *usart,
 
   switch (control) {
     case ARM_USART_RTS_CLEAR:
-      if ((usart->info->flow_control == ARM_USART_FLOW_CONTROL_NONE) ||
-          (usart->info->flow_control == ARM_USART_FLOW_CONTROL_CTS)) {
-        if (usart->io.rts) {
-          GPIO_REGISTER->DATAOUT |=  (1U << usart->io.rts->pin);
-        }
-      } else {
-        // Hardware RTS
+      if (usart->capabilities.rts == 0U) {
+        return ARM_DRIVER_ERROR_UNSUPPORTED;
+      }
+
+      if ((usart->reg->CR & UART_CR_RTSEn_Msk) == UART_CR_RTSEn_Msk) {
+        // RTS hardware flow control is enabled, modem line cannot be changed
         return ARM_DRIVER_ERROR;
       }
+      else {
+        // Deassert RTS line
+        usart->reg->CR &= ~UART_CR_RTS_Msk;
+      }
       break;
+
     case ARM_USART_RTS_SET:
-      if ((usart->info->flow_control == ARM_USART_FLOW_CONTROL_NONE) ||
-          (usart->info->flow_control == ARM_USART_FLOW_CONTROL_CTS)) {
-        if (usart->io.rts) {
-          GPIO_REGISTER->DATAOUT &= ~(1U << usart->io.rts->pin);
-        }
-      } else {
-        // Hardware RTS
+      if (usart->capabilities.rts == 0U) {
+        return ARM_DRIVER_ERROR_UNSUPPORTED;
+      }
+
+      if ((usart->reg->CR & UART_CR_RTSEn_Msk) == UART_CR_RTSEn_Msk) {
+        // RTS hardware flow control is enabled, modem line cannot be changed
         return ARM_DRIVER_ERROR;
       }
+      else {
+        // Assert RTS line
+        usart->reg->CR |= UART_CR_RTS_Msk;
+      }
       break;
+    
     case ARM_USART_DTR_CLEAR:
+      if (usart->capabilities.dtr == 0U) {
+        return ARM_DRIVER_ERROR_UNSUPPORTED;
+      }
+      // Deassert DTR line
+      usart->reg->CR &= ~UART_CR_DTR_Msk;
+      break;
+
     case ARM_USART_DTR_SET:
-      return ARM_DRIVER_ERROR_UNSUPPORTED;
+      if (usart->capabilities.dtr == 0U) {
+        return ARM_DRIVER_ERROR_UNSUPPORTED;
+      }
+      // Assert DTR line
+      usart->reg->CR |=  UART_CR_DTR_Msk;
+      break;
   }
 
   return ARM_DRIVER_OK;
@@ -1208,17 +1213,25 @@ static ARM_USART_MODEM_STATUS USART_GetModemStatus (const USART_RESOURCES *usart
   ARM_USART_MODEM_STATUS modem_status;
 
   modem_status.cts = 0U;
-  if ((usart->info->flow_control == ARM_USART_FLOW_CONTROL_NONE) ||
-      (usart->info->flow_control == ARM_USART_FLOW_CONTROL_RTS)) {
-    if (usart->io.cts) {
-      if ((GPIO_REGISTER->DATA & (1U << usart->io.cts->pin)) != 0U) {
-        modem_status.cts = 1U;
-      }
-    }
-  }
   modem_status.dsr = 0U;
-  modem_status.ri  = 0U;
   modem_status.dcd = 0U;
+  modem_status.ri  = 0U;
+
+  if (usart->capabilities.cts != 0U) {
+    modem_status.cts = (usart->reg->FR & UART_FR_CTS_Msk) >> UART_FR_CTS_Pos;
+  }
+
+  if (usart->capabilities.dsr != 0U) {
+    modem_status.dsr = (usart->reg->FR & UART_FR_DSR_Msk) >> UART_FR_DSR_Pos;
+  }
+
+  if (usart->capabilities.ri != 0U) {
+    modem_status.ri = (usart->reg->FR & UART_FR_RI_Msk) >> UART_FR_RI_Pos;
+  }
+
+  if (usart->capabilities.dcd != 0U) {
+    modem_status.dcd = (usart->reg->FR & UART_FR_DCD_Msk) >> UART_FR_DCD_Pos;
+  }
 
   return modem_status;
 }
@@ -1229,102 +1242,180 @@ static ARM_USART_MODEM_STATUS USART_GetModemStatus (const USART_RESOURCES *usart
   \param[in]   usart     Pointer to USART resources
 */
 static void USART_IRQHandler (USART_RESOURCES *usart) {
-  uint32_t uart_mis, uart_ris, uart_dr;
+  uint32_t uart_mis, uart_dr, ms_msk;
   uint32_t event;
+  int32_t  n;
 
-  while (usart->reg->MIS != 0) {
-    uart_mis = usart->reg->MIS;
-    uart_ris = usart->reg->RIS;
+  // Read masked interrupt status and clear it
+  uart_mis = usart->reg->MIS;
+  //usart->reg->ICR = uart_mis;
 
-    // Reset local variables
-    event = 0U;
+  event = 0U;
 
-    // check for errors
-    if ((uart_mis & (UART_IMSC_OEIM_Msk |
-                     UART_IMSC_BEIM_Msk |
-                     UART_IMSC_PEIM_Msk |
-                     UART_IMSC_FEIM_Msk  )) != 0U) {
-       // Overrun error interrupt
-      if (uart_mis & UART_IMSC_OEIM_Msk ) {
-        usart->info->status.rx_overflow      = _FLD2VAL(UART_IMSC_OEIM, uart_mis);
-        event |= ARM_USART_EVENT_RX_OVERFLOW;
-      }
+  // Set modem status interrupt mask
+  ms_msk = (UART_IMSC_RIMIM_Msk  |
+            UART_IMSC_CTSMIM_Msk |
+            UART_IMSC_DCDMIM_Msk |
+            UART_IMSC_DSRMIM_Msk);
 
-      // Break error interrupt
-      if (uart_mis & UART_IMSC_BEIM_Msk ) {
-        usart->info->status.rx_overflow      = _FLD2VAL(UART_IMSC_BEIM, uart_mis);
-        event |= ARM_USART_EVENT_RX_BREAK;
-      }
+  // Check modem line state change
+  if ((uart_mis & ms_msk) != 0U) {
+    // Clear corresponding interrupt
+    usart->reg->ICR = uart_mis & ms_msk;
 
-      // Parity error interrupt
-      if (uart_mis & UART_IMSC_PEIM_Msk ) {
-        usart->info->status.rx_parity_error  = _FLD2VAL(UART_IMSC_PEIM, uart_mis);
-        event |= ARM_USART_EVENT_RX_PARITY_ERROR;
-      }
-
-      // Framing error interrupt
-      if (uart_mis & UART_IMSC_FEIM_Msk ) {
-        usart->info->status.rx_framing_error = _FLD2VAL(UART_IMSC_FEIM, uart_mis);
-        event |= ARM_USART_EVENT_RX_FRAMING_ERROR;
-      }
+    // Determine line change and send corresponding event
+    if ((uart_mis & UART_IMSC_RIMIM_Msk) != 0U) {
+      // Ring indicator line change
+      event |= ARM_USART_EVENT_RI;
     }
 
-      // Receive interrupt
-    if (uart_mis & UART_IMSC_RXIM_Msk ) {
-      uart_dr = usart->reg->DR;
+    if ((uart_mis & UART_IMSC_CTSMIM_Msk) != 0U) {
+      // Clear so send line change
+      event |= ARM_USART_EVENT_CTS;
+    }
+
+    if ((uart_mis & UART_IMSC_DCDMIM_Msk) != 0U) {
+      // Data carrier detect line change
+      event |= ARM_USART_EVENT_DCD; 
+    }
+
+    if ((uart_mis & UART_IMSC_DSRMIM_Msk) != 0U) {
+      // Data set ready line change
+      event |= ARM_USART_EVENT_DSR;
+    }
+  }
+  else {
+    // Clear corresponding interrupt
+    usart->reg->ICR = uart_mis & ~(ms_msk);
+
+    if ((uart_mis & (UART_IMSC_RXIM_Msk | UART_IMSC_RTIM_Msk)) != 0U) {
+      // Receive interrupt or receive timeout interrupt
+      if ((uart_mis & UART_IMSC_RXIM_Msk) == UART_IMSC_RXIM_Msk) {
+        // Receive interrupt mask
+        // Receive FIFO trigger level is 7/8 full (== 28 bytes).
+        n = 28;
+      } else {
+        // Receive timeout mask
+        n = 0;
+      }
 
       if (usart->xfer->rx_buf != NULL) {
-        usart->xfer->rx_buf[usart->xfer->rx_cnt++] = (uint8_t)(uart_dr & UART_DR_DATA_Msk);
+        // Receive operation in progress
+
+        while (usart->xfer->rx_cnt < usart->xfer->rx_num) {
+          uart_dr = usart->reg->DR;
+
+          // Check for errors
+          if ((uart_dr & UART_DR_OE_Msk) != 0U) {
+            // Overrun error
+            usart->info->status.rx_overflow = 1U;
+            event |= ARM_USART_EVENT_RX_OVERFLOW;
+          }
+
+          if((uart_dr & UART_DR_BE_Msk) != 0U) {
+            // Break error
+            usart->info->status.rx_break = 1U;
+            event |= ARM_USART_EVENT_RX_BREAK;
+          }
+
+          if ((uart_dr & UART_DR_PE_Msk) != 0U) {
+            usart->info->status.rx_parity_error = 1U;
+            event |= ARM_USART_EVENT_RX_PARITY_ERROR;
+          }
+
+          if ((uart_dr & UART_DR_FE_Msk) != 0U) {
+            usart->info->status.rx_framing_error = 1U;
+            event |= ARM_USART_EVENT_RX_FRAMING_ERROR;
+          }
+
+          usart->xfer->rx_buf[usart->xfer->rx_cnt++] = (uint8_t)(uart_dr & UART_DR_DATA_Msk);
+
+          if (event != 0U) {
+            // Clear framing, parity, break and overrun errors
+            usart->reg->ECR = 0U;
+
+            // Signal error event
+            if (usart->info->cb_event != NULL) {
+              usart->info->cb_event (event);
+            }
+            event = 0U;
+          }
+
+          if ((usart->reg->FR & UART_FR_RXFE_Msk) != 0U) {
+            // Receive FIFO is empty, break the loop
+            break;
+          }
+
+          // FIFO depth control
+          if (n > 0) {
+            n--;
+
+            if (n == 1) {
+              // Receive FIFO trigger level is 7/8 full (== 28 bytes). To ensure consistent
+              // trigger of receive timeout interrupt one byte is left in the FIFO.
+              break;
+            }
+          }
+        }
+
+        if (usart->xfer->rx_cnt == usart->xfer->rx_num) {
+          // Receive operation is completed
+          usart->xfer->rx_buf = NULL;
+
+          usart->info->status.rx_busy = 0U;
+
+          // Signal receive complete
+          event |= ARM_USART_EVENT_RECEIVE_COMPLETE;
+        }
+        else {
+          // Receive operation not yet completed
+          if (n == 0) {
+            // Signal receive timeout
+            event |= ARM_USART_EVENT_RX_TIMEOUT;
+          }
+        }
       }
+      else {
+        // Receive operation not started
+        uart_dr = usart->reg->DR;
 
-      if (usart->xfer->rx_cnt >= usart->xfer->rx_num) {
-        // RX is completed
-        usart->xfer->rx_num = 0U;
-        usart->info->status.rx_busy = 0U;
-
-        // RX interrupt disable
-        usart->reg->IMSC &= ~UART_IMSC_RXIM_Msk;
-
-        // Event
-        event |= ARM_USART_EVENT_RECEIVE_COMPLETE;
+        // Current byte is lost, send overflow event
+        event |= ARM_USART_EVENT_RX_OVERFLOW;
       }
-      usart->reg->ICR = UART_IMSC_RXIM_Msk;
     }
 
-    // Transmit interrupt
-    if (uart_mis & UART_IMSC_TXIM_Msk ) {
-      if (usart->xfer->tx_num > 0) {
+    if ((usart->reg->FR & UART_FR_TXFF_Msk) == 0U) {
+      // Transmit FIFO is not full
 
-        usart->xfer->tx_cnt++;
+      if (usart->xfer->tx_buf != NULL) {
+        // Send operation in progress
 
-        if (usart->xfer->tx_cnt < usart->xfer->tx_num) {
-          // Send next byte
-          usart->reg->DR = usart->xfer->tx_buf[usart->xfer->tx_cnt];
-        } else {
-          // TX is completed
-          usart->xfer->tx_num = 0U;
+        while (usart->xfer->tx_cnt < usart->xfer->tx_num) {
+          usart->reg->DR = usart->xfer->tx_buf[usart->xfer->tx_cnt++];
+
+          if ((usart->reg->FR & UART_FR_TXFF_Msk) != 0U) {
+            // Transmit FIFO is full, break the loop
+            break;
+          }
+        }
+
+        if (usart->xfer->tx_cnt == usart->xfer->tx_num) {
+          // Send operation is completed
+          usart->xfer->tx_buf = NULL;
+
           usart->info->status.tx_busy = 0U;
-
-          // Set Send active flag
-          usart->xfer->send_active = 0U;
-
-          // TX interrupt disable
-          usart->reg->IMSC &= ~UART_IMSC_TXIM_Msk;
+          usart->xfer->send_active    = 0U;
 
           // Event
           event |= ARM_USART_EVENT_SEND_COMPLETE;
         }
       }
-      usart->reg->ICR = UART_IMSC_TXIM_Msk;
     }
+  }
 
-    // Send Event
-    if ((event && usart->info->cb_event) != 0U) {
-      usart->info->cb_event (event);
-    }
-
-    // clear interrupt
-    usart->reg->ICR = uart_mis;
+  // Send Event
+  if ((event != 0U) && (usart->info->cb_event != NULL)) {
+    usart->info->cb_event (event);
   }
 }
 

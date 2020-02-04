@@ -24,6 +24,10 @@
   </description>
 
   <releases>
+    <release version="1.1.0-dev2">
+      UART driver updated:
+      - Added support for FIFO handling and ARM_USART_EVENT_RX_TIMEOUT signal event
+    </release>
     <release version="1.1.0-dev1">
       Removed dangling slash character from the device header file
     </release>
@@ -237,7 +241,7 @@
     </component>
 
     <!-- Musca-S1 CMSIS driver -->
-    <component Cclass="CMSIS Driver" Cgroup="USART" Capiversion="2.1.0" Cversion="1.0.0" condition="Musca-S1 CMSIS">
+    <component Cclass="CMSIS Driver" Cgroup="USART" Capiversion="2.1.0" Cversion="1.1.0" condition="Musca-S1 CMSIS">
       <description>USART Driver for Musca-S1 Device</description>
       <RTE_Components_h>
         #define RTE_Drivers_USART
