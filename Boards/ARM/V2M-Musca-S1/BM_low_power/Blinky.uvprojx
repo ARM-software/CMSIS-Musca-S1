@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>Musca-S1:CM33-0</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.Musca-S1_DFP.1.0.0</PackID>
+          <PackID>ARM.Musca-S1_DFP.1.1.0-dev2</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x30000000,0x00020000) IRAM2(0x20000000,0x00020000) IROM(0x10200000,0x00040000) IROM2(0x00200000,0x00040000) CPUTYPE("Cortex-M33") FPU3(SFPU) DSP TZ CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -563,13 +563,13 @@
       <TargetName>Debug (SRAM)</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6120000::V6.12::.\ARMCLANG</pCCUsed>
+      <pCCUsed>6130001::V6.13.1::.\ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>Musca-S1:CM33-0</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.Musca-S1_DFP.1.0.0</PackID>
+          <PackID>ARM.Musca-S1_DFP.1.1.0-dev2</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x30000000,0x00020000) IRAM2(0x20000000,0x00020000) IROM(0x10200000,0x00040000) IROM2(0x00200000,0x00040000) CPUTYPE("Cortex-M33") FPU3(SFPU) DSP TZ CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -1049,7 +1049,7 @@
       <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\RTE_Device.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev2"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
@@ -1058,7 +1058,7 @@
       <file attr="config" category="linkerScript" condition="ARMCC6" name="Device\Source\ARM\armcc6_arm.sct" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\armcc6_arm.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev2"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
@@ -1067,7 +1067,7 @@
       <file attr="config" category="header" name="Device\Include\Template\partition_Musca-S1.h" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\partition_Musca-S1.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev2"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
@@ -1082,7 +1082,7 @@
       <file attr="config" category="sourceC" condition="ARMCC" name="Device\Source\ARM\startup_Musca-S1.c" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\startup_Musca-S1.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev2"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
@@ -1091,7 +1091,7 @@
       <file attr="config" category="sourceC" name="Device\Source\system_Musca-S1.c" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\system_Musca-S1.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev2"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
