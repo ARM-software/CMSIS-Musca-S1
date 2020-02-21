@@ -895,21 +895,28 @@ typedef struct /* see "Arm Power Policy Unit Version 1.1 Architecture Specificat
 #define SECURE_SYSCTRL_BASE      (0x50021000UL)
 #define SECURE_S32K_TIMER_BASE   (0x5002F000UL)
 
-#define        SYS_PPU_BASE      (0x50022000UL)   /* PPU for the PD_SYS domain */
-#define        CPU0CORE_PPU_BASE (0x50023000UL)   /* PPU for the PD_CPU0CORE domain */
-#define        CPU0DBG_PPU_BASE  (0x50024000UL)   /* PPU for the PD_CPU0DBG domain */
-#define        CPU1CORE_PPU_BASE (0x50025000UL)   /* PPU for the PD_CPU1CORE domain */
-#define        CPU1DBG_PPU_BASE  (0x50026000UL)   /* PPU for the PD_CPU1DBG domain */
-#define        CRYPTO_PPU_BASE   (0x50027000UL)   /* PPU for the PD_CRYPTO domain */
-#define        DBG_PPU_BASE      (0x50029000UL)   /* PPU for the PD_DEBUG domain */
-#define        RAM0_PPU_BASE     (0x5002A000UL)   /* PPU for the PD_SRAM0 domain */
-#define        RAM1_PPU_BASE     (0x5002B000UL)   /* PPU for the PD_SRAM1 domain */
-#define        RAM2_PPU_BASE     (0x5002C000UL)   /* PPU for the PD_SRAM2 domain */
-#define        RAM3_PPU_BASE     (0x5002D000UL)   /* PPU for the PD_SRAM3 domain */
+#define SYS_PPU_BASE             (0x50022000UL)   /* PPU for the PD_SYS domain */
+#define CPU0CORE_PPU_BASE        (0x50023000UL)   /* PPU for the PD_CPU0CORE domain */
+#define CPU0DBG_PPU_BASE         (0x50024000UL)   /* PPU for the PD_CPU0DBG domain */
+#define CPU1CORE_PPU_BASE        (0x50025000UL)   /* PPU for the PD_CPU1CORE domain */
+#define CPU1DBG_PPU_BASE         (0x50026000UL)   /* PPU for the PD_CPU1DBG domain */
+#define CRYPTO_PPU_BASE          (0x50027000UL)   /* PPU for the PD_CRYPTO domain */
+#define DBG_PPU_BASE             (0x50029000UL)   /* PPU for the PD_DEBUG domain */
+#define RAM0_PPU_BASE            (0x5002A000UL)   /* PPU for the PD_SRAM0 domain */
+#define RAM1_PPU_BASE            (0x5002B000UL)   /* PPU for the PD_SRAM1 domain */
+#define RAM2_PPU_BASE            (0x5002C000UL)   /* PPU for the PD_SRAM2 domain */
+#define RAM3_PPU_BASE            (0x5002D000UL)   /* PPU for the PD_SRAM3 domain */
+                                 
+#define MPCSSRAM0_BASE           (0x50083000UL)
+#define MPCSSRAM1_BASE           (0x50084000UL)
+#define MPCSSRAM2_BASE           (0x50085000UL)
+#define MPCSSRAM3_BASE           (0x50086000UL)
+#define MPCSEMRAM_BASE           (0x50140000UL)
+#define MPCSCSRAM_BASE           (0x50130000UL)
+#define MPCSQSPI_BASE            (0x50120000UL)
 
-#define        MPCSSRAM1_BASE    (0x58007000UL)
-#define        MPCSSRAM2_BASE    (0x58008000UL)
-#define        MPCSSRAM3_BASE    (0x58009000UL)
+#define SPCB_BASE                (0x50080000UL)
+#define NSPCB_BASE               (0x40080000UL)
 
 /* AHB peripherals */
 #define SECURE_TIMER_BASE        (0x5010B000UL)
@@ -948,21 +955,28 @@ typedef struct /* see "Arm Power Policy Unit Version 1.1 Architecture Specificat
 #define SECURE_SYSCTRL       ((SYSCTRL_TypeDef    *) SECURE_SYSCTRL_BASE      )
 #define SECURE_S32K_TIMER    ((TIMER_TypeDef      *) SECURE_S32K_TIMER_BASE   )
 
-#define        SYS_PPU       ((PPU_TypeDef        *)        SYS_PPU_BASE      )
-#define        CPU0CORE_PPU  ((PPU_TypeDef        *)        CPU0CORE_PPU_BASE )
-#define        CPU0DBG_PPU   ((PPU_TypeDef        *)        CPU0DBG_PPU_BASE  )
-#define        CPU1CORE_PPU  ((PPU_TypeDef        *)        CPU1CORE_PPU_BASE )
-#define        CPU1DBG_PPU   ((PPU_TypeDef        *)        CPU1DBG_PPU_BASE  )
-#define        CRYPTO_PPU    ((PPU_TypeDef        *)        CRYPTO_PPU_BASE   )
-#define        DBG_PPU       ((PPU_TypeDef        *)        DBG_PPU_BASE      )
-#define        RAM0_PPU      ((PPU_TypeDef        *)        RAM0_PPU_BASE     )
-#define        RAM1_PPU      ((PPU_TypeDef        *)        RAM1_PPU_BASE     )
-#define        RAM2_PPU      ((PPU_TypeDef        *)        RAM2_PPU_BASE     )
-#define        RAM3_PPU      ((PPU_TypeDef        *)        RAM3_PPU_BASE     )
+#define SYS_PPU              ((PPU_TypeDef        *) SYS_PPU_BASE             )
+#define CPU0CORE_PPU         ((PPU_TypeDef        *) CPU0CORE_PPU_BASE        )
+#define CPU0DBG_PPU          ((PPU_TypeDef        *) CPU0DBG_PPU_BASE         )
+#define CPU1CORE_PPU         ((PPU_TypeDef        *) CPU1CORE_PPU_BASE        )
+#define CPU1DBG_PPU          ((PPU_TypeDef        *) CPU1DBG_PPU_BASE         )
+#define CRYPTO_PPU           ((PPU_TypeDef        *) CRYPTO_PPU_BASE          )
+#define DBG_PPU              ((PPU_TypeDef        *) DBG_PPU_BASE             )
+#define RAM0_PPU             ((PPU_TypeDef        *) RAM0_PPU_BASE            )
+#define RAM1_PPU             ((PPU_TypeDef        *) RAM1_PPU_BASE            )
+#define RAM2_PPU             ((PPU_TypeDef        *) RAM2_PPU_BASE            )
+#define RAM3_PPU             ((PPU_TypeDef        *) RAM3_PPU_BASE            )
 
-#define        MPCSSRAM1     ((MPC_TypeDef        *)        MPCSSRAM1_BASE    )
-#define        MPCSSRAM2     ((MPC_TypeDef        *)        MPCSSRAM2_BASE    )
-#define        MPCSSRAM3     ((MPC_TypeDef        *)        MPCSSRAM3_BASE    )
+#define MPCSSRAM0            ((MPC_TypeDef        *) MPCSSRAM0_BASE           )
+#define MPCSSRAM1            ((MPC_TypeDef        *) MPCSSRAM1_BASE           )
+#define MPCSSRAM2            ((MPC_TypeDef        *) MPCSSRAM2_BASE           )
+#define MPCSSRAM3            ((MPC_TypeDef        *) MPCSSRAM3_BASE           )
+#define MPCSEMRAM            ((MPC_TypeDef        *) MPCSEMRAM_BASE           )
+#define MPCSCSRAM            ((MPC_TypeDef        *) MPCSCSRAM_BASE           )
+#define MPCSQSPI             ((MPC_TypeDef        *) MPCSQSPI_BASE            )
+
+#define SPCB                 ((SPC_TypeDef        *) SPCB_BASE                )
+#define NSPCB                ((NSPC_TypeDef       *) NSPCB_BASE               )
 
 #define SECURE_TIMER         ((GP_TIMER_TypeDef   *) SECURE_TIMER_BASE        )
 #define SECURE_SCC           ((SCC_TypeDef        *) SECURE_SCC_BASE          )
