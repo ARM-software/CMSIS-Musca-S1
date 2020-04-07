@@ -6,29 +6,34 @@ Example functionality:
    - XTAL    =          50.00 MHZ
    - SYSCLK  =          50.00 MHz
 
- - one LED is flashing in three different colors with a fixed speed.
+- one LED is flashing in three colors during different program phases:
+   - Red    - code execution in SRAM
+   - Green  - code execution in eMRAM
+   - Yellow - Ultra-Low-Power (ULP) mode
 
+The Blinky program is available in different targets
+ - Debug (eMRAM) - main code and data are in eMRAM
+ - Debug (SRAM)  - main code and data are in SRAM
 
-The Blinky program is available in different targets:
- - Debug:
-   - Compiler optimization Level 1
+In both targets the code for ultra-low power operation
+is kept in SRAM area that is not being turned off during ULP.
+
+The application executes simple counting in SRAM and eMRAM. Timing and
+current consumption can be compared in SystemAnalyzer using ULINKplus.
 
 Debug (eMRAM):            Debug (SRAM):
 ----------------------    ----------------------
-  code: eMRAM               code: SRAM
-  data: SRAM                data: SRAM
-  idle: eMRAM auto off      idle: eMRAM auto off
-        + sleepdeep               + sleepdeep
+  code:     eMRAM                code:     SRAM
+  ulp code: SRAM                 ulp code: SRAM	
+  data:     eMRAM                data:     SRAM
 
 How to use it:
-- Configure the board's BOOT switch to "MRAM".
-- Build the Debug (SRAM) target.
-- Go to debug to load the application into RAM
-- Run until it stops, Run again. LED should show three colors interchangeably.
-- Exit debug without stopping.
-- Enter "Energy measurement without debug" mode
-- See power readings in the System Analyzer window
-
-Error handling:
-- If application does not start at the first instance, exit debug, power cycle
-  the device, and start over again
+ - Configure the board's BOOT switch to "MRAM".
+ - Build the Debug (SRAM) target.
+ - Go to debug to load the application into SRAM
+ - Run debug. LED should show three colors interchangeably.
+ - Exit debug without stopping.
+ - Enter "Energy measurement without debug" mode
+ - See power readings in the System Analyzer window
+ - Repeat the previous steps with the taget Debug (MRAM)
+   in this case code and data are kept in MRAM (except of SRAM count and ULP parts)

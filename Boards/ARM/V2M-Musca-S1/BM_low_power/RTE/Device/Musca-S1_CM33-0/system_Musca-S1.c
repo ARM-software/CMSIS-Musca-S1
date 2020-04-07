@@ -35,6 +35,7 @@
 
 #include "RTE_Components.h"             // Component selection
 #include  CMSIS_device_header           // Device header
+#include "system_Musca-S1.h"
 
 #if defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
   #include "partition_Musca-S1.h"
@@ -46,11 +47,7 @@ extern void *__Vectors;                   /* see startup file */
 /*----------------------------------------------------------------------------
   Define clocks
  *----------------------------------------------------------------------------*/
-//#define  SYS_CLOCK       (50000000UL)     /* PLL Clock Div4 for SYSCLK frequency */
-//#define  X32K_CLOCK      (   32768UL)     /* Oscillator frequency */
-
-//#define  SYSTEM_CLOCK    (SYS_CLOCK)
-
+/* see system_Musca-S1.h */
 
 /*----------------------------------------------------------------------------
   System Core Clock Variable
