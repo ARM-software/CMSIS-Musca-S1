@@ -18,14 +18,18 @@
   <vendor>ARM</vendor>
   <url>http://www.keil.com/pack/</url>
   <name>Musca-S1_DFP</name>
+  <supportContact>https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board</supportContact>
 
   <description>
   Musca-S1 (with on-chip eMRAM and CryptoCell) device and board support pack.
   </description>
 
   <releases>
+    <release version="1.1.0-dev5" date="2020-05-13">
+      Added support contact and board documentation information.
+      </release>
     <release version="1.1.0-dev4" date="2020-04-07">
-	  Updated BM_low_power example
+      Updated BM_low_power example
     </release>
     <release version="1.1.0-dev3">
       CMSIS-Driver included:
@@ -288,7 +292,7 @@
     <!-- V2M-Musca-S1 Board support -->
     <bundle Cbundle="V2M-Musca-S1" Cclass="Board Support" Cversion="1.0.0">
       <description>ARM V2M-Musca-S1 Board Support</description>
-      <doc></doc>
+      <doc>https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board</doc>
       <component Cgroup="LED"         Capiversion="1.0.0" condition="Musca-S1 CMSIS">
       <description>LED driver for ARM V2M-Musca-S1 Board</description>
         <files>
