@@ -25,9 +25,12 @@
   </description>
 
   <releases>
+    <release version="1.1.0-dev6" date="2020-05-15">
+      Fixed partition header file with missing FPU settings.
+    </release>
     <release version="1.1.0-dev5" date="2020-05-13">
       Added support contact and board documentation information.
-      </release>
+    </release>
     <release version="1.1.0-dev4" date="2020-04-07">
       Updated BM_low_power example
     </release>
@@ -238,14 +241,14 @@
 
   <components>
     <!-- Musca-S1 Startup -->
-    <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cversion="1.0.0" condition="Musca-S1 CMSIS">
+    <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cversion="1.0.1" condition="Musca-S1 CMSIS">
       <description>System and Startup (C-Variant) for ARM Musca-S1 device</description>
       <files>
         <file category="include"      name="Device/Include/"/>
         <file category="sourceC"      name="Device/Source/ARM/startup_Musca-S1.c"         version="1.0.0" attr="config" condition="ARMCC"/>
         <file category="linkerScript" name="Device/Source/ARM/armcc6_arm.sct"             version="1.0.0" attr="config" condition="ARMCC6"/>
         <file category="sourceC"      name="Device/Source/system_Musca-S1.c"              version="1.0.0" attr="config"/>
-        <file category="header"       name="Device/Include/Template/partition_Musca-S1.h" version="1.0.0" attr="config"/>
+        <file category="header"       name="Device/Include/Template/partition_Musca-S1.h" version="1.0.1" attr="config"/>
         <!-- device configuration -->
         <file category="header"       name="CMSIS/Driver/Config/RTE_Device.h"             version="1.0.0" attr="config"/>
       </files>
