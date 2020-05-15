@@ -67,12 +67,16 @@
       Musca-S1 is an Arm Cortex-M33 based dual-core device with TrustZone, CryptoCell, and eMRAM.
       </description>
 
-      <memory name="ROM1"  access="rxs"  start="0x10200000" size="0x00040000" default="1" startup="1"/>
-      <memory name="ROM2"  access="rxn"  start="0x00200000" size="0x00040000" default="1" startup="1" alias="ROM1"/>
-      <memory name="IROM1" access="rwxs" start="0x10000000" size="0x00200000" default="1" startup="0"/>
-      <memory name="IROM2" access="rwxn" start="0x00000000" size="0x00200000" default="1" startup="0" alias="IROM1"/>
-      <memory name="IRAM1" access="rwxs" start="0x30000000" size="0x00020000" default="1"/>
-      <memory name="IRAM2" access="rwxn" start="0x20000000" size="0x00020000" default="1" alias="IRAM1"/>
+      <memory name="CodeSRAM_NS" access="rwxn" start="0x00000000" size="0x00200000" default="1" startup="0" alias="CodeSRAM_S"/>
+      <memory name="QSPI_NS"     access="rxn"  start="0x00200000" size="0x02000000" default="1" startup="1" alias="QSPI_S"/>
+      <memory name="eMRAM_NS"    access="rwxn" start="0x0A000000" size="0x00200000" default="1" startup="0" alias="eMRAM_S"/>
+      <memory name="OTP_NS"      access="rxn"  start="0x0E000000" size="0x00000400" default="1" startup="0" alias="OTP_S"/>
+      <memory name="CodeSRAM_S"  access="rwxs" start="0x10000000" size="0x00200000" default="1" startup="0"/>
+      <memory name="QSPI_S"      access="rxs"  start="0x10200000" size="0x02000000" default="1" startup="1"/>
+      <memory name="eMRAM_S"     access="rwxs" start="0x1A000000" size="0x00200000" default="1" startup="0"/>
+      <memory name="OTP_S"       access="rxs"  start="0x1E000000" size="0x00000400" default="1" startup="0"/>
+      <memory name="SysSRAM_NS"  access="rwxn" start="0x20000000" size="0x00080000" default="1" alias="SysSRAM_S"/>
+      <memory name="SysSRAM_S"   access="rwxs" start="0x30000000" size="0x00080000" default="1"/>
 
       <debugvars configfile="Device/Debug/CM33.dbgconf">
         // Debug Authentication Variables
