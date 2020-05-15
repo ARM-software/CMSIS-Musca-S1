@@ -73,7 +73,7 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>0</tvExp>
+        <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
@@ -119,28 +119,85 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>ARMRTXEVENTFLAGS</Key>
+          <Name>-L70 -Z18 -C0 -M0 -T1</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGTARM</Key>
+          <Name>(6010=-1,-1,-1,-1,0)(6018=-1,-1,-1,-1,0)(6019=-1,-1,-1,-1,0)(6008=-1,-1,-1,-1,0)(6009=-1,-1,-1,-1,0)(6014=-1,-1,-1,-1,0)(6015=-1,-1,-1,-1,0)(6003=-1,-1,-1,-1,0)(6000=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>ARMDBGFLAGS</Key>
+          <Name></Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>ULPL2CM3</Key>
+          <Name>-UAny -O206 -S8 -C0 -P00000001 -N00("ARM CoreSight SW-DP") -D00(6BA02477) -L00(0) -TO65554 -TC50000000 -TT10000000 -TP20 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC20000 -FN1 -FF0MT25QL512.FLM -FS010200000 -FL0800000 -FP0($$Device:Musca-S1$Flash\MT25QL512.FLM)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGUARM</Key>
+          <Name></Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>EVENTREC_CNF</Key>
+          <Name>-l0 -a1 -s0 -fFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F000000000000000000000000000000000000000000000000000000000080FF47000000000000000000000000000000000000000000000000000000000080FF47000000000000000000000000000000000000000000000000000000000080FF00</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>UL2V8M</Key>
           <Name>UL2V8M(-S0 -C0 -P0 -FD20000000 -FC20000 -FN1 -FF0MT25QL512 -FS010200000 -FL0800000 -FP0($$Device:Musca-S1$Flash\MT25QL512.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint/>
       <ScvdPack>
-        <Filename>C:\06_temp\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
-        <Type>ARM.CMSIS.5.6.0</Type>
+        <Filename>C:\Keil_v5\Arm\Packs\Keil\ARM_Compiler\1.6.3\EventRecorder.scvd</Filename>
+        <Type>Keil.ARM_Compiler.1.6.3</Type>
         <SubType>1</SubType>
       </ScvdPack>
+      <ScvdPack>
+        <Filename>C:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
+        <Type>ARM.CMSIS.5.7.0</Type>
+        <SubType>1</SubType>
+      </ScvdPack>
+      <ToolboxButtons>
+        <Wi>
+          <IntNumber>0</IntNumber>
+          <FirstString>5x toggle pin #1</FirstString>
+          <SecondString>TogglePin (1, 100, 5)</SecondString>
+        </Wi>
+        <Wi>
+          <IntNumber>1</IntNumber>
+          <FirstString>TableOut 250 ms</FirstString>
+          <SecondString>TableOut (250)</SecondString>
+        </Wi>
+        <Wi>
+          <IntNumber>2</IntNumber>
+          <FirstString>TableSweep 500 ms</FirstString>
+          <SecondString>TableSweep (500)</SecondString>
+        </Wi>
+        <Wi>
+          <IntNumber>3</IntNumber>
+          <FirstString>StepSweep 100 ms</FirstString>
+          <SecondString>StepSweep (3.3, 20, 100)</SecondString>
+        </Wi>
+      </ToolboxButtons>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
       <DebugFlag>
         <trace>0</trace>
-        <periodic>0</periodic>
-        <aLwin>0</aLwin>
+        <periodic>1</periodic>
+        <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
         <aPa>0</aPa>
-        <viewmode>0</viewmode>
+        <viewmode>1</viewmode>
         <vrSel>0</vrSel>
         <aSym>0</aSym>
         <aTbox>0</aTbox>
@@ -279,6 +336,11 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>EVENTREC_CNF</Key>
+          <Name>-l0 -a1 -s0 -fFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F000000000000000000000000000000000000000000000000000000000080FF47000000000000000000000000000000000000000000000000000000000080FF47000000000000000000000000000000000000000000000000000000000080FF00</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
           <Name>-L70 -Z18 -C0 -M0 -T1</Name>
         </SetRegEntry>
@@ -310,8 +372,13 @@
       </TargetDriverDllRegistry>
       <Breakpoint/>
       <ScvdPack>
-        <Filename>C:\Users\chrsei01\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0-dev1\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
-        <Type>ARM.CMSIS.5.7.0-dev1</Type>
+        <Filename>C:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
+        <Type>ARM.CMSIS.5.7.0</Type>
+        <SubType>1</SubType>
+      </ScvdPack>
+      <ScvdPack>
+        <Filename>C:\Keil_v5\Arm\Packs\Keil\ARM_Compiler\1.6.3\EventRecorder.scvd</Filename>
+        <Type>Keil.ARM_Compiler.1.6.3</Type>
         <SubType>1</SubType>
       </ScvdPack>
       <ToolboxButtons>
@@ -350,7 +417,7 @@
         <viewmode>1</viewmode>
         <vrSel>0</vrSel>
         <aSym>0</aSym>
-        <aTbox>1</aTbox>
+        <aTbox>0</aTbox>
         <AscS1>0</AscS1>
         <AscS2>0</AscS2>
         <AscS3>0</AscS3>
@@ -450,7 +517,15 @@
 
   <Group>
     <GroupName>::CMSIS</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>1</RteFlg>
+  </Group>
+
+  <Group>
+    <GroupName>::Compiler</GroupName>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>

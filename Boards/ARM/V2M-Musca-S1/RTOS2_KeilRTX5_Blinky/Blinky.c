@@ -38,6 +38,11 @@
 
 #include "RTE_Components.h"             // Component selection
 #include  CMSIS_device_header           // Device header
+
+#ifdef RTE_Compiler_EventRecorder
+#include "EventRecorder.h"
+#endif
+
 #include "Board_LED.h"                  // ::Board Support:LED
 
 
@@ -80,7 +85,6 @@ __NO_RETURN static void thrLED(void *argument)
     osDelay(300U);
     LED_Off(ledNum);
   }
-
 }
 
 /*----------------------------------------------------------------------------
@@ -126,81 +130,5 @@ __NO_RETURN void app_main (void *argument)
     osThreadFlagsSet(tid_thrCalc, 0x0001U);
   
     osDelay(1000U);
-  }
-}
-
-
-/*----------------------------------------------------------------------------
-  Musca-S1 Low-Power
- *---------------------------------------------------------------------------*/
-#define S32K_CLOCK   (32768U)    /* 1 second */
-
-static volatile uint32_t osTick_sleep;                   /* OS ticks to sleep */
-static volatile uint32_t s32k_timer_irq;                 /* S32K Timer interrupt happened */
-static volatile uint32_t s32k_timer_val;                 /* S32K Timer current value */
-
-static void Musca_LP_Entry (void)
-{
-  s32k_timer_irq = 0U;
-  s32k_timer_val = (osTick_sleep * S32K_CLOCK) / OS_TICK_FREQ;
-
-  NVIC_EnableIRQ (S32K_TIMER_IRQn);
-  
-  SECURE_S32K_TIMER->RELOAD = s32k_timer_val;
-  SECURE_S32K_TIMER->VALUE  = s32k_timer_val;
-  SECURE_S32K_TIMER->CTRL   = ((1U << 3) |               /* enable S32K Timer interrupt */
-                               (1U << 0)  );             /* enable S32K Timer */
-  
-  SCB->SCR |= (SCB_SCR_SLEEPDEEP_Msk);                   /* Setting the sleep deep bit */
-}
-
-static void Musca_LP_Exit (void)
-{
-  if (s32k_timer_irq == 0U) {
-
-    SECURE_S32K_TIMER->INTCLEAR = 1U;                    /* clear S32K Timer interrupt */
-    SECURE_S32K_TIMER->CTRL = 0U;                        /* disable S32K Timer interrupt */
-
-    NVIC_DisableIRQ(S32K_TIMER_IRQn);
-    NVIC_ClearPendingIRQ(S32K_TIMER_IRQn);
-
-    s32k_timer_val = SECURE_S32K_TIMER->RELOAD - SECURE_S32K_TIMER->VALUE;
-  }
-  
-  osTick_sleep = (s32k_timer_val * OS_TICK_FREQ + (S32K_CLOCK- 1U)) / S32K_CLOCK;
-}
-
-void S32K_TIMER_IRQHandler (void);
-void S32K_TIMER_IRQHandler (void)
-{
-  s32k_timer_irq = 1U;
-  s32k_timer_val = SECURE_S32K_TIMER->VALUE;
-
-  SECURE_S32K_TIMER->INTCLEAR = 1U;                      /* clear S32K Timer interrupt */
-  SECURE_S32K_TIMER->CTRL = 0U;                          /* disable S32K Timer interrupt */
-
-  NVIC_DisableIRQ(S32K_TIMER_IRQn);
-  NVIC_ClearPendingIRQ(S32K_TIMER_IRQn);
-}
- 
-            void osRtxIdleThread (void *argument);
-__NO_RETURN void osRtxIdleThread (void *argument)
-{
-  (void)argument;
-  
-  for (;;) {
-    osTick_sleep = osKernelSuspend();                    /* returns OS ticks to sleep */
-
-    if (osTick_sleep > 0) {                              /* Is there some time to sleep? */
-
-      Musca_LP_Entry();                                  /* Enter the low power state */
-
-      __WFI();
-                                                         /* Leave the low power state */
-      Musca_LP_Exit();                                   /* osTick_sleep is recalculated */
-    }
-
-    /* Adjust the kernel ticks with the amount of ticks slept */
-    osKernelResume (osTick_sleep);
   }
 }

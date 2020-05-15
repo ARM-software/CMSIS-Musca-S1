@@ -105,7 +105,7 @@ LR_ROM __RO_BASE __RO_SIZE  {                       ; load region size_region
     *(sram1)    ; Place code to SRAM1
   }  
  
-;  RW_IRAM2 0x30070000 UNINIT 0x00000800  {  ; keep Event Recorder in the uninitialized RAM
+;  RW_IRAM2 0x30070000 UNINIT 0x00001000  {  ; keep Event Recorder in the uninitialized RAM
 ;    EventRecorder.o (+ZI)
 ;  }
   
