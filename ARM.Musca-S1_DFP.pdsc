@@ -18,13 +18,17 @@
   <vendor>ARM</vendor>
   <url>http://www.keil.com/pack/</url>
   <name>Musca-S1_DFP</name>
-  <supportContact>https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board</supportContact>
+  <supportContact>https://github.com/ARM-software/CMSIS-Musca-S1/issues</supportContact>
 
   <description>
   Musca-S1 (with on-chip eMRAM and CryptoCell) device and board support pack.
   </description>
 
   <releases>
+    <release version="1.1.1-dev0" date="2020-05-18">
+      Updated orderForm tag in board element
+      Updated supportContact
+    </release>
     <release version="1.1.0" date="2020-05-18" tag="1.1.0">
       Fixed partition header file with missing FPU settings.
       Added support contact and board documentation information.
@@ -295,7 +299,7 @@
   </components>
 
   <boards>
-    <board name="V2M-Musca-S1" vendor="ARM" revision="S1" salesContact="sales.intl@keil.com" orderForm="http://www.keil.com/product/prices.asp">
+    <board name="V2M-Musca-S1" vendor="ARM" revision="S1" salesContact="sales.intl@keil.com" orderForm="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board">
       <description>V2M-Musca-S1 SoC IoT Board</description>
       <image small="Images/Musca-S1_Small.png" large="Images/Musca-S1_Large.png" public="true"/>
       <book category="schematic" name="Boards/ARM/V2M-Musca-S1/Documents/hpi0394a_varA.pdf" title="Schematics"/>
