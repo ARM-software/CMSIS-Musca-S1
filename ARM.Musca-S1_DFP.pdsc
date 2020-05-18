@@ -25,7 +25,7 @@
   </description>
 
   <releases>
-    <release version="1.1.0" date="2020-05-18">
+    <release version="1.1.0" date="2020-05-18" tag="1.1.0">
       Fixed partition header file with missing FPU settings.
       Added support contact and board documentation information.
       Updated BM_low_power example
@@ -38,7 +38,7 @@
       - I2C: initial version 1.0.0.
       Example projects cleaned.
     </release>
-    <release version="1.0.0" date="2019-11-22">
+    <release version="1.0.0" date="2020-01-13" tag="1.0.0">
       Initial public release of this pack.
       CMSIS Startup: for Arm Compiler 6.
       CMSIS-Driver included:
