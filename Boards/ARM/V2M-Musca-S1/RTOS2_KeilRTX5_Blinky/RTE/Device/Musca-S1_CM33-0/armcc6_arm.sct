@@ -72,7 +72,11 @@ LR_ROM __RO_BASE __RO_SIZE  {                       ; load region size_region
 //    *(Veneer$$CMSE)                               ; uncomment to locate SG veneers
     * (+RO +XO)
   }
-  
+
+  RW_IRAM2 0x30070000 UNINIT 0x00001000  {  ; keep Event Recorder in the uninitialized RAM
+    EventRecorder.o (+ZI)
+  }
+
   RW_RAM __RW_BASE __RW_SIZE  {                     ; RW data
     * (+RW +ZI)
   }

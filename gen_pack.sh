@@ -1,6 +1,6 @@
 #!/bin/bash
-# Version: 1.0 
-# Date: 2019-08-16
+# Version: 1.1 
+# Date: 2020-04-29
 # This bash script generates a CMSIS Software Pack:
 #
 # Pre-requisites:
@@ -9,20 +9,20 @@
 #   e.g. Ubuntu: sudo apt-get install p7zip-full p7zip-rar) 
 # - PackChk in path with execute permission
 #   (see CMSIS-Pack: CMSIS/Utilities/<os>/PackChk)
-# - xmllint in path (XML schema validation; available for Linux only)
+# - xmllint in path (XML schema validation)
+#   e.g. Ubuntu: sudo apt-get install libxml2-utils
+#   Windows: download from https://www.zlatkovic.com/pub/libxml/
 
 ############### EDIT BELOW ###############
 # Extend Path environment variable locally
 #
 if [ `uname -s` = "Linux" ]
   then
-  PACK_ROOT="/home/$USER/.arm/Packs/"
-  CMSIS_PACK_PATH="$PACK_ROOT/ARM/CMSIS/5.6.0/"
-  PATH_TO_ADD="$CMSIS_PACK_PATH/CMSIS/Utilities/Linux-gcc-4.8.3/"
+  CMSIS_PACK_PATH="/home/$USER/.arm/Packs/ARM/CMSIS/5.7.0/"
+  PATH_TO_ADD="$CMSIS_PACK_PATH/CMSIS/Utilities/Linux64/"
 else
-  PACK_ROOT="$APPDATA/../Local/Arm/Packs/"
-  CMSIS_PACK_PATH="$PACK_ROOT/ARM/CMSIS/5.6.0/"
-  PATH_TO_ADD="/C/Program Files/7-Zip/:$CMSIS_PACK_PATH/CMSIS/Utilities/Win32/"
+  CMSIS_PACK_PATH="$LOCALAPPDATA/Arm/Packs/ARM/CMSIS/5.7.0"
+  PATH_TO_ADD="/C/Program Files/7-Zip/:$CMSIS_PACK_PATH/CMSIS/Utilities/Win32/:/C/xmllint/"
 fi
 [[ ":$PATH:" != *":$PATH_TO_ADD}:"* ]] && PATH="${PATH}:${PATH_TO_ADD}"
 echo $PATH_TO_ADD appended to PATH
@@ -35,17 +35,22 @@ PACK_WAREHOUSE=output/
 PACK_BUILD=build/
 
 # Specify directories included in pack relative to base directory
-# Add all subdirectories:
+# All directories:
 PACK_DIRS=`ls -d */`
 # Do not include the build directory if it is local
 PACK_DIRS=${PACK_DIRS//$PACK_BUILD/}
 PACK_DIRS=${PACK_DIRS//$PACK_WAREHOUSE/}
 
- 
+# alternative: specify directory names to be added to pack base directory
+# PACK_DIRS="
+#  Source
+#  Include
+#"
+  
 # Specify file names to be added to pack base directory
 PACK_BASE_FILES="
-  ARM.Musca-S1_DFP.pdsc
-  gen_pack.sh
+  LICENSE
+  README.md
 "
 
 ############ DO NOT EDIT BELOW ###########
@@ -72,6 +77,19 @@ if [ $errorlevel != 0 ]
   echo "Action: Add PackChk to your path"
   echo "Hint: Included in CMSIS Pack:"
   echo "<pack_root_dir>/ARM/CMSIS/<version>/CMSIS/Utilities/<os>/"
+  echo " "
+  exit
+fi
+echo " "
+
+# XML syntax checking utility check
+XMLLINT=xmllint
+type -a $XMLLINT
+errorlevel=$?
+if [ $errorlevel != 0 ]
+  then
+  echo "Error: No xmllint found"
+  echo "Action: Add xmllint to your path"
   echo " "
   exit
 fi
@@ -136,25 +154,17 @@ done
 # Run Schema Check (for Linux only):
 # sudo apt-get install libxml2-utils
 
-if [ `uname -s` = "Linux" ]
-  then
-  echo Running schema check for $PACK_VENDOR.$PACK_NAME.pdsc
-  xmllint --noout --schema ${CMSIS_PACK_PATH}/CMSIS/Utilities/PACK.xsd $PACK_BUILD/$PACK_VENDOR.$PACK_NAME.pdsc
-  errorlevel=$?
-  if [ $errorlevel -ne 0 ]; then
-    echo "build aborted: Schema check of $PACK_VENDOR.$PACK_NAME.pdsc against PACK.xsd failed"
-    echo " "
-    exit
-  fi
-else
-  echo "Use MDK PackInstaller to run schema validation for $PACK_VENDOR.$PACK_NAME.pdsc"
+echo Running schema check for $PACK_VENDOR.$PACK_NAME.pdsc
+$XMLLINT --noout --schema ${CMSIS_PACK_PATH}/CMSIS/Utilities/PACK.xsd $PACK_BUILD/$PACK_VENDOR.$PACK_NAME.pdsc
+errorlevel=$?
+if [ $errorlevel -ne 0 ]; then
+  echo "build aborted: Schema check of $PACK_VENDOR.$PACK_NAME.pdsc against PACK.xsd failed"
+  echo " "
+  exit
 fi
 
 # Run Pack Check and generate PackName file with version
-$PACKCHK $PACK_BUILD/$PACK_VENDOR.$PACK_NAME.pdsc -n PackName.txt \
--i "$PACK_ROOT/.Web/ARM.CMSIS.pdsc" \
--i "$PACK_ROOT/.Web/Keil.MDK-Middleware.pdsc"
-
+$PACKCHK $PACK_BUILD/$PACK_VENDOR.$PACK_NAME.pdsc -n PackName.txt -x M362
 errorlevel=$?
 if [ $errorlevel -ne 0 ]; then
   echo "build aborted: pack check failed"
@@ -167,7 +177,7 @@ rm -rf PackName.txt
 
 # Archiving
 # $ZIP a $PACKNAME
-echo creating pack file $PACKNAME 
+echo creating pack file $PACKNAME
 #if $PACK_WAREHOUSE directory does not exist create it
 if [ ! -d $PACK_WAREHOUSE ]; then
   mkdir -p $PACK_WAREHOUSE
@@ -176,7 +186,7 @@ pushd $PACK_WAREHOUSE
 PACK_WAREHOUSE=`pwd`
 popd
 pushd $PACK_BUILD
-"$ZIP" a $PACK_WAREHOUSE/$PACKNAME -tzip > zip.log
+"$ZIP" a $PACK_WAREHOUSE/$PACKNAME -tzip
 popd
 errorlevel=$?
 if [ $errorlevel -ne 0 ]; then

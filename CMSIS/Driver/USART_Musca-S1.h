@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------
- * Copyright (c) 2019 ARM Ltd.
+ * Copyright (c) 2019-2020 ARM Ltd.
  *
  * This software is provided 'as-is', without any express or implied warranty.
  * In no event will the authors be held liable for any damages arising from
@@ -18,8 +18,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *
  *
- * $Date:        19. November 2019
- * $Revision:    V1.0.0
+ * $Date:        04. February 2020
+ * $Revision:    V1.0
  *
  * Project:      USART Driver Definitions for Musca-S1 device
  * -------------------------------------------------------------------------- */
@@ -114,7 +114,6 @@ typedef const struct {
         USART_TRANSFER_INFO    *xfer;              // USART transfer information
         IRQn_Type               irq_num;           // USART IRQ Number
   const uint8_t                 padding0[3];
-        uint32_t                rx_timeout_val;    // Receive timeout value
         uint8_t                 reset_bit;         // reset bit for RESET_CTRL register
   const uint8_t                 padding1[3];
 } USART_RESOURCES;

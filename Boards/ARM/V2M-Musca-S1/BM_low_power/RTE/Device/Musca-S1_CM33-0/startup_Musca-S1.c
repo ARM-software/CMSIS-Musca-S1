@@ -58,8 +58,9 @@ extern void SystemInit (void);                           /* CMSIS System Initial
 /*----------------------------------------------------------------------------
   Internal References
  *----------------------------------------------------------------------------*/
-void Default_Handler(void) __attribute__ ((noreturn));
-void Reset_Handler  (void) __attribute__ ((noreturn));
+void Default_Handler    (void) __attribute__ ((noreturn));
+void Reset_Handler      (void) __attribute__ ((noreturn));
+void HardFault_Handler  (void) __attribute__ ((noreturn));
 
 
 /*----------------------------------------------------------------------------
@@ -77,7 +78,7 @@ void Reset_Handler  (void) __attribute__ ((noreturn));
  *----------------------------------------------------------------------------*/
 /* Exceptions */
 void NMI_Handler                     (void) __attribute__ ((weak, alias("Default_Handler")));
-void HardFault_Handler               (void) __attribute__ ((weak, alias("Default_Handler")));
+void HardFault_Handler               (void) __attribute__ ((weak));
 void MemManage_Handler               (void) __attribute__ ((weak, alias("Default_Handler")));
 void BusFault_Handler                (void) __attribute__ ((weak, alias("Default_Handler")));
 void UsageFault_Handler              (void) __attribute__ ((weak, alias("Default_Handler")));
@@ -271,12 +272,21 @@ extern const pFunc __Vectors[];
 /*----------------------------------------------------------------------------
   Reset Handler called on controller reset
  *----------------------------------------------------------------------------*/
-void Reset_Handler(void) {
-
+void Reset_Handler(void)
+{
   __set_MSPLIM((uint32_t)&__stack_limit);
 
   SystemInit();                             /* CMSIS System Initialization */
   __main();                                 /* Enter PreeMain (C library entry point) */
+}
+
+
+/*----------------------------------------------------------------------------
+  Default Handler for Exceptions / Interrupts
+ *----------------------------------------------------------------------------*/
+void HardFault_Handler(void)
+{
+  while(1);
 }
 
 

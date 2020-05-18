@@ -7,7 +7,7 @@ Example functionality:
    - XTAL    =          50.00 MHZ
    - SYSCLK  =          50.00 MHz
 
- - one LED is blinking with a fixed speed.
+ - one LED is blinking with a fixed speed. No sleep used.
 
 
 The Blinky program is available in different targets:
@@ -19,7 +19,5 @@ Debug (eMRAM):            Debug (SRAM):
 ----------------------    ----------------------
   code: eMRAM               code: SRAM
   data: SRAM                data: SRAM
-  idle: eMRAM auto off      idle: eMRAM auto off
-        + sleepdeep               + sleepdeep
 
 Configure the board's BOOT switch to "MRAM".
