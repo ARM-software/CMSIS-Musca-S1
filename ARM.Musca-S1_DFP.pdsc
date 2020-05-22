@@ -25,6 +25,9 @@
   </description>
 
   <releases>
+    <release version="1.1.1-dev1" date="2020-05-22">
+      Fixed startup code to be in sync with CMSIS templates.
+    </release>
     <release version="1.1.1-dev0" date="2020-05-18">
       Updated orderForm tag in board element
       Updated supportContact
@@ -226,6 +229,12 @@
     <condition id="ARMCC">
       <require Tcompiler="ARMCC"/>
     </condition>
+    
+    <condition id="TZ Secure">
+      <description>TrustZone (Secure)</description>
+      <require Dtz="TZ"/>
+      <require Dsecure="Secure"/>
+    </condition>
 
     <condition id="Musca-S1 CMSIS">
       <description>Musca-S1 device and CMSIS Core</description>
@@ -237,14 +246,14 @@
 
   <components>
     <!-- Musca-S1 Startup -->
-    <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cversion="1.0.1" condition="Musca-S1 CMSIS">
+    <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cversion="2.0.0" condition="Musca-S1 CMSIS">
       <description>System and Startup (C-Variant) for ARM Musca-S1 device</description>
       <files>
         <file category="include"      name="Device/Include/"/>
-        <file category="sourceC"      name="Device/Source/ARM/startup_Musca-S1.c"         version="1.0.0" attr="config" condition="ARMCC"/>
+        <file category="sourceC"      name="Device/Source/startup_Musca-S1.c"             version="2.0.0" attr="config"/>
         <file category="linkerScript" name="Device/Source/ARM/armcc6_arm.sct"             version="1.0.0" attr="config" condition="ARMCC6"/>
         <file category="sourceC"      name="Device/Source/system_Musca-S1.c"              version="1.0.0" attr="config"/>
-        <file category="header"       name="Device/Include/Template/partition_Musca-S1.h" version="1.0.1" attr="config"/>
+        <file category="header"       name="Device/Include/Template/partition_Musca-S1.h" version="1.0.1" attr="config" condition="TZ Secure"/>
         <!-- device configuration -->
         <file category="header"       name="CMSIS/Driver/Config/RTE_Device.h"             version="1.0.0" attr="config"/>
       </files>

@@ -2,10 +2,10 @@
  * @file     system_Musca-S1.c
  * @brief    CMSIS Device System Source File for
  *           Musca-S1 Device
- * @version  V1.0.0
- * @date     02. May 2019
+ * @version  V2.0.0
+ * @date     22. May 2020
  ******************************************************************************/
-/* Copyright (c) 2019 ARM LIMITED
+/* Copyright (c) 2019-2020 ARM LIMITED
 
    All rights reserved.
    Redistribution and use in source and binary forms, with or without
@@ -41,8 +41,7 @@
   #include "partition_Musca-S1.h"
 #endif
 
-extern void *__Vectors;                   /* see startup file */
-
+extern const VECTOR_TABLE_Type __VECTOR_TABLE[];
 
 /*----------------------------------------------------------------------------
   Define clocks
@@ -62,79 +61,19 @@ void SystemCoreClockUpdate (void)
 
 void SystemInit (void)
 {
-#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-//  uint32_t blk_cfg, blk_max, blk_size, blk_cnt;
-#endif
-
-  SCB->VTOR = (uint32_t) &__Vectors;
-
+  SCB->VTOR = (uint32_t) &__VECTOR_TABLE;
 
 #if defined (__FPU_USED) && (__FPU_USED == 1U)
   SCB->CPACR |= ((3U << 10U*2U) |           /* enable CP10 Full Access */
                  (3U << 11U*2U)  );         /* enable CP11 Full Access */
 #endif
-
+  
 #ifdef UNALIGNED_SUPPORT_DISABLE
   SCB->CCR |= SCB_CCR_UNALIGN_TRP_Msk;
 #endif
 
-  SECURE_SCC->RESET_CTRL = 0x00000040U;              /* keep all peripherals in reset state except QSPI */
-
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-/* start IOT Green configuration ------------------------- */
-//
-//  /* Enable BusFault, UsageFault, MemManageFault and SecureFault to ease diagnostic */
-//  SCB->SHCSR |= (SCB_SHCSR_USGFAULTENA_Msk  |
-//                 SCB_SHCSR_BUSFAULTENA_Msk  |
-//                 SCB_SHCSR_MEMFAULTENA_Msk  |
-//                 SCB_SHCSR_SECUREFAULTENA_Msk);
-//
-//  /* BFSR register setting to enable precise errors */
-//  SCB->CFSR |= SCB_CFSR_PRECISERR_Msk;
-//
-//
-//  /* configure MPC --------------- */
-//
-//  /* configure unsecure code area MPSSSRAM1 (0x00200000 - 0x003FFFFF) */
-////  blk_max = IOTKIT_MPCSSRAM1->BLK_MAX;   /* = 0x1     */
-////  blk_cfg = IOTKIT_MPCSSRAM1->BLK_CFG;   /* = 0xC     */
-////  blk_size = 1UL << (blk_cfg + 5U);      /* = 0x20000 */
-////  blk_cnt  = 0x200000U / blk_size;       /* = 0x10    */
-//
-//  MPCSSRAM1->CTRL    &= ~(1UL << 8U);            /* clear auto increment */
-//  MPCSSRAM1->BLK_IDX  = 0;                       /* write LUT index */
-//  MPCSSRAM1->BLK_LUT  = 0xFFFF0000UL;            /* configure blocks */
-//
-//
-//  /* configure unsecure data area MPSSSRAM3 (0x28200000 - 0x283FFFFF) */
-////  blk_max = IOTKIT_MPCSSRAM3->BLK_MAX;   /* = 0x1     */
-////  blk_cfg = IOTKIT_MPCSSRAM3->BLK_CFG;   /* = 0xB     */
-////  blk_size = 1UL << (blk_cfg + 5U);      /* = 0x10000 */
-////  blk_cnt  = 0x200000U / blk_size;       /* = 0x20    */
-//
-//  MPCSSRAM3->CTRL &= ~(1UL << 8U);              /* clear auto increment */
-//  MPCSSRAM3->BLK_IDX = 1;                       /* write LUT index */
-//  MPCSSRAM3->BLK_LUT = 0xFFFFFFFFUL;            /* configure blocks */
-//
-//
-//
-//  /* enable the Non Secure Callable Configuration for IDAU (NSCCFG register) */
-//  SPC->NSCCFG |= 1U;
-//
-//
-//  /* configure PPC --------------- */
-//#if !defined (__USE_SECURE)
-//  /* Allow Non-secure access for SCC/FPGAIO registers */
-//  SPC->APBNSPPCEXP[2U] |= ((1UL <<  0U) |
-//                           (1UL <<  2U)  );
-//  /* Allow Non-secure access for SPI1/UART0/I2C0 registers */
-//  SPC->APBNSPPCEXP[1U] |= ((1UL <<  1U) |
-//                           (1UL <<  5U) |
-//                           (1UL << 10U)  );
-//#endif
-//
-///* end IOT Green configuration --------------------------- */
-
+  SPCB->NSCCFG = 1; // enable non-secure callable
   TZ_SAU_Setup();
 #endif
 
