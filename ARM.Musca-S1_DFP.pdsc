@@ -25,6 +25,9 @@
   </description>
 
   <releases>
+    <release version="1.1.1-dev2-tfm" date="2025-05-22">
+      Refactored TrustZone setup.
+    </release>
     <release version="1.1.1-dev1" date="2020-06-24">
       Added MPC LUT Init debug sequence.
     </release>
@@ -414,7 +417,7 @@
     </condition>
 
     <condition id="Musca-S1 CMSIS">
-      <description>Musca-S1 device and CMSIS Core</description>
+      <description>Musca-S1 device and CMSIS-Core</description>
       <require Dvendor="ARM:82" Dname="Musca-S1*"/>
       <require Cclass="CMSIS" Cgroup="CORE"/>
     </condition>
@@ -429,8 +432,9 @@
         <file category="include"      name="Device/Include/"/>
         <file category="sourceC"      name="Device/Source/startup_Musca-S1.c"             version="2.0.0" attr="config"/>
         <file category="linkerScript" name="Device/Source/ARM/armcc6_arm.sct"             version="1.0.0" attr="config" condition="ARMCC6"/>
-        <file category="sourceC"      name="Device/Source/system_Musca-S1.c"              version="1.0.0" attr="config"/>
-        <file category="header"       name="Device/Include/Template/partition_Musca-S1.h" version="1.0.1" attr="config" condition="TZ Secure"/>
+        <file category="sourceC"      name="Device/Source/system_Musca-S1.c"              version="2.0.0" attr="config"/>
+        <file category="sourceC"      name="Device/Source/tz_config.c"                    version="1.0.0" attr="config" condition="TZ Secure"/>
+        <file category="header"       name="Device/Include/Template/tz_config.h"          version="1.0.0" attr="config" condition="TZ Secure"/>
         <!-- device configuration -->
         <file category="header"       name="CMSIS/Driver/Config/RTE_Device.h"             version="1.0.0" attr="config"/>
       </files>

@@ -3,7 +3,7 @@
  * @brief    CMSIS Device System Source File for
  *           Musca-S1 Device
  * @version  V2.0.0
- * @date     22. May 2020
+ * @date     25. May 2020
  ******************************************************************************/
 /* Copyright (c) 2019-2020 ARM LIMITED
 
@@ -33,12 +33,11 @@
    ---------------------------------------------------------------------------*/
 
 
-#include "RTE_Components.h"             // Component selection
-#include  CMSIS_device_header           // Device header
+#include "Musca-S1.h"
 #include "system_Musca-S1.h"
 
 #if defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
-  #include "partition_Musca-S1.h"
+  #include "tz_config.h"
 #endif
 
 extern const VECTOR_TABLE_Type __VECTOR_TABLE[];
@@ -73,8 +72,7 @@ void SystemInit (void)
 #endif
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-  SPCB->NSCCFG = 1; // enable non-secure callable
-  TZ_SAU_Setup();
+  TZ_Config();
 #endif
 
   SystemCoreClock = SYSTEM_CLOCK;
