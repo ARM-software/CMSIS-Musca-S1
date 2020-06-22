@@ -31,11 +31,10 @@
    POSSIBILITY OF SUCH DAMAGE.
    ---------------------------------------------------------------------------*/
 
-#include "Musca-S1.h"
-
 /*
 //-------- <<< Use Configuration Wizard in Context Menu >>> -----------------
 */
+
 
 /*
 // <h>Memory Configuration
@@ -72,7 +71,7 @@
 //     <i>Non-secure address range 0x0A000000-0x0A1FFFFF
 //     <i>Block size 4KB
 */
-#define TZ_MRAM_NS_BASE  0x0A08D000UL
+#define TZ_MRAM_NS_BASE  0x0A080000UL
 #define TZ_MRAM_BASE     0x0A000000UL
 #define TZ_MRAM_LIMIT    0x0A1FFFFFUL
 #define TZ_MRAM_BSIZE    4096U
@@ -89,21 +88,19 @@
 #define TZ_SRAM_BSIZE    256U
 #define TZ_SRAM_BCNT     16U
 
+
 /*
-//     <o>Veneer Region Size <0x0-0x1000:32>
-//     <i>The simple memory layout assumes the veneer region at the end of secure code area.
+//     <o>Veneer region base address <0x0-0xFFFFFFFF:32>
+//     <i>The veneer region must match the secure code area.
+*/
+#define TZ_VENEER_BASE  0x1A07FCC0
+
+/*
+//     <o>Veneer region size <0x0-0x1000:32>
+//     <i>The veneer region must match the secure code area.
 */
 #define TZ_VENEER_SIZE  0x340
 
-/*
-//     <o>Veneer Code Memory
-//       <0=>Code SRAM
-//       <1=>QSPI Flash
-//       <2=>eMRAM
-//       <3=>SRAM
-//     <i>Select the memory used for the veneer area.
-*/
-#define TZ_VENEER_MEM  0x2
 
 /*
 // </h>
@@ -121,7 +118,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_S32K_WDOG_CFG 0
+#define TZ_S32K_WDOG_CFG 3
 
 /*
 //     <o>S32K Timer
@@ -131,7 +128,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_S32KTIMER_CFG 0
+#define TZ_S32KTIMER_CFG 3
 
 /*
 //     <o>Message Handling Unit 0
@@ -141,7 +138,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_MHU0_CFG 0
+#define TZ_MHU0_CFG 3
 
 /*
 //     <o>Message Handling Unit 1
@@ -151,7 +148,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_MHU1_CFG 0
+#define TZ_MHU1_CFG 3
 
 /*
 //     <o>Dual Timer
@@ -161,17 +158,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_DUALTIMER_CFG 0
-
-/*
-//     <o>Dualtimer
-//       <0=>Secure (privileged)
-//       <1=>Secure (unprivileged)
-//       <2=>Non-secure (privileged)
-//       <3=>Non-secure (unprivileged)
-//     <i>Select 
-*/
-#define TZ_DUALTIMER_CFG 0
+#define TZ_DUALTIMER_CFG 3
 
 /*
 //     <o>Timer 0
@@ -181,7 +168,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_TIMER0_CFG 0
+#define TZ_TIMER0_CFG 3
 
 /*
 //     <o>Timer 1
@@ -191,7 +178,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_TIMER1_CFG 0
+#define TZ_TIMER1_CFG 3
 
 /*
 //     <o>General Purpose Timer
@@ -201,7 +188,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_GPTIMER_CFG 0
+#define TZ_GPTIMER_CFG 3
 
 /*
 //     <o>General purpose I/O
@@ -211,7 +198,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_GPIO_CFG 0
+#define TZ_GPIO_CFG 3
 
 /*
 //     <o>Puls width modulation 0
@@ -221,7 +208,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_PWM0_CFG 0
+#define TZ_PWM0_CFG 3
 
 /*
 //     <o>Puls width modulation 1
@@ -231,7 +218,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_PWM1_CFG 0
+#define TZ_PWM1_CFG 3
 
 /*
 //     <o>Puls width modulation 2
@@ -241,7 +228,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_PWM2_CFG 0
+#define TZ_PWM2_CFG 3
 
 /*
 //     <o>Real Time Clock
@@ -251,7 +238,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_RTC_CFG 0
+#define TZ_RTC_CFG 3
 
 /*
 //     <o>Puls width modulation 2
@@ -261,7 +248,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_PWM2_CFG 0
+#define TZ_PWM2_CFG 3
 
 /*
 //     <o>Inter-integrated Circuit 0
@@ -271,7 +258,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_I2C0_CFG 0
+#define TZ_I2C0_CFG 3
 
 /*
 //     <o>Inter-integrated Circuit 1
@@ -281,7 +268,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_I2C1_CFG 0
+#define TZ_I2C1_CFG 3
 
 /*
 //     <o>Inter-integrated Sound
@@ -291,7 +278,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_I2S_CFG 0
+#define TZ_I2S_CFG 3
 
 /*
 //     <o>Serial Peripheral Interface 0
@@ -301,7 +288,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_SPI_CFG 0
+#define TZ_SPI_CFG 3
 
 /*
 //     <o>Serial Configuration Controller
@@ -321,7 +308,7 @@
 //       <3=>Non-secure (unprivileged)
 //     <i>Select 
 */
-#define TZ_UART0_CFG 0
+#define TZ_UART0_CFG 3
 
 /*
 //     <o>Universal Asynchronous Receiver Transmitter  1
@@ -342,19 +329,9 @@
 //------------------ <<< end of configuration section >>> -------------------
 */
 
-#if TZ_VENEER_MEM == 0
-#define TZ_VENEER_BASE  (TZ_CSRAM_NS_BASE - TZ_VENEER_SIZE)
-#define TZ_VENEER_LIMIT (TZ_CSRAM_NS_BASE - 1)
-#elif  TZ_VENEER_MEM == 1
-#define TZ_VENEER_BASE  (TZ_QSPI_NS_BASE - TZ_VENEER_SIZE)
-#define TZ_VENEER_LIMIT (TZ_QSPI_NS_BASE - 1)
-#elif  TZ_VENEER_MEM == 2
-#define TZ_VENEER_BASE  (TZ_MRAM_NS_BASE - TZ_VENEER_SIZE)
-#define TZ_VENEER_LIMIT (TZ_MRAM_NS_BASE - 1)
-#elif  TZ_VENEER_MEM == 3
-#define TZ_VENEER_BASE  (TZ_SRAM_NS_BASE - TZ_VENEER_SIZE)
-#define TZ_VENEER_LIMIT (TZ_SRAM_NS_BASE - 1))
-#endif
+#include "Musca-S1.h"
+
+#define TZ_VENEER_LIMIT (TZ_VENEER_BASE + TZ_VENEER_SIZE - 1)
 
 #define _PRIV(P) ((P) & 1U)
 #define _NS(P)  (((P) & 2U) >> 1U)
