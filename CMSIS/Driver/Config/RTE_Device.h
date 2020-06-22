@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------
- * Copyright (c) 2019 ARM Ltd.
+ * Copyright (c) 2019-2020 ARM Ltd.
  *
  * This software is provided 'as-is', without any express or implied warranty.
  * In no event will the authors be held liable for any damages arising from
@@ -17,8 +17,8 @@
  *
  * 3. This notice may not be removed or altered from any source distribution.
  *
- * $Date:        19. November 2019
- * $Revision:    V1.1.0
+ * $Date:        17. June 2020
+ * $Revision:    V1.2.0
  *
  * Project:      RTE Device Configuration for Musca-S1 device
  * -------------------------------------------------------------------------- */
@@ -232,5 +232,30 @@
 
 // </e>
 
+// <e> Flash eMRAM (Flash Interface 1) [Driver_FLASH0]
+// <i> Configuration settings for Driver_FLASH0 in component ::CMSIS Driver:Flash
+#define RTE_FLASH0                      0
+
+//   <o> Flash security mode
+//       <0=> Non-secure  <1=> Secure
+#define RTE_FLASH0_SECURE               1
+
+//   <o> Offset for Flash partition in eMRAM (Bytes) <0x0-0x200000:8>
+#define RTE_FLASH0_BASE_OFFSET             0x00000000
+
+//   <o> Size of Flash partition (Bytes) <0x400-0x200000:8>
+#define RTE_FLASH0_SIZE                    0x00200000
+
+//   <o> Size of Flash sectors (Bytes) <0x8-0x200000:8>
+#define RTE_FLASH0_SECTOR_SIZE             0x00001000
+
+//   <o> Size of Flash pages (Bytes) <0x8-0x200000:8>
+#define RTE_FLASH0_PAGE_SIZE               0x00001000
+
+//   <o> Minimum data size for programming (Bytes) <0x1-0x200000>
+#define RTE_FLASH0_PROGRAM_UNIT            0x1
+
+
+// </e>
 
 #endif  /* __RTE_DEVICE_H */

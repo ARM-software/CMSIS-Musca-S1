@@ -436,7 +436,7 @@
         <file category="sourceC"      name="Device/Source/tz_config.c"                    version="1.0.0" attr="config" condition="TZ Secure"/>
         <file category="header"       name="Device/Include/Template/tz_config.h"          version="1.0.0" attr="config" condition="TZ Secure"/>
         <!-- device configuration -->
-        <file category="header"       name="CMSIS/Driver/Config/RTE_Device.h"             version="1.0.0" attr="config"/>
+        <file category="header"       name="CMSIS/Driver/Config/RTE_Device.h"             version="1.2.0" attr="config"/>
       </files>
     </component>
 
