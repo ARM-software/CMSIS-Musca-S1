@@ -25,8 +25,8 @@
   </description>
 
   <releases>
-    <release version="1.1.1-dev1" date="2020-05-22">
-      Fixed startup code to be in sync with CMSIS templates.
+    <release version="1.1.1-dev1" date="2020-06-24">
+      Added MPC LUT Init debug sequence.
     </release>
     <release version="1.1.1-dev0" date="2020-05-18">
       Updated orderForm tag in board element
@@ -89,11 +89,41 @@
         // Bit 1 - Non-Invasive Debug (Hardwired to 1)
         // Bit 2 - Invasive Secure Debug
         // Bit 3 - Non-Invasive Secure Debug
+
+        __var MPC_SRAM0_LUTInit = 0x1;
+        __var MPC_SRAM1_LUTInit = 0x1;
+        __var MPC_SRAM2_LUTInit = 0x1;
+        __var MPC_SRAM3_LUTInit = 0x1;
+        __var MPC_eMRAM_LUTInit = 0x1;
+        __var MPC_CSRAM_LUTInit = 0x1;
+        __var MPC_QSPI_LUTInit  = 0x1;
       </debugvars>
 
       <sequences>
         <!-- Local processor reset not avaialable in ARMv8-M -->
         <sequence name="ResetProcessor" disable="true"/>
+
+        <sequence name="ResetSystem">
+          <block>
+            // System Control Space (SCS) offset as defined in Armv6-M/Armv7-M.
+            __var SCS_Addr   = 0xE000E000;
+            __var AIRCR_Addr = SCS_Addr + 0xD0C;
+            __var DHCSR_Addr = SCS_Addr + 0xDF0;
+
+            // Execute SYSRESETREQ via AIRCR
+            Write32(AIRCR_Addr, 0x05FA0004);
+          </block>
+          <!-- Reset Recovery: Wait for DHCSR.S_RESET_ST bit to clear on read -->
+          <control while="(Read32(DHCSR_Addr) &amp; 0x02000000)" timeout="500000"/>
+
+          <!-- reset MPCs if core has stopped (DHCSR.S_HALT) -->
+          <control if="(Read32(DHCSR_Addr) &amp; (1 &lt;&lt; 17 ))" info="check if core has stopped">
+            <block>
+              Sequence("MPC_LUT_Init");
+            </block>
+          </control>
+
+        </sequence>
 
         <sequence name="DebugDeviceUnlock">
           <block>
@@ -108,12 +138,12 @@
             __var SECDBGCLR_Val    = 0;
             __var RESET_MASK       = 0;
 
-            DAUTHSTATUS_Val  = Read32(0xE000EE04);    // struct CoreDebug_Type of v8m/cm33
-            DHCSR_Val        = Read32(0xE000EDF0);    // struct CoreDebug_Type of v8m/cm33
+            DAUTHSTATUS_Val  = Read32(0xE000EE04);                          // struct CoreDebug_Type of v8m/cm33
+            DHCSR_Val        = Read32(0xE000EDF0);                          // struct CoreDebug_Type of v8m/cm33
             SecureDebugAvail = (DAUTHSTATUS_Val &amp; 0x00000020) ? 1 : 0;  // SID: Secure Invasive Debug Implemented
 
-            RESET_MASK  = Read32(0x50021104);  // SSE-200 System Control Element - System Control register block - RESET_MASK register
-            RESET_MASK |= (1 &lt;&lt; 4) | (1 &lt;&lt; 5);   // RESET_MASK: Enable SYSRESETREQ0_EN and SYSRSTREQ1_EN
+            RESET_MASK  = Read32(0x50021104);                               // SSE-200 System Control Element - System Control register block - RESET_MASK register
+            RESET_MASK |= (1 &lt;&lt; 4) | (1 &lt;&lt; 5);                  // RESET_MASK: Enable SYSRESETREQ0_EN and SYSRSTREQ1_EN
             Write32(0x50021104, RESET_MASK);
 
           </block>
@@ -186,6 +216,153 @@
 
           </control>
         </sequence>
+
+
+        <!-- User-Defined Sequences -->
+        <sequence name="MPC_LUT_Init">
+          <block>
+            // MPC address (TRM Arm CoreLink SSE-200 Subsystem for Embedded Revision: r2p0)
+            __var MPC_SRAM0    = 0x50083000;
+            __var MPC_SRAM1    = 0x50084000;
+            __var MPC_SRAM2    = 0x50085000;
+            __var MPC_SRAM3    = 0x50086000;
+            __var MPC_eMRAM    = 0x50140000;
+            __var MPC_CSRAM    = 0x50130000;
+            __var MPC_QSPI     = 0x50120000;
+            __var MPC_CTRL     = 0x000;
+            __var MPC_BLK_MAX  = 0x010;
+            __var MPC_BLK_IDX  = 0x018;
+            __var MPC_BLK_LUT  = 0x01C;
+
+            __var mpc_adr = 0;
+            __var ctrl = 0;
+            __var blk_max = 0;
+            __var blk_idx = 0;
+
+            __var mpc_val = 0;
+            __var error_ctrl = 0;
+          </block>
+
+          <control if="MPC_SRAM0_LUTInit" info="Initialize MPC LUT SRAM Block 0">
+            <block>
+              mpc_adr = MPC_SRAM0;
+
+              Write32(mpc_adr + MPC_CTRL, (Read32(mpc_adr + MPC_CTRL) | (1 &lt;&lt; 8 )) );    // MPC_CTRL:    Set LUT index Auto-increment.
+              Write32(mpc_adr + MPC_BLK_IDX, 0x0);                                             // MPC_BLK_IDX: Set LUT index to 0.
+              blk_max = Read32(mpc_adr + MPC_BLK_MAX);                                         // MPC_BLK_MAX: read block maximum value
+              blk_idx = 0;
+            </block>
+            <control while="blk_idx &lt;= blk_max">
+              <block>
+                Write32(mpc_adr + MPC_BLK_LUT, 0x0);                                           // MPC_BLK_LUT: Set all blocks to secure.
+                blk_idx = blk_idx + 1;
+              </block>
+            </control>
+          </control>
+
+          <control if="MPC_SRAM1_LUTInit" info="Initialize MPC LUT SRAM Block 1">
+            <block>
+              mpc_adr = MPC_SRAM1;
+
+              Write32(mpc_adr + MPC_CTRL, (Read32(mpc_adr + MPC_CTRL) | (1 &lt;&lt; 8 )) );    // MPC_CTRL:    Set LUT index Auto-increment.
+              Write32(mpc_adr + MPC_BLK_IDX, 0x0);                                             // MPC_BLK_IDX: Set LUT index to 0.
+              blk_max = Read32(mpc_adr + MPC_BLK_MAX);                                         // MPC_BLK_MAX: read block maximum value
+              blk_idx = 0;
+            </block>
+            <control while="blk_idx &lt;= blk_max">
+              <block>
+                Write32(mpc_adr + MPC_BLK_LUT, 0x0);                                           // MPC_BLK_LUT: Set all blocks to secure.
+                blk_idx = blk_idx + 1;
+              </block>
+            </control>
+          </control>
+
+          <control if="MPC_SRAM2_LUTInit" info="Initialize MPC LUT SRAM Block 2">
+            <block>
+              mpc_adr = MPC_SRAM2;
+
+              Write32(mpc_adr + MPC_CTRL, (Read32(mpc_adr + MPC_CTRL) | (1 &lt;&lt; 8 )) );    // MPC_CTRL:    Set LUT index Auto-increment.
+              Write32(mpc_adr + MPC_BLK_IDX, 0x0);                                             // MPC_BLK_IDX: Set LUT index to 0.
+              blk_max = Read32(mpc_adr + MPC_BLK_MAX);                                         // MPC_BLK_MAX: read block maximum value
+              blk_idx = 0;
+            </block>
+            <control while="blk_idx &lt;= blk_max">
+              <block>
+                Write32(mpc_adr + MPC_BLK_LUT, 0x0);                                           // MPC_BLK_LUT: Set all blocks to secure.
+                blk_idx = blk_idx + 1;
+              </block>
+            </control>
+          </control>
+
+          <control if="MPC_SRAM3_LUTInit" info="Initialize MPC LUT SRAM Block 3">
+            <block>
+              mpc_adr = MPC_SRAM3;
+
+              Write32(mpc_adr + MPC_CTRL, (Read32(mpc_adr + MPC_CTRL) | (1 &lt;&lt; 8 )) );    // MPC_CTRL:    Set LUT index Auto-increment.
+              Write32(mpc_adr + MPC_BLK_IDX, 0x0);                                             // MPC_BLK_IDX: Set LUT index to 0.
+              blk_max = Read32(mpc_adr + MPC_BLK_MAX);                                         // MPC_BLK_MAX: read block maximum value
+              blk_idx = 0;
+            </block>
+            <control while="blk_idx &lt;= blk_max">
+              <block>
+                Write32(mpc_adr + MPC_BLK_LUT, 0x0);                                           // MPC_BLK_LUT: Set all blocks to secure.
+                blk_idx = blk_idx + 1;
+              </block>
+            </control>
+          </control>
+
+          <control if="MPC_eMRAM_LUTInit" info="Initialize MPC LUT eMRAM">
+            <block>
+              mpc_adr = MPC_eMRAM;
+
+              Write32(mpc_adr + MPC_CTRL, (Read32(mpc_adr + MPC_CTRL) | (1 &lt;&lt; 8 )) );    // MPC_CTRL:    Set LUT index Auto-increment.
+              Write32(mpc_adr + MPC_BLK_IDX, 0x0);                                             // MPC_BLK_IDX: Set LUT index to 0.
+              blk_max = Read32(mpc_adr + MPC_BLK_MAX);                                         // MPC_BLK_MAX: read block maximum value
+              blk_idx = 0;
+            </block>
+            <control while="blk_idx &lt;= blk_max">
+              <block>
+                Write32(mpc_adr + MPC_BLK_LUT, 0x0);                                           // MPC_BLK_LUT: Set all blocks to secure.
+                blk_idx = blk_idx + 1;
+              </block>
+            </control>
+          </control>
+
+          <control if="MPC_CSRAM_LUTInit" info="Initialize MPC LUT Code SRAM">
+            <block>
+              mpc_adr = MPC_CSRAM;
+
+              Write32(mpc_adr + MPC_CTRL, (Read32(mpc_adr + MPC_CTRL) | (1 &lt;&lt; 8 )) );    // MPC_CTRL:    Set LUT index Auto-increment.
+              Write32(mpc_adr + MPC_BLK_IDX, 0x0);                                             // MPC_BLK_IDX: Set LUT index to 0.
+              blk_max = Read32(mpc_adr + MPC_BLK_MAX);                                         // MPC_BLK_MAX: read block maximum value
+              blk_idx = 0;
+            </block>
+            <control while="blk_idx &lt;= blk_max">
+              <block>
+                Write32(mpc_adr + MPC_BLK_LUT, 0x0);                                           // MPC_BLK_LUT: Set all blocks to secure.
+                blk_idx = blk_idx + 1;
+              </block>
+            </control>
+          </control>
+
+          <control if="MPC_QSPI_LUTInit" info="Initialize MPC LUT QSPI Flash">
+            <block>
+              mpc_adr = MPC_QSPI;
+
+              Write32(mpc_adr + MPC_CTRL, (Read32(mpc_adr + MPC_CTRL) | (1 &lt;&lt; 8 )) );    // MPC_CTRL:    Set LUT index Auto-increment.
+              Write32(mpc_adr + MPC_BLK_IDX, 0x0);                                             // MPC_BLK_IDX: Set LUT index to 0.
+              blk_max = Read32(mpc_adr + MPC_BLK_MAX);                                         // MPC_BLK_MAX: read block maximum value
+              blk_idx = 0;
+            </block>
+            <control while="blk_idx &lt;= blk_max">
+              <block>
+                Write32(mpc_adr + MPC_BLK_LUT, 0x0);                                           // MPC_BLK_LUT: Set all blocks to secure.
+                blk_idx = blk_idx + 1;
+              </block>
+            </control>
+          </control>
+        </sequence>
+
       </sequences>
 
       <device Dname="Musca-S1">
@@ -229,7 +406,7 @@
     <condition id="ARMCC">
       <require Tcompiler="ARMCC"/>
     </condition>
-    
+
     <condition id="TZ Secure">
       <description>TrustZone (Secure)</description>
       <require Dtz="TZ"/>
