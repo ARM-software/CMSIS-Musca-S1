@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="project_projx.xsd">
+
+  <SchemaVersion>2.1</SchemaVersion>
+
+  <Header>### uVision Project, (C) Keil Software</Header>
+
+  <Targets>
+    <Target>
+      <TargetName>Musca-S1_MRAM</TargetName>
+      <ToolsetNumber>0x4</ToolsetNumber>
+      <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>6140000::V6.14::ARMCLANG</pCCUsed>
+      <uAC6>1</uAC6>
+      <TargetOption>
+        <TargetCommonOption>
+          <Device>Musca-S1:CM33-0</Device>
+          <Vendor>ARM</Vendor>
+          <PackID>ARM.Musca-S1_DFP.1.2.0-dev0-tfm</PackID>
+          <PackURL>http://www.keil.com/pack/</PackURL>
+          <Cpu>IRAM(0x00000000,0x00200000) IRAM2(0x0A000000,0x00200000) IROM(0x00200000,0x02000000) IROM2(0x0E000000,0x00000400) XRAM(0x10000000,0x00200000) XRAM2(0x1A000000,0x00200000) XRAM3(0x20000000,0x00080000) XROM(0x10200000,0x02000000) XROM2(0x1E000000,0x00000400) CPUTYPE("Cortex-M33") FPU3(SFPU) DSP TZ CLOCK(12000000) ESEL ELITTLE</Cpu>
+          <FlashUtilSpec></FlashUtilSpec>
+          <StartupFile></StartupFile>
+          <FlashDriverDll>UL2V8M(-S0 -C0 -P0 -FD20000000 -FC20000 -FN1 -FF0MT25QL512 -FS010200000 -FL0800000 -FP0($$Device:Musca-S1$Flash\MT25QL512.FLM))</FlashDriverDll>
+          <DeviceId>0</DeviceId>
+          <RegisterFile>$$Device:Musca-S1$Device\Include\Musca-S1.h</RegisterFile>
+          <MemoryEnv></MemoryEnv>
+          <Cmp></Cmp>
+          <Asm></Asm>
+          <Linker></Linker>
+          <OHString></OHString>
+          <InfinionOptionDll></InfinionOptionDll>
+          <SLE66CMisc></SLE66CMisc>
+          <SLE66AMisc></SLE66AMisc>
+          <SLE66LinkerMisc></SLE66LinkerMisc>
+          <SFDFile>$$Device:Musca-S1$SVD\Musca_S1.svd</SFDFile>
+          <bCustSvd>0</bCustSvd>
+          <UseEnv>0</UseEnv>
+          <BinPath></BinPath>
+          <IncludePath></IncludePath>
+          <LibPath></LibPath>
+          <RegisterFilePath></RegisterFilePath>
+          <DBRegisterFilePath></DBRegisterFilePath>
+          <TargetStatus>
+            <Error>0</Error>
+            <ExitCodeStop>0</ExitCodeStop>
+            <ButtonStop>0</ButtonStop>
+            <NotGenerated>0</NotGenerated>
+            <InvalidFlash>1</InvalidFlash>
+          </TargetStatus>
+          <OutputDirectory>.\Objects\</OutputDirectory>
+          <OutputName>tfm_s</OutputName>
+          <CreateExecutable>1</CreateExecutable>
+          <CreateLib>0</CreateLib>
+          <CreateHexFile>0</CreateHexFile>
+          <DebugInformation>1</DebugInformation>
+          <BrowseInformation>1</BrowseInformation>
+          <ListingPath>.\Listings\</ListingPath>
+          <HexFormatSelection>1</HexFormatSelection>
+          <Merge32K>0</Merge32K>
+          <CreateBatchFile>0</CreateBatchFile>
+          <BeforeCompile>
+            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg2>0</RunUserProg2>
+            <UserProg1Name></UserProg1Name>
+            <UserProg2Name></UserProg2Name>
+            <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
+            <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopU1X>0</nStopU1X>
+            <nStopU2X>0</nStopU2X>
+          </BeforeCompile>
+          <BeforeMake>
+            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg2>0</RunUserProg2>
+            <UserProg1Name></UserProg1Name>
+            <UserProg2Name></UserProg2Name>
+            <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
+            <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopB1X>0</nStopB1X>
+            <nStopB2X>0</nStopB2X>
+          </BeforeMake>
+          <AfterMake>
+            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg2>0</RunUserProg2>
+            <UserProg1Name></UserProg1Name>
+            <UserProg2Name></UserProg2Name>
+            <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
+            <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopA1X>0</nStopA1X>
+            <nStopA2X>0</nStopA2X>
+          </AfterMake>
+          <SelectedForBatchBuild>0</SelectedForBatchBuild>
+          <SVCSIdString></SVCSIdString>
+        </TargetCommonOption>
+        <CommonProperty>
+          <UseCPPCompiler>0</UseCPPCompiler>
+          <RVCTCodeConst>0</RVCTCodeConst>
+          <RVCTZI>0</RVCTZI>
+          <RVCTOtherData>0</RVCTOtherData>
+          <ModuleSelection>0</ModuleSelection>
+          <IncludeInBuild>1</IncludeInBuild>
+          <AlwaysBuild>0</AlwaysBuild>
+          <GenerateAssemblyFile>0</GenerateAssemblyFile>
+          <AssembleAssemblyFile>0</AssembleAssemblyFile>
+          <PublicsOnly>0</PublicsOnly>
+          <StopOnExitCode>3</StopOnExitCode>
+          <CustomArgument></CustomArgument>
+          <IncludeLibraryModules></IncludeLibraryModules>
+          <ComprImg>1</ComprImg>
+        </CommonProperty>
+        <DllOption>
+          <SimDllName></SimDllName>
+          <SimDllArguments></SimDllArguments>
+          <SimDlgDll></SimDlgDll>
+          <SimDlgDllArguments></SimDlgDllArguments>
+          <TargetDllName>SARMV8M.DLL</TargetDllName>
+          <TargetDllArguments> -MPU</TargetDllArguments>
+          <TargetDlgDll>TCM.DLL</TargetDlgDll>
+          <TargetDlgDllArguments>-pCM33</TargetDlgDllArguments>
+        </DllOption>
+        <DebugOption>
+          <OPTHX>
+            <HexSelection>1</HexSelection>
+            <HexRangeLowAddress>0</HexRangeLowAddress>
+            <HexRangeHighAddress>0</HexRangeHighAddress>
+            <HexOffset>0</HexOffset>
+            <Oh166RecLen>16</Oh166RecLen>
+          </OPTHX>
+        </DebugOption>
+        <Utilities>
+          <Flash1>
+            <UseTargetDll>1</UseTargetDll>
+            <UseExternalTool>0</UseExternalTool>
+            <RunIndependent>0</RunIndependent>
+            <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
+            <Capability>1</Capability>
+            <DriverSelection>4101</DriverSelection>
+          </Flash1>
+          <bUseTDR>1</bUseTDR>
+          <Flash2>BIN\UL2V8M.DLL</Flash2>
+          <Flash3>"" ()</Flash3>
+          <Flash4></Flash4>
+          <pFcarmOut></pFcarmOut>
+          <pFcarmGrp></pFcarmGrp>
+          <pFcArmRoot></pFcArmRoot>
+          <FcArmLst>0</FcArmLst>
+        </Utilities>
+        <TargetArmAds>
+          <ArmAdsMisc>
+            <GenerateListings>0</GenerateListings>
+            <asHll>1</asHll>
+            <asAsm>1</asAsm>
+            <asMacX>1</asMacX>
+            <asSyms>1</asSyms>
+            <asFals>1</asFals>
+            <asDbgD>1</asDbgD>
+            <asForm>1</asForm>
+            <ldLst>0</ldLst>
+            <ldmm>1</ldmm>
+            <ldXref>1</ldXref>
+            <BigEnd>0</BigEnd>
+            <AdsALst>1</AdsALst>
+            <AdsACrf>1</AdsACrf>
+            <AdsANop>0</AdsANop>
+            <AdsANot>0</AdsANot>
+            <AdsLLst>1</AdsLLst>
+            <AdsLmap>1</AdsLmap>
+            <AdsLcgr>1</AdsLcgr>
+            <AdsLsym>1</AdsLsym>
+            <AdsLszi>1</AdsLszi>
+            <AdsLtoi>1</AdsLtoi>
+            <AdsLsun>1</AdsLsun>
+            <AdsLven>1</AdsLven>
+            <AdsLsxf>1</AdsLsxf>
+            <RvctClst>0</RvctClst>
+            <GenPPlst>0</GenPPlst>
+            <AdsCpuType>"Cortex-M33"</AdsCpuType>
+            <RvctDeviceName></RvctDeviceName>
+            <mOS>0</mOS>
+            <uocRom>0</uocRom>
+            <uocRam>0</uocRam>
+            <hadIROM>1</hadIROM>
+            <hadIRAM>1</hadIRAM>
+            <hadXRAM>1</hadXRAM>
+            <uocXRam>0</uocXRam>
+            <RvdsVP>2</RvdsVP>
+            <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
+            <hadIRAM2>1</hadIRAM2>
+            <hadIROM2>1</hadIROM2>
+            <StupSel>8</StupSel>
+            <useUlib>0</useUlib>
+            <EndSel>1</EndSel>
+            <uLtcg>0</uLtcg>
+            <nSecure>1</nSecure>
+            <RoSelD>4</RoSelD>
+            <RwSelD>4</RwSelD>
+            <CodeSel>0</CodeSel>
+            <OptFeed>0</OptFeed>
+            <NoZi1>0</NoZi1>
+            <NoZi2>0</NoZi2>
+            <NoZi3>0</NoZi3>
+            <NoZi4>0</NoZi4>
+            <NoZi5>0</NoZi5>
+            <Ro1Chk>0</Ro1Chk>
+            <Ro2Chk>0</Ro2Chk>
+            <Ro3Chk>0</Ro3Chk>
+            <Ir1Chk>1</Ir1Chk>
+            <Ir2Chk>1</Ir2Chk>
+            <Ra1Chk>0</Ra1Chk>
+            <Ra2Chk>0</Ra2Chk>
+            <Ra3Chk>0</Ra3Chk>
+            <Im1Chk>1</Im1Chk>
+            <Im2Chk>1</Im2Chk>
+            <OnChipMemories>
+              <Ocm1>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </Ocm1>
+              <Ocm2>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </Ocm2>
+              <Ocm3>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </Ocm3>
+              <Ocm4>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </Ocm4>
+              <Ocm5>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </Ocm5>
+              <Ocm6>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </Ocm6>
+              <IRAM>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x200000</Size>
+              </IRAM>
+              <IROM>
+                <Type>1</Type>
+                <StartAddress>0x200000</StartAddress>
+                <Size>0x2000000</Size>
+              </IROM>
+              <XRAM>
+                <Type>1</Type>
+                <StartAddress>0x10000000</StartAddress>
+                <Size>0x200000</Size>
+              </XRAM>
+              <OCR_RVCT1>
+                <Type>1</Type>
+                <StartAddress>0x10200000</StartAddress>
+                <Size>0x2000000</Size>
+              </OCR_RVCT1>
+              <OCR_RVCT2>
+                <Type>1</Type>
+                <StartAddress>0x1e000000</StartAddress>
+                <Size>0x400</Size>
+              </OCR_RVCT2>
+              <OCR_RVCT3>
+                <Type>1</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </OCR_RVCT3>
+              <OCR_RVCT4>
+                <Type>1</Type>
+                <StartAddress>0x200000</StartAddress>
+                <Size>0x2000000</Size>
+              </OCR_RVCT4>
+              <OCR_RVCT5>
+                <Type>1</Type>
+                <StartAddress>0xe000000</StartAddress>
+                <Size>0x400</Size>
+              </OCR_RVCT5>
+              <OCR_RVCT6>
+                <Type>0</Type>
+                <StartAddress>0x10000000</StartAddress>
+                <Size>0x200000</Size>
+              </OCR_RVCT6>
+              <OCR_RVCT7>
+                <Type>0</Type>
+                <StartAddress>0x1a000000</StartAddress>
+                <Size>0x200000</Size>
+              </OCR_RVCT7>
+              <OCR_RVCT8>
+                <Type>0</Type>
+                <StartAddress>0x20000000</StartAddress>
+                <Size>0x80000</Size>
+              </OCR_RVCT8>
+              <OCR_RVCT9>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x200000</Size>
+              </OCR_RVCT9>
+              <OCR_RVCT10>
+                <Type>0</Type>
+                <StartAddress>0xa000000</StartAddress>
+                <Size>0x200000</Size>
+              </OCR_RVCT10>
+            </OnChipMemories>
+            <RvctStartVector></RvctStartVector>
+          </ArmAdsMisc>
+          <Cads>
+            <interw>1</interw>
+            <Optim>7</Optim>
+            <oTime>0</oTime>
+            <SplitLS>0</SplitLS>
+            <OneElfS>1</OneElfS>
+            <Strict>0</Strict>
+            <EnumInt>0</EnumInt>
+            <PlainCh>0</PlainCh>
+            <Ropi>0</Ropi>
+            <Rwpi>0</Rwpi>
+            <wLevel>3</wLevel>
+            <uThumb>0</uThumb>
+            <uSurpInc>0</uSurpInc>
+            <uC99>0</uC99>
+            <uGnu>0</uGnu>
+            <useXO>0</useXO>
+            <v6Lang>3</v6Lang>
+            <v6LangP>3</v6LangP>
+            <vShortEn>1</vShortEn>
+            <vShortWch>1</vShortWch>
+            <v6Lto>0</v6Lto>
+            <v6WtE>0</v6WtE>
+            <v6Rtti>0</v6Rtti>
+            <VariousControls>
+              <MiscControls></MiscControls>
+              <Define></Define>
+              <Undefine></Undefine>
+              <IncludePath></IncludePath>
+            </VariousControls>
+          </Cads>
+          <Aads>
+            <interw>1</interw>
+            <Ropi>0</Ropi>
+            <Rwpi>0</Rwpi>
+            <thumb>0</thumb>
+            <SplitLS>0</SplitLS>
+            <SwStkChk>0</SwStkChk>
+            <NoWarn>0</NoWarn>
+            <uSurpInc>0</uSurpInc>
+            <useXO>0</useXO>
+            <ClangAsOpt>1</ClangAsOpt>
+            <VariousControls>
+              <MiscControls></MiscControls>
+              <Define></Define>
+              <Undefine></Undefine>
+              <IncludePath></IncludePath>
+            </VariousControls>
+          </Aads>
+          <LDads>
+            <umfTarg>0</umfTarg>
+            <Ropi>0</Ropi>
+            <Rwpi>0</Rwpi>
+            <noStLib>0</noStLib>
+            <RepFail>1</RepFail>
+            <useFile>0</useFile>
+            <TextAddressRange>0x00200000</TextAddressRange>
+            <DataAddressRange>0x00000000</DataAddressRange>
+            <pXoBase></pXoBase>
+            <ScatterFile>.\RTE\TFM\tfm_common_s.sct</ScatterFile>
+            <IncludeLibs></IncludeLibs>
+            <IncludeLibsPath></IncludeLibsPath>
+            <Misc>--import_cmse_lib_out="Objects/tfm_s_CMSE_Lib.o"
+--predefine="-include tfm_config.h"
+--predefine="-include tfm_config_rte.h"
+--predefine="-IRTE/_Musca-S1_MRAM/"
+--predefine="-IRTE/TFM_Platform/Musca-S1_CM33-0/"
+--diag_suppress=L6312,L6314,L6329</Misc>
+            <LinkerInputFile></LinkerInputFile>
+            <DisabledWarnings></DisabledWarnings>
+          </LDads>
+        </TargetArmAds>
+      </TargetOption>
+      <Groups>
+        <Group>
+          <GroupName>System Files</GroupName>
+          <Files>
+            <File>
+              <FileName>Driver_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Driver_USART.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Device</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Security</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::TFM</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::TFM Platform</GroupName>
+        </Group>
+      </Groups>
+    </Target>
+  </Targets>
+
+  <RTE>
+    <apis>
+      <api Capiversion="2.3.0" Cclass="CMSIS Driver" Cgroup="Flash" exclusive="0">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.1-dev0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="2.4.0" Cclass="CMSIS Driver" Cgroup="USART" exclusive="0">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.1-dev0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Attest HAL" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Boot Seed" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Crypto Keys" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Device ID" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="NV Counters" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="SPM HAL" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="System" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Test" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+    </apis>
+    <components>
+      <component Capiversion="2.3.0" Cclass="CMSIS Driver" Cgroup="Flash" Csub="MRAM" Cvendor="ARM" Cversion="1.1.0" condition="Musca-S1 CMSIS">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="2.4.0" Cclass="CMSIS Driver" Cgroup="USART" Csub="Custom" Cvendor="ARM" Cversion="1.0.0" custom="1">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.1-dev0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.4.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.1-dev0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Security" Cgroup="mbed Crypto" Cvendor="ARM" Cversion="3.0.1">
+        <package name="mbedCrypto" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/mbedCrypto/" vendor="ARM" version="3.0.1"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Attest HAL" Csub="Template" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Boot Seed" Csub="Dummy" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Crypto Keys" Csub="Dummy" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Device ID" Csub="Dummy" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM Platform" Cgroup="Memory Map" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Musca-S1">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="NV Counters" Csub="Dummy" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform NV Counters">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="SPM HAL" Csub="Platform" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform SPM HAL Musca-S1">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="System" Csub="Template" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform System Musca-S1">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Test" Csub="Platform" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Test Musca-S1">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Core" Cvariant="SFN" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Library" Csub="QCBOR" Cvendor="ARM" Cversion="1.0.0">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Library" Csub="T_COSE" Cvendor="ARM" Cversion="1.0.0" condition="T_COSE (Secure)">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Secure Service" Csub="Crypto" Cvendor="ARM" Cversion="1.0.0" Pre_Include_Global_h="#define MBEDTLS_CONFIG_FILE &quot;tfm_mbedcrypto_config.h&quot;" condition="TFM Crypto Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Secure Service" Csub="Initial Attestation" Cvendor="ARM" Cversion="1.0.0" condition="TFM Initial Attestation Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Secure Service" Csub="Internal Trusted Storage" Cvendor="ARM" Cversion="1.0.0" condition="TFM Internal Trusted Storage Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Secure Service" Csub="Secure Storage" Cvariant="Encrypted" Cvendor="ARM" Cversion="1.0.0" condition="TFM Encrypted Secure Storage Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="Core" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="IRQ" Cvendor="ARM" Cversion="1.0.0" condition="TFM IRQ Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="SST" Cvendor="ARM" Cversion="1.0.0" condition="TFM SST Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="Secure Client" Cvendor="ARM" Cversion="1.0.0" condition="TFM Secure Client Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test" Csub="Attestation" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test Attestation (Secure)">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test" Csub="Crypto" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test Crypto (Secure)">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test" Csub="Framework" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test Framework (Secure)">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test" Csub="ITS" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test ITS (Secure)">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test" Csub="SST" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test SST (Secure)">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+    </components>
+    <files>
+      <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="1.2.0">
+        <instance index="0">RTE\Device\Musca-S1_CM33-0\RTE_Device.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="ARMCC6" name="Device\Source\ARM\armcc6_arm.sct" version="1.0.0">
+        <instance index="0">RTE\Device\Musca-S1_CM33-0\armcc6_arm.sct</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceC" name="Device\Source\startup_Musca-S1.c" version="2.0.0">
+        <instance index="0">RTE\Device\Musca-S1_CM33-0\startup_Musca-S1.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceC" name="Device\Source\system_Musca-S1.c" version="2.0.0">
+        <instance index="0">RTE\Device\Musca-S1_CM33-0\system_Musca-S1.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceC" condition="TZ Secure" name="Device\Source\tz_config.c" version="1.0.0">
+        <instance index="0">RTE\Device\Musca-S1_CM33-0\tz_config.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" condition="TZ Secure" name="Device\Include\Template\tz_config.h" version="1.0.0">
+        <instance index="0">RTE\Device\Musca-S1_CM33-0\tz_config.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="configs\mbedTLS_config.h" version="1.0.0">
+        <instance index="0">RTE\Security\mbedTLS_config.h</instance>
+        <component Cclass="Security" Cgroup="mbed Crypto" Cvendor="ARM" Cversion="3.0.1"/>
+        <package name="mbedCrypto" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/mbedCrypto/" vendor="ARM" version="3.0.1"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="ARMCC6" name="platform\ext\common\armclang\tfm_common_s.sct" version="1.0.0">
+        <instance index="0">RTE\TFM\tfm_common_s.sct</instance>
+        <component Cclass="TFM" Cgroup="Core" Cvariant="SFN" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="rte\config\secure\tfm_config.h" version="1.0.0">
+        <instance index="0">RTE\TFM\tfm_config.h</instance>
+        <component Cclass="TFM" Cgroup="Core" Cvariant="SFN" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" name="rte\config\tfm_config_rte.h" version="1.0.0">
+        <instance index="0">RTE\TFM\tfm_config_rte.h</instance>
+        <component Cclass="TFM" Cgroup="Core" Cvariant="SFN" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="secure_fw\services\crypto\config\tfm_mbedcrypto_config.h" version="1.0.0">
+        <instance index="0">RTE\TFM\tfm_mbedcrypto_config.h</instance>
+        <component Cclass="TFM" Cgroup="Secure Service" Csub="Crypto" Cvendor="ARM" Cversion="1.0.0" Pre_Include_Global_h="#define MBEDTLS_CONFIG_FILE &quot;tfm_mbedcrypto_config.h&quot;" condition="TFM Crypto Service"/>
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="TF-M\partition\flash_layout.h" version="1.0.0">
+        <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\flash_layout.h</instance>
+        <component Cclass="TFM Platform" Cgroup="Memory Map" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Musca-S1"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="TF-M\partition\mem_layout.h" version="1.0.0">
+        <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\mem_layout.h</instance>
+        <component Cclass="TFM Platform" Cgroup="Memory Map" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Musca-S1"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="TF-M\partition\region_defs.h" version="1.0.0">
+        <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\region_defs.h</instance>
+        <component Cclass="TFM Platform" Cgroup="Memory Map" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Musca-S1"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" name="TF-M\services\src\tfm_platform_system.c" version="1.0.0">
+        <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\tfm_platform_system.c</instance>
+        <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="System" Csub="Template" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform System Musca-S1"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" name="platform\ext\common\template\attest_hal.c" version="1.0.0">
+        <instance index="0">RTE\TFM_Platform\attest_hal.c</instance>
+        <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Attest HAL" Csub="Template" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform"/>
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+    </files>
+  </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>&lt;Project Info&gt;</LayName>
+        <LayDesc></LayDesc>
+        <LayUrl></LayUrl>
+        <LayKeys></LayKeys>
+        <LayCat></LayCat>
+        <LayLic></LayLic>
+        <LayTarg>0</LayTarg>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
+
+</Project>
