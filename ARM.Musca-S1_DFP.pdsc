@@ -646,6 +646,55 @@
         <category>Getting Started</category>
       </attributes>
     </example>
+
+    <example name="TF-M" doc="Abstract.txt" folder="TF-M/project/tfm">
+      <description>TF-M Project Template</description>
+      <board name="V2M-Musca-S1" vendor="ARM"/>
+      <project>
+        <environment name="uv" load="tfm.uvmpw"/>
+      </project>
+      <attributes>
+        <component Cclass="TFM"/>
+        <component Cclass="TFM Platform"/>
+        <category>TF-M</category>
+      </attributes>
+    </example>
+    <example name="TF-M Test SFN" doc="Abstract.txt" folder="TF-M/test/sfn">
+      <description>TF-M Regression Test - SFN (Secure Functions aka Library Mode)</description>
+      <board name="V2M-Musca-S1" vendor="ARM"/>
+      <project>
+        <environment name="uv" load="tfm.uvmpw"/>
+      </project>
+      <attributes>
+        <component Cclass="TFM"/>
+        <component Cclass="TFM Platform"/>
+        <category>TF-M</category>
+      </attributes>
+    </example>
+    <example name="TF-M Test IPC Level 1" doc="Abstract.txt" folder="TF-M/test/ipc_l1">
+      <description>TF-M Regression Test - IPC Mode, Isolation Level 1</description>
+      <board name="V2M-Musca-S1" vendor="ARM"/>
+      <project>
+        <environment name="uv" load="tfm.uvmpw"/>
+      </project>
+      <attributes>
+        <component Cclass="TFM"/>
+        <component Cclass="TFM Platform"/>
+        <category>TF-M</category>
+      </attributes>
+    </example>
+    <example name="TF-M Test IPC Level 2" doc="Abstract.txt" folder="TF-M/test/ipc_l2">
+      <description>TF-M Regression Test - IPC Mode, Isolation Level 2</description>
+      <board name="V2M-Musca-S1" vendor="ARM"/>
+      <project>
+        <environment name="uv" load="tfm.uvmpw"/>
+      </project>
+      <attributes>
+        <component Cclass="TFM"/>
+        <component Cclass="TFM Platform"/>
+        <category>TF-M</category>
+      </attributes>
+    </example>
   </examples>
 
  </package>
