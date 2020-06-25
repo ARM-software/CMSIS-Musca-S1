@@ -89,7 +89,7 @@
             <nStopA1X>0</nStopA1X>
             <nStopA2X>0</nStopA2X>
           </AfterMake>
-          <SelectedForBatchBuild>0</SelectedForBatchBuild>
+          <SelectedForBatchBuild>1</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
         </TargetCommonOption>
         <CommonProperty>
@@ -467,6 +467,18 @@
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
       </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="System" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Test" exclusive="1">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </api>
     </apis>
     <components>
       <component Capiversion="2.3.0" Cclass="CMSIS Driver" Cgroup="Flash" Csub="MRAM" Cvendor="ARM" Cversion="1.1.0" condition="Musca-S1 CMSIS">
@@ -541,7 +553,19 @@
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
       </component>
-      <component Cclass="TFM" Cgroup="Core" Cvariant="SFN" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core">
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="System" Csub="Template" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform System Musca-S1">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="Test" Csub="Platform" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Test Musca-S1">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Core" Cvariant="IPC" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core">
         <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
@@ -577,7 +601,49 @@
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
       </component>
+      <component Cclass="TFM" Cgroup="Secure Service" Csub="Platform" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
       <component Cclass="TFM" Cgroup="Secure Service" Csub="Secure Storage" Cvariant="Encrypted" Cvendor="ARM" Cversion="1.0.0" condition="TFM Encrypted Secure Storage Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="Core" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="IPC" Cvendor="ARM" Cversion="1.0.0" condition="TFM IPC Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="IRQ" Cvendor="ARM" Cversion="1.0.0" condition="TFM IRQ Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="SST" Cvendor="ARM" Cversion="1.0.0" condition="TFM SST Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test Service" Csub="Secure Client" Cvendor="ARM" Cversion="1.0.0" condition="TFM Secure Client Test Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Test" Csub="Framework" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test Framework (Secure)">
         <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
@@ -643,7 +709,7 @@
       </file>
       <file attr="config" category="linkerScript" condition="ARMCC6" name="platform\ext\common\armclang\tfm_common_s.sct" version="1.0.0">
         <instance index="0">RTE\TFM\tfm_common_s.sct</instance>
-        <component Cclass="TFM" Cgroup="Core" Cvariant="SFN" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
+        <component Cclass="TFM" Cgroup="Core" Cvariant="IPC" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
         <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
@@ -651,7 +717,7 @@
       </file>
       <file attr="config" category="header" name="rte\config\secure\tfm_config.h" version="1.0.0">
         <instance index="0">RTE\TFM\tfm_config.h</instance>
-        <component Cclass="TFM" Cgroup="Core" Cvariant="SFN" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
+        <component Cclass="TFM" Cgroup="Core" Cvariant="IPC" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
         <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
@@ -659,7 +725,7 @@
       </file>
       <file attr="config" category="source" name="rte\config\tfm_config_rte.h" version="1.0.0">
         <instance index="0">RTE\TFM\tfm_config_rte.h</instance>
-        <component Cclass="TFM" Cgroup="Core" Cvariant="SFN" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
+        <component Cclass="TFM" Cgroup="Core" Cvariant="IPC" Cvendor="ARM" Cversion="1.0.0" condition="TFM Core"/>
         <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
@@ -692,6 +758,14 @@
       <file attr="config" category="header" name="TF-M\partition\region_defs.h" version="1.0.0">
         <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\region_defs.h</instance>
         <component Cclass="TFM Platform" Cgroup="Memory Map" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Musca-S1"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" name="TF-M\services\src\tfm_platform_system.c" version="1.0.0">
+        <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\tfm_platform_system.c</instance>
+        <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="System" Csub="Template" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform System Musca-S1"/>
         <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>

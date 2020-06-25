@@ -44,12 +44,16 @@
 #define RTE_TFM_LIBRARY_QCBOR           /* TF-M QCBOR Library */
 /*  ARM::TFM:Library:T_COSE:1.0.0 */
 #define RTE_TFM_LIBRARY_T_COSE          /* TF-M T_COSE Library */
+/*  ARM::TFM:Secure Service:Audit Logging:1.0.0 */
+#define RTE_TFM_SS_AUDIT_LOGGING        /* TF-M Audit Logging Service */
 /*  ARM::TFM:Secure Service:Crypto:1.0.0 */
 #define RTE_TFM_SS_CRYPTO               /* TF-M Crypto Secure Service */
 /*  ARM::TFM:Secure Service:Initial Attestation:1.0.0 */
 #define RTE_TFM_SS_INITIAL_ATTESTATION  /* TF-M Initial Attestation Service */
 /*  ARM::TFM:Secure Service:Internal Trusted Storage:1.0.0 */
 #define RTE_TFM_SS_ITS                  /* TF-M Internal Trusted Storage Service */
+/*  ARM::TFM:Secure Service:Platform:1.0.0 */
+#define RTE_TFM_SS_PLATFORM             /* TF-M Platform Service */
 /*  ARM::TFM:Secure Service:Secure Storage:Encrypted:1.0.0 */
 #define RTE_TFM_SS_SST                  /* TF-M Secure Storage Service */
         #define RTE_TFM_SS_SST_ENCRYPTED        /* TF-M Encrypted Secure Storage Service */
@@ -61,16 +65,8 @@
 #define RTE_TFM_TS_SST                  /* TF-M SST Test Service */
 /*  ARM::TFM:Test Service:Secure Client:1.0.0 */
 #define RTE_TFM_TS_SECURE_CLIENT        /* TF-M Secure Client Test Service */
-/*  ARM::TFM:Test:Attestation:1.0.0 */
-#define RTE_TFM_TEST_ATTESTATION_S      /* TF-M Test Attestation (Secure) */
-/*  ARM::TFM:Test:Crypto:1.0.0 */
-#define RTE_TFM_TEST_CRYPTO_S           /* TF-M Test Crypto (Secure) */
 /*  ARM::TFM:Test:Framework:1.0.0 */
 #define RTE_TFM_TEST_FRAMEWORK_S        /* TF-M Test Framework (Secure) */
-/*  ARM::TFM:Test:ITS:1.0.0 */
-#define RTE_TFM_TEST_ITS_S              /* TF-M Test ITS (Secure) */
-/*  ARM::TFM:Test:SST:1.0.0 */
-#define RTE_TFM_TEST_SST_S              /* TF-M Test SST (Secure) */
 
 
 #endif /* RTE_COMPONENTS_H */

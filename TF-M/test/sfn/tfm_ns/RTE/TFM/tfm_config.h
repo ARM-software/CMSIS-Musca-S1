@@ -23,7 +23,7 @@
 //   </c>
 
 //   <c>Audit Logging
-//#define TFM_PARTITION_AUDIT_LOG
+#define TFM_PARTITION_AUDIT_LOG
 //   </c>
 
 //   <c>Crypto
@@ -31,7 +31,7 @@
 //   </c>
 
 //   <c>Platform
-//#define TFM_PARTITION_PLATFORM
+#define TFM_PARTITION_PLATFORM
 //   </c>
 
 //   <c>Initial Attestation

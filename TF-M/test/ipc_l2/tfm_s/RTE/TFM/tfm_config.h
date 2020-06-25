@@ -18,7 +18,7 @@
 
 // <o>TF-M Isolation Level
 //   <1=> 1  <2=> 2  <3=> 3
-#define TFM_LVL 1
+#define TFM_LVL 2
 
 // <c>Non-Secure Client Identification
 //#define TFM_NS_CLIENT_IDENTIFICATION

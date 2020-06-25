@@ -31,7 +31,7 @@
 //   </c>
 
 //   <c>Platform
-//#define TFM_PARTITION_PLATFORM
+#define TFM_PARTITION_PLATFORM
 //   </c>
 
 //   <c>Initial Attestation

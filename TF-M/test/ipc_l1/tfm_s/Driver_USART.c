@@ -215,7 +215,7 @@ static int32_t ARM_USART_Send(const void *data, uint32_t num)
     while (USART->FR & UART_FR_TXFF_Msk);
   }
   
-  while (USART->FR & UART_FR_TXFE_Msk);
+  while ((USART->FR & UART_FR_TXFE_Msk) == 0U);
   
   if (irq_state) {
     NVIC_EnableIRQ(UART_IRQn);

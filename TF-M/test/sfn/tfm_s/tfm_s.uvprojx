@@ -89,7 +89,7 @@
             <nStopA1X>0</nStopA1X>
             <nStopA2X>0</nStopA2X>
           </AfterMake>
-          <SelectedForBatchBuild>0</SelectedForBatchBuild>
+          <SelectedForBatchBuild>1</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
         </TargetCommonOption>
         <CommonProperty>
@@ -583,6 +583,12 @@
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
       </component>
+      <component Cclass="TFM" Cgroup="Secure Service" Csub="Audit Logging" Cvendor="ARM" Cversion="1.0.0" condition="TFM Audit Logging Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
       <component Cclass="TFM" Cgroup="Secure Service" Csub="Crypto" Cvendor="ARM" Cversion="1.0.0" Pre_Include_Global_h="#define MBEDTLS_CONFIG_FILE &quot;tfm_mbedcrypto_config.h&quot;" condition="TFM Crypto Service">
         <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
@@ -596,6 +602,12 @@
         </targetInfos>
       </component>
       <component Cclass="TFM" Cgroup="Secure Service" Csub="Internal Trusted Storage" Cvendor="ARM" Cversion="1.0.0" condition="TFM Internal Trusted Storage Service">
+        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="Musca-S1_MRAM"/>
+        </targetInfos>
+      </component>
+      <component Cclass="TFM" Cgroup="Secure Service" Csub="Platform" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Service">
         <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
@@ -631,31 +643,7 @@
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
       </component>
-      <component Cclass="TFM" Cgroup="Test" Csub="Attestation" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test Attestation (Secure)">
-        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
-        <targetInfos>
-          <targetInfo name="Musca-S1_MRAM"/>
-        </targetInfos>
-      </component>
-      <component Cclass="TFM" Cgroup="Test" Csub="Crypto" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test Crypto (Secure)">
-        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
-        <targetInfos>
-          <targetInfo name="Musca-S1_MRAM"/>
-        </targetInfos>
-      </component>
       <component Cclass="TFM" Cgroup="Test" Csub="Framework" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test Framework (Secure)">
-        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
-        <targetInfos>
-          <targetInfo name="Musca-S1_MRAM"/>
-        </targetInfos>
-      </component>
-      <component Cclass="TFM" Cgroup="Test" Csub="ITS" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test ITS (Secure)">
-        <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
-        <targetInfos>
-          <targetInfo name="Musca-S1_MRAM"/>
-        </targetInfos>
-      </component>
-      <component Cclass="TFM" Cgroup="Test" Csub="SST" Cvendor="ARM" Cversion="1.0.0" condition="TFM Test SST (Secure)">
         <package name="TFM" schemaVersion="1.6" url="http://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
