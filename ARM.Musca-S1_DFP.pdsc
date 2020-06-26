@@ -525,9 +525,9 @@
         #define RTE_TFM_IF_PLATFORM_MEMORY_MAP  /* TF-M Platform Memory Map */
       </RTE_Components_h>
       <files>
-        <file category="header"  name="TF-M/partition/mem_layout.h"   attr="config" version="1.0.0"/>
-        <file category="header"  name="TF-M/partition/flash_layout.h" attr="config" version="1.0.0"/>
-        <file category="header"  name="TF-M/partition/region_defs.h"  attr="config" version="1.0.0"/>
+        <file category="header"  name="TFM/partition/mem_layout.h"   attr="config" version="1.0.0"/>
+        <file category="header"  name="TFM/partition/flash_layout.h" attr="config" version="1.0.0"/>
+        <file category="header"  name="TFM/partition/region_defs.h"  attr="config" version="1.0.0"/>
       </files>
     </component>
     <component Cclass="TFM Platform" Cgroup="SPM HAL" Csub="Platform" Capiversion="1.0.0" Cversion="1.0.0" condition="TFM Platform SPM HAL Musca-S1">
@@ -537,13 +537,13 @@
       </RTE_Components_h>
       <files>
         <file category="preIncludeLocal"
-                                 name="TF-M/rte/preinclude.h"/>
-        <file category="include" name="TF-M/"/>
-        <file category="include" name="TF-M/driver/"/>
-        <file category="source"  name="TF-M/driver/mpu_armv8m_drv.c"/>
-        <file category="source"  name="TF-M/spm_hal.c"/>
-        <file category="header"  name="TF-M/target_cfg.h"/>
-        <file category="source"  name="TF-M/target_cfg.c"/>
+                                 name="TFM/rte/preinclude.h"/>
+        <file category="include" name="TFM/"/>
+        <file category="include" name="TFM/driver/"/>
+        <file category="source"  name="TFM/driver/mpu_armv8m_drv.c"/>
+        <file category="source"  name="TFM/spm_hal.c"/>
+        <file category="header"  name="TFM/target_cfg.h"/>
+        <file category="source"  name="TFM/target_cfg.c"/>
       </files>
     </component>
     <component Cclass="TFM Platform" Cgroup="System" Csub="Template" Capiversion="1.0.0" Cversion="1.0.0" condition="TFM Platform System Musca-S1">
@@ -553,8 +553,8 @@
       </RTE_Components_h>
       <files>
         <file category="preIncludeLocal"
-                                 name="TF-M/rte/preinclude.h"/>
-        <file category="source"  name="TF-M/services/src/tfm_platform_system.c" attr="config" version="1.0.0"/>
+                                 name="TFM/rte/preinclude.h"/>
+        <file category="source"  name="TFM/services/src/tfm_platform_system.c" attr="config" version="1.0.0"/>
       </files>
     </component>
     <component Cclass="TFM Platform" Cgroup="Test" Csub="Platform" Capiversion="1.0.0" Cversion="1.0.0" condition="TFM Platform Test Musca-S1">
@@ -564,8 +564,8 @@
       </RTE_Components_h>
       <files>
         <file category="preIncludeLocal"
-                                 name="TF-M/rte/preinclude.h"/>
-        <file category="source"  name="TF-M/plat_test.c"/>
+                                 name="TFM/rte/preinclude.h"/>
+        <file category="source"  name="TFM/plat_test.c"/>
       </files>
     </component>
     <component Cclass="TFM Platform" Cgroup="Boot HAL" Csub="Platform" Capiversion="1.0.0" Cversion="1.0.0" condition="TFM Platform Musca-S1">
@@ -575,8 +575,8 @@
       </RTE_Components_h>
       <files>
         <file category="preIncludeLocal"
-                                 name="TF-M/rte/preinclude.h"/>
-        <file category="source"  name="TF-M/boot_hal.c" attr="config" version="1.0.0"/>
+                                 name="TFM/rte/preinclude.h"/>
+        <file category="source"  name="TFM/boot_hal.c" attr="config" version="1.0.0"/>
       </files>
     </component>
 
@@ -647,7 +647,7 @@
       </attributes>
     </example>
 
-    <example name="TF-M" doc="Abstract.txt" folder="TF-M/project/tfm">
+    <example name="TF-M" doc="Abstract.txt" folder="TFM/project/tfm">
       <description>TF-M Project Template</description>
       <board name="V2M-Musca-S1" vendor="ARM"/>
       <project>
@@ -659,7 +659,7 @@
         <category>TF-M</category>
       </attributes>
     </example>
-    <example name="TF-M Test SFN" doc="Abstract.txt" folder="TF-M/test/sfn">
+    <example name="TF-M Test SFN" doc="Abstract.txt" folder="TFM/test/sfn">
       <description>TF-M Regression Test - SFN (Secure Functions aka Library Mode)</description>
       <board name="V2M-Musca-S1" vendor="ARM"/>
       <project>
@@ -671,7 +671,7 @@
         <category>TF-M</category>
       </attributes>
     </example>
-    <example name="TF-M Test IPC Level 1" doc="Abstract.txt" folder="TF-M/test/ipc_l1">
+    <example name="TF-M Test IPC Level 1" doc="Abstract.txt" folder="TFM/test/ipc_l1">
       <description>TF-M Regression Test - IPC Mode, Isolation Level 1</description>
       <board name="V2M-Musca-S1" vendor="ARM"/>
       <project>
@@ -683,7 +683,7 @@
         <category>TF-M</category>
       </attributes>
     </example>
-    <example name="TF-M Test IPC Level 2" doc="Abstract.txt" folder="TF-M/test/ipc_l2">
+    <example name="TF-M Test IPC Level 2" doc="Abstract.txt" folder="TFM/test/ipc_l2">
       <description>TF-M Regression Test - IPC Mode, Isolation Level 2</description>
       <board name="V2M-Musca-S1" vendor="ARM"/>
       <project>
