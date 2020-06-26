@@ -1,18 +1,25 @@
-TF-M Project Template
+TF-M Regression Test
 ---------------------
 
 Target: Musca-S1 running from eMRAM
 
+Configuration:
+ - IPC Mode (Inter-Process Communication)
+ - Isolation Level 1
+ 
 Workspace contains the following projects:
- - tfm_s:  TF-M firmware with secure services running on the secure side
- - tfm_ns: Template for application running on the non-secure side
+ - tfm_s:  TF-M firmware with test services running on the secure side
+ - tfm_ns: TF-M test framework running on the non-secure side
 
 TF-M firmware on the secure side runs first and then transfers execution
 to the non-secure application.
 
+Test results are displayed via the console.
+
 Running the example:
  - connect the board via USB DAPLink Port to the PC
  - use console on the PC via UART @115200bps (optional)
- - build project for the secure side (tfm_s) and flash to target
- - build project for the non-secure side (tfm_ns) and flash to target
+ - build project for the secure side (tfm_s)
+ - build project for the non-secure side (tfm_ns)
  - start the debug session and run the target
+- check test results in the console
