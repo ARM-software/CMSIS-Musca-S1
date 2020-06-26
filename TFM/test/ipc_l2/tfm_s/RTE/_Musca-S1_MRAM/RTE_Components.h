@@ -65,8 +65,20 @@
 #define RTE_TFM_TS_SST                  /* TF-M SST Test Service */
 /*  ARM::TFM:Test Service:Secure Client:1.0.0 */
 #define RTE_TFM_TS_SECURE_CLIENT        /* TF-M Secure Client Test Service */
+/*  ARM::TFM:Test:Attestation:1.0.0 */
+#define RTE_TFM_TEST_ATTESTATION_S      /* TF-M Test Attestation (Secure) */
+/*  ARM::TFM:Test:Crypto:1.0.0 */
+#define RTE_TFM_TEST_CRYPTO_S           /* TF-M Test Crypto (Secure) */
 /*  ARM::TFM:Test:Framework:1.0.0 */
 #define RTE_TFM_TEST_FRAMEWORK_S        /* TF-M Test Framework (Secure) */
+/*  ARM::TFM:Test:IPC:1.0.0 */
+#define RTE_TFM_TEST_IPC_S              /* TF-M Test IPC (Secure) */
+/*  ARM::TFM:Test:ITS:1.0.0 */
+#define RTE_TFM_TEST_ITS_S              /* TF-M Test ITS (Secure) */
+/*  ARM::TFM:Test:Platform:1.0.0 */
+#define RTE_TFM_TEST_PLATFORM_S         /* TF-M Test Platform (Secure) */
+/*  ARM::TFM:Test:SST:1.0.0 */
+#define RTE_TFM_TEST_SST_S              /* TF-M Test SST (Secure) */
 
 
 #endif /* RTE_COMPONENTS_H */
