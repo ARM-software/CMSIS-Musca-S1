@@ -25,16 +25,10 @@
   </description>
 
   <releases>
-    <release version="1.2.0-dev0" date="2020-06-22">
+    <release version="1.2.0" date="2020-07-09" tag="1.2.0">
       Added TF-M platform components.
-    </release>
-    <release version="1.1.1-dev2" date="2020-05-22">
       Refactored TrustZone setup.
-    </release>
-    <release version="1.1.1-dev1" date="2020-06-24">
       Added MPC LUT Init debug sequence.
-    </release>
-    <release version="1.1.1-dev0" date="2020-05-18">
       Updated orderForm tag in board element
       Updated supportContact
     </release>
