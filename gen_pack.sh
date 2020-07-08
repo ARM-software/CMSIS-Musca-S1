@@ -95,6 +95,27 @@ if [ $errorlevel != 0 ]
 fi
 echo " "
 
+# Check for clean git working copy
+if [ -d .git ]; then
+  GIT=git
+  type -a $GIT
+  errorlevel=$?
+  if [ $errorlevel != 0 ]; then
+    echo "Error: No git found"
+    echo "Action: Add git to your path"
+    echo " "
+    exit  
+  fi
+  GIT_CLEAN=$($GIT clean -dfxn | grep "Would remove")
+  if [ ! -z "$GIT_CLEAN" ]; then
+    echo "Error: Running from unclean git working copy"
+    echo "Action: Run git clean -fdx to cleanup"
+    echo " "
+    exit
+  fi
+  echo " "
+fi
+
 # Locate Package Description file
 # check whether there is more than one pdsc file
 NUM_PDSCS=`ls -1 *.pdsc | wc -l`
