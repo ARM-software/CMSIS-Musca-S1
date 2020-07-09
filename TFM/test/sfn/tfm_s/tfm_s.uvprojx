@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>Musca-S1:CM33-0</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.Musca-S1_DFP.1.2.0-dev0-tfm</PackID>
+          <PackID>ARM.Musca-S1_DFP.1.2.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x00000000,0x00200000) IRAM2(0x0A000000,0x00200000) IROM(0x00200000,0x02000000) IROM2(0x0E000000,0x00000400) XRAM(0x10000000,0x00200000) XRAM2(0x1A000000,0x00200000) XRAM3(0x20000000,0x00080000) XROM(0x10200000,0x02000000) XROM2(0x1E000000,0x00000400) CPUTYPE("Cortex-M33") FPU3(SFPU) DSP TZ CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -690,7 +690,7 @@
       <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="1.2.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\RTE_Device.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -698,7 +698,7 @@
       <file attr="config" category="linkerScript" condition="ARMCC6" name="Device\Source\ARM\armcc6_arm.sct" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\armcc6_arm.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -706,7 +706,7 @@
       <file attr="config" category="sourceC" name="Device\Source\startup_Musca-S1.c" version="2.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\startup_Musca-S1.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -714,7 +714,7 @@
       <file attr="config" category="sourceC" name="Device\Source\system_Musca-S1.c" version="2.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\system_Musca-S1.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -722,7 +722,7 @@
       <file attr="config" category="sourceC" condition="TZ Secure" name="Device\Source\tz_config.c" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\tz_config.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -730,7 +730,7 @@
       <file attr="config" category="header" condition="TZ Secure" name="Device\Include\Template\tz_config.h" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\tz_config.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -778,7 +778,7 @@
       <file attr="config" category="header" name="TFM\partition\flash_layout.h" version="1.0.0">
         <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\flash_layout.h</instance>
         <component Cclass="TFM Platform" Cgroup="Memory Map" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Musca-S1"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -786,7 +786,7 @@
       <file attr="config" category="header" name="TFM\partition\mem_layout.h" version="1.0.0">
         <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\mem_layout.h</instance>
         <component Cclass="TFM Platform" Cgroup="Memory Map" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Musca-S1"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -794,7 +794,7 @@
       <file attr="config" category="header" name="TFM\partition\region_defs.h" version="1.0.0">
         <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\region_defs.h</instance>
         <component Cclass="TFM Platform" Cgroup="Memory Map" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform Musca-S1"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>
@@ -802,7 +802,7 @@
       <file attr="config" category="source" name="TFM\services\src\tfm_platform_system.c" version="1.0.0">
         <instance index="0">RTE\TFM_Platform\Musca-S1_CM33-0\tfm_platform_system.c</instance>
         <component Capiversion="1.0.0" Cclass="TFM Platform" Cgroup="System" Csub="Template" Cvendor="ARM" Cversion="1.0.0" condition="TFM Platform System Musca-S1"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0-dev0-tfm"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Musca-S1_MRAM"/>
         </targetInfos>

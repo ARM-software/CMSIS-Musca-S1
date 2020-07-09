@@ -20,10 +20,10 @@ DAuthConfig = 0xF;
 //   <o5.0> MPC CSRAM                 <i> Memory Protection Controller Code SRAM
 //   <o6.0> MPC QSPI                  <i> Memory Protection Controller QSPI Flash
 // </h>
-MPC_SRAM0_LUTInit = 0x0;
-MPC_SRAM1_LUTInit = 0x0;
-MPC_SRAM2_LUTInit = 0x0;
-MPC_SRAM3_LUTInit = 0x0;
+MPC_SRAM0_LUTInit = 0x1;
+MPC_SRAM1_LUTInit = 0x1;
+MPC_SRAM2_LUTInit = 0x1;
+MPC_SRAM3_LUTInit = 0x1;
 MPC_eMRAM_LUTInit = 0x1;
 MPC_CSRAM_LUTInit = 0x0;
 MPC_QSPI_LUTInit  = 0x0;

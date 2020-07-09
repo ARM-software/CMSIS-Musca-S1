@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>Musca-S1:CM33-0</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.Musca-S1_DFP.1.1.0-dev5</PackID>
+          <PackID>ARM.Musca-S1_DFP.1.2.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x30000000,0x00020000) IRAM2(0x20000000,0x00020000) IROM(0x10200000,0x00040000) IROM2(0x00200000,0x00040000) CPUTYPE("Cortex-M33") FPU3(SFPU) DSP TZ CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -133,7 +133,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
-            <Capability>1</Capability>
+            <Capability>0</Capability>
             <DriverSelection>4101</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -585,7 +585,7 @@
         <TargetCommonOption>
           <Device>Musca-S1:CM33-0</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.Musca-S1_DFP.1.1.0-dev5</PackID>
+          <PackID>ARM.Musca-S1_DFP.1.2.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x30000000,0x00020000) IRAM2(0x20000000,0x00020000) IROM(0x10200000,0x00040000) IROM2(0x00200000,0x00040000) CPUTYPE("Cortex-M33") FPU3(SFPU) DSP TZ CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -942,8 +942,7 @@
             <ScatterFile>.\RTE\Device\Musca-S1_CM33-0\armcc6_arm.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>
---predefine="-DSRAM"</Misc>
+            <Misc>--predefine="-DSRAM"</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -1033,8 +1032,8 @@
           <targetInfo name="Debug (eMRAM)"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS">
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev5"/>
+      <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS">
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
@@ -1078,10 +1077,10 @@
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.5.1"/>
         <targetInfos/>
       </file>
-      <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="1.0.0">
+      <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="1.2.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\RTE_Device.h</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev5"/>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
@@ -1089,21 +1088,18 @@
       </file>
       <file attr="config" category="linkerScript" condition="ARMCC6" name="Device\Source\ARM\armcc6_arm.sct" version="1.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\armcc6_arm.sct</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev5"/>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
         </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\Include\Template\partition_Musca-S1.h" version="1.0.0">
-        <instance index="0">RTE\Device\Musca-S1_CM33-0\partition_Musca-S1.h</instance>
+        <instance index="0" removed="1">RTE\Device\Musca-S1_CM33-0\partition_Musca-S1.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
         <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev5"/>
-        <targetInfos>
-          <targetInfo name="Debug (SRAM)"/>
-          <targetInfo name="Debug (eMRAM)"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" condition="ARMCC" name="Device\Source\ARM\startup_Musca-S1.S" version="1.0.0">
         <instance index="0" removed="1">RTE\Device\Musca-S1_CM33-0\startup_Musca-S1.S</instance>
@@ -1111,19 +1107,19 @@
         <package name="Musca-S1_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos/>
       </file>
-      <file attr="config" category="sourceC" condition="ARMCC" name="Device\Source\ARM\startup_Musca-S1.c" version="1.0.0">
+      <file attr="config" category="sourceC" name="Device\Source\startup_Musca-S1.c" version="2.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\startup_Musca-S1.c</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev5"/>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
         </targetInfos>
       </file>
-      <file attr="config" category="sourceC" name="Device\Source\system_Musca-S1.c" version="1.0.0">
+      <file attr="config" category="sourceC" name="Device\Source\system_Musca-S1.c" version="2.0.0">
         <instance index="0">RTE\Device\Musca-S1_CM33-0\system_Musca-S1.c</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.0.0" condition="Musca-S1 CMSIS"/>
-        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0-dev5"/>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.0" condition="Musca-S1 CMSIS"/>
+        <package name="Musca-S1_DFP" schemaVersion="1.6.1" supportContact="https://github.com/ARM-software/CMSIS-Musca-S1/issues" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="Debug (SRAM)"/>
           <targetInfo name="Debug (eMRAM)"/>
