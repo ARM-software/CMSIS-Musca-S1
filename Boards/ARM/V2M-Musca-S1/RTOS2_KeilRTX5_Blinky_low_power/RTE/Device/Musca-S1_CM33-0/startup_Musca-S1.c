@@ -2,10 +2,10 @@
  * @file     startup_Musca-S1.c
  * @brief    CMSIS Core Device Startup File for
  *           Musca-S1 Device
- * @version  V1.0.0
- * @date     02. May 2019
+ * @version  V2.0.0
+ * @date     22. May 2020
  ******************************************************************************/
-/* Copyright (c) 2019 ARM LIMITED
+/* Copyright (c) 2019-2020 ARM LIMITED
 
    All rights reserved.
    Redistribution and use in source and binary forms, with or without
@@ -32,46 +32,21 @@
    POSSIBILITY OF SUCH DAMAGE.
    ---------------------------------------------------------------------------*/
 
-#include "RTE_Components.h"             // Component selection
-#include  CMSIS_device_header           // Device header
-
-
-/*----------------------------------------------------------------------------
-  Linker generated Symbols
- *----------------------------------------------------------------------------*/
-extern uint32_t Image$$ARM_LIB_STACK$$ZI$$Limit;
-extern uint32_t Image$$ARM_LIB_STACK$$ZI$$Base;
-
-/*----------------------------------------------------------------------------
-  Exception / Interrupt Handler Function Prototype
- *----------------------------------------------------------------------------*/
-typedef void( *pFunc )( void );
-
+#include "Musca-S1.h"
 
 /*----------------------------------------------------------------------------
   External References
  *----------------------------------------------------------------------------*/
-extern void __main     (void) __attribute__((noreturn)); /* PreeMain (C library entry point) */
-extern void SystemInit (void);                           /* CMSIS System Initialization */
+extern uint32_t __INITIAL_SP;
+extern uint32_t __STACK_LIMIT;
 
+extern __NO_RETURN void __PROGRAM_START(void);
 
 /*----------------------------------------------------------------------------
   Internal References
  *----------------------------------------------------------------------------*/
-void Default_Handler    (void) __attribute__ ((noreturn));
-void Reset_Handler      (void) __attribute__ ((noreturn));
-void HardFault_Handler  (void) __attribute__ ((noreturn));
-
-
-/*----------------------------------------------------------------------------
-  User Initial Stack & Heap
- *----------------------------------------------------------------------------*/
-/* Stack / Heap initialization is done using a scatter file. !*/
-#ifndef __MICROLIB                                       /* MicroLib  is not used */
-//  #pragma import(__use_two_region_memory)
-#endif
-#define __initial_sp    Image$$ARM_LIB_STACK$$ZI$$Limit
-#define __stack_limit   Image$$ARM_LIB_STACK$$ZI$$Base
+__NO_RETURN void Reset_Handler  (void);
+            void Default_Handler(void);
 
 /*----------------------------------------------------------------------------
   Exception / Interrupt Handler
@@ -166,10 +141,15 @@ void IOMUX_IRQHandler                (void) __attribute__ ((weak, alias("Default
 /*----------------------------------------------------------------------------
   Exception / Interrupt Vector table
  *----------------------------------------------------------------------------*/
-extern const pFunc __Vectors[];
-       const pFunc __Vectors[] __attribute__ ((section ("RESET"))) = {
-  /* Exceptions */
-  (pFunc)(&__initial_sp),                   /*     Initial Stack Pointer */
+ 
+#if defined ( __GNUC__ )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#endif
+
+extern const VECTOR_TABLE_Type __VECTOR_TABLE[496];
+       const VECTOR_TABLE_Type __VECTOR_TABLE[496] __VECTOR_TABLE_ATTRIBUTE = {
+  (VECTOR_TABLE_Type)(&__INITIAL_SP),       /*     Initial Stack Pointer */
   Reset_Handler,                            /*     Reset Handler */
   NMI_Handler,                              /*     NMI Handler */
   HardFault_Handler,                        /*     Hard Fault Handler */
@@ -268,27 +248,34 @@ extern const pFunc __Vectors[];
   IOMUX_IRQHandler                          /* 76: IOMUX interrupt */
 };
 
+#if defined ( __GNUC__ )
+#pragma GCC diagnostic pop
+#endif
 
 /*----------------------------------------------------------------------------
   Reset Handler called on controller reset
  *----------------------------------------------------------------------------*/
-void Reset_Handler(void)
+__NO_RETURN void Reset_Handler(void)
 {
-  __set_MSPLIM((uint32_t)&__stack_limit);
+  __set_MSPLIM((uint32_t)(&__STACK_LIMIT));
 
   SystemInit();                             /* CMSIS System Initialization */
-  __main();                                 /* Enter PreeMain (C library entry point) */
+  __PROGRAM_START();                        /* Enter PreMain (C library entry point) */
 }
 
 
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wmissing-noreturn"
+#endif
+
 /*----------------------------------------------------------------------------
-  Default Handler for Exceptions / Interrupts
+  Hard Fault Handler
  *----------------------------------------------------------------------------*/
 void HardFault_Handler(void)
 {
   while(1);
 }
-
 
 /*----------------------------------------------------------------------------
   Default Handler for Exceptions / Interrupts
@@ -297,3 +284,7 @@ void Default_Handler(void) {
 
   while(1);
 }
+
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+  #pragma clang diagnostic pop
+#endif

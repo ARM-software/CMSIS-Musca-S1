@@ -10,4 +10,23 @@ DAuthConfig = 0xF;
 
 // </e>
 
+
+// <h> MPC LUT Initialization
+//   <o0.0> MPC SRAM Bank 0           <i> Memory Protection Controller SRAM Bank 0
+//   <o1.0> MPC SRAM Bank 1           <i> Memory Protection Controller SRAM Bank 1
+//   <o2.0> MPC SRAM Bank 2           <i> Memory Protection Controller SRAM Bank 2
+//   <o3.0> MPC SRAM Bank 3           <i> Memory Protection Controller SRAM Bank 3
+//   <o4.0> MPC eMRAM                 <i> Memory Protection Controller eMRAM
+//   <o5.0> MPC CSRAM                 <i> Memory Protection Controller Code SRAM
+//   <o6.0> MPC QSPI                  <i> Memory Protection Controller QSPI Flash
+// </h>
+MPC_SRAM0_LUTInit = 0x1;
+MPC_SRAM1_LUTInit = 0x1;
+MPC_SRAM2_LUTInit = 0x1;
+MPC_SRAM3_LUTInit = 0x1;
+MPC_eMRAM_LUTInit = 0x0;
+MPC_CSRAM_LUTInit = 0x1;
+MPC_QSPI_LUTInit  = 0x0;
+
+
 // <<< end of configuration section >>>

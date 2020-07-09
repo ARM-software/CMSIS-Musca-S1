@@ -2,10 +2,10 @@
  * @file     system_Musca-S1.h
  * @brief    CMSIS Device System Header File for
  *           Musca-S1 Device
- * @version  V1.0.1
- * @date     19. July 2019
+ * @version  V1.0.2
+ * @date     22. May 2020
  ******************************************************************************/
-/* Copyright (c) 2019 ARM LIMITED
+/* Copyright (c) 2019-2020 ARM LIMITED
 
    All rights reserved.
    Redistribution and use in source and binary forms, with or without
@@ -40,8 +40,15 @@
 extern "C" {
 #endif
 
-extern uint32_t SystemCoreClock;     /*!< System Clock Frequency (Core Clock) */
+/**
+  \brief Exception / Interrupt Handler Function Prototype
+*/
+typedef void(*VECTOR_TABLE_Type)(void);
 
+/**
+  \brief System Clock Frequency (Core Clock)
+*/
+extern uint32_t SystemCoreClock;     /*!< System Clock Frequency (Core Clock) */
 
 /**
   \brief Setup the microcontroller system.
@@ -49,7 +56,6 @@ extern uint32_t SystemCoreClock;     /*!< System Clock Frequency (Core Clock) */
    Initialize the System and update the SystemCoreClock variable.
  */
 extern void SystemInit (void);
-
 
 /**
   \brief  Update SystemCoreClock variable.
