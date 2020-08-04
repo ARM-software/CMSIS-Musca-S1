@@ -185,7 +185,7 @@ if [ $errorlevel -ne 0 ]; then
 fi
 
 # Run Pack Check and generate PackName file with version
-$PACKCHK $PACK_BUILD/$PACK_VENDOR.$PACK_NAME.pdsc -i ${CMSIS_PACK_PATH}/ARM.CMSIS.pdsc -n PackName.txt -x M362
+$PACKCHK $PACK_BUILD/$PACK_VENDOR.$PACK_NAME.pdsc -i "${CMSIS_PACK_ROOT}/.Web/ARM.CMSIS.pdsc" -i "${CMSIS_PACK_ROOT}/.Web/ARM.TFM.pdsc" -i "${CMSIS_PACK_ROOT}/.Web/Keil.MDK-Middleware.pdsc" -n PackName.txt -x M362
 errorlevel=$?
 if [ $errorlevel -ne 0 ]; then
   echo "build aborted: pack check failed"
