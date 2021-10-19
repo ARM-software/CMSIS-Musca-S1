@@ -26,6 +26,9 @@
   
   <repository type="git">https://github.com/ARM-software/CMSIS-Musca-S1.git</repository>
   <releases>
+    <release version="1.2.1" date="2021-10-19" tag="1.2.1">
+      Fixed MDK Blinky example projects.
+    </release>
     <release version="1.2.0" date="2020-07-09" tag="1.2.0">
       Added TF-M platform components.
       Refactored TrustZone setup.
@@ -512,7 +515,7 @@
         </files>
       </component>
     </bundle>
-    
+
     <!-- TF-M Platform -->
     <component Cclass="TFM Platform" Cgroup="Memory Map" Cversion="1.0.0" condition="TFM Platform Musca-S1">
       <description>TF-M Platform Memory Map for ST Musca-S1</description>

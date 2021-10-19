@@ -336,10 +336,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Wno-dollar-in-identifier-extension</MiscControls>
+              <MiscControls></MiscControls>
               <Define>MRAM</Define>
               <Undefine></Undefine>
-              <IncludePath>.\x_BoardSupport</IncludePath>
+              <IncludePath></IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -888,10 +888,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Wno-dollar-in-identifier-extension</MiscControls>
+              <MiscControls></MiscControls>
               <Define>SRAM</Define>
               <Undefine></Undefine>
-              <IncludePath>.\x_BoardSupport</IncludePath>
+              <IncludePath></IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
